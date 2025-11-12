@@ -39,7 +39,7 @@ body {
 }
 
 .button:hover {
-    background-color: #4a8c61 ;
+    background-color: #4a8c61;
 }
 
 /* reset.css */
@@ -79,7 +79,7 @@ header .logo {
 header .logo img {
     height: 60px;
     width: auto;
-}   
+}
 
 header .left--area {
     display: flex;
@@ -194,7 +194,7 @@ footer .container {
     display: flex;
     justify-content: center;
     align-items: center;
-} 
+}
 
 footer .social-media {
     display: flex;
@@ -261,12 +261,12 @@ main.home-page {
 .banner-slide {
     position: absolute;
     inset: 0;
-    
+
     background-size: cover;
     background-position: center;
-    
+
     opacity: 0;
-    transition: opacity 0.7s ease-in-out; 
+    transition: opacity 0.7s ease-in-out;
 
     display: flex;
     flex-direction: column;
@@ -292,15 +292,15 @@ main.home-page {
     left: 0;
     right: 0;
     z-index: 2;
-    
-    padding-bottom: 2rem; 
+
+    padding-bottom: 2rem;
 }
 
 .banner-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(0,0,0,0.6); 
-    z-index: 1; 
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1;
 }
 
 .banner-content {
@@ -818,7 +818,7 @@ main .schedule-confirmation-area .schedule-confirmation {
     font-size: 1.3rem;
     font-weight: 400;
 }
-    
+
 .schedule-confirmation-area .content-area .bottom-area .schedule-infos .content .info-item {
     display: flex;
     justify-content: space-between;
@@ -848,6 +848,7 @@ main .schedule-confirmation-area .schedule-confirmation {
     main .schedule-confirmation-area .schedule-confirmation {
         width: 80%;
     }
+
     .schedule-confirmation-area .content-area .top-area .icon-area i {
         font-size: 7rem;
     }
@@ -969,6 +970,35 @@ main.about-page .overlay {
     font-weight: 700;
 }
 
+main.page-404 {
+    padding: 2rem;
+    background-color: var(--grey-color);
+    height: calc(100vh - 80px);
+}
+
+.page-404-area {
+    text-align: center;
+    padding: 0rem 2rem;
+}
+
+.page-404-area .title {
+    font-size: 12rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.page-404-area p {
+    font-size: 2rem;
+    color: var(--dark-grey-color);
+    font-weight: 500;
+    margin-bottom: 2rem;
+}
+
+.page-404-area .button a {
+    text-decoration: none;
+    color: var(--grey-color);
+}
+
 @media (max-width: 1280px) {
     .about-area .about {
         padding-left: 1rem;
@@ -1027,6 +1057,14 @@ main.about-page .overlay {
 
     .about-area .about .credits a {
         font-size: 1.1rem;
+    }
+
+    .page-404-area .title {
+        font-size: 11rem;
+    }
+
+    .page-404-area p {
+        font-size: 1.8rem;
     }
 }
 
