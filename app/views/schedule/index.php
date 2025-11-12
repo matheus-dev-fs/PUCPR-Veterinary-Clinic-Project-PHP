@@ -30,7 +30,7 @@
                         </div>
                     </div>
                     <div class="right-area">
-                        <form class="schedule-form" id="schedule-form" action="formAction.html" method="GET">
+                        <form class="schedule-form" id="schedule-form" action="/my-php-mvc-app/formAction/" method="GET">
                             <div class="input-group">
                                 <label for="tutorName">Nome do Tutor</label>
                                 <div class="input-area name">
