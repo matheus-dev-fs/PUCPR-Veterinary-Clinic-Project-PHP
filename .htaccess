@@ -1,7 +1,14 @@
 RewriteEngine On
 
-# Permite acesso direto a qualquer coisa dentro de /public
-RewriteCond %{REQUEST_URI} ^/public/
+# Bloqueia acesso direto à pasta app
+RewriteRule ^app/ - [F,L]
+
+# Redireciona acesso à raiz para public/index.php
+RewriteRule ^$ public/index.php [L]
+
+# Permite acesso direto a arquivos e pastas reais
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^ - [L]
 
 # Redireciona todo o resto para public/index.php
