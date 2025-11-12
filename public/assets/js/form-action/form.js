@@ -27,7 +27,7 @@ export class FormAction {
             const value = params.get(field);
 
             if (!value)  {
-                window.location.href = 'schedule.html';
+                window.location.href = '/my-php-mvc-app/schedule/';
                 return;
             }
             
