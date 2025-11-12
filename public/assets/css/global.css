@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300..700;1,300..700&display=swap');
+
+:root {
+    --primary-color: #59AC77;
+    --grey-color: #e6e3e3;
+    --dark-grey-color: #333;
+    --background-color: #FFF2EF;
+    --font-family: 'Cormorant', serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--background-color);
+    font-family: var(--font-family);
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.button {
+    background-color: var(--primary-color);
+    color: var(--grey-color);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.button:hover {
+    background-color: #4a8c61 ;
+}

@@ -1,0 +1,123 @@
+main {
+    background-image: url('../../images/banner/tosa.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.overlay {
+    background-color: rgba(0, 0, 0, 0.7);
+    height: 100%;
+    width: 100%;
+}
+
+.about-area {
+    min-height: calc(100vh - 80px);
+}
+
+.about-area .about {
+    height: 100%;
+    padding: 6rem 20rem 2rem 0;
+    display: flex;
+    gap: 0.5rem;
+    flex-direction: column;
+    text-align: justify;
+}
+
+.about-area .about .title {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+.about-area .about .credits {
+    font-size: 1.3rem;
+    color: var(--grey-color);
+}
+
+.about-area .about .credits a {
+    color: var(--primary-color);
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+@media (max-width: 1280px) {
+    .about-area .about {
+        padding-left: 1rem;
+    }
+}
+
+@media (max-width: 900px) {
+    .about-area .about {
+        padding-right: 15rem;
+    }
+
+    .about-area .about .title {
+        font-size: 3.5rem;
+    }
+
+    .about-area .about .credits {
+        font-size: 1.2rem;
+    }
+
+    .about-area .about .credits a {
+
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 740px) {
+    .about-area .about {
+        padding-right: 10rem;
+    }
+
+    .about-area .about .title {
+        font-size: 3rem;
+    }
+
+    .about-area .about .credits {
+        font-size: 1.1rem;
+    }
+
+    .about-area .about .credits a {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .about-area .about {
+        padding-right: 5rem;
+    }
+
+    .about-area .about .title {
+        font-size: 2.5rem;
+    }
+
+    .about-area .about .credits {
+        font-size: 1rem;
+    }
+
+    .about-area .about .credits a {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 500px) {
+    .about-area .about {
+        padding-right: 5rem;
+    }
+
+    .about-area .about .title {
+        font-size: 2rem;
+    }
+}
+
+
+@media (max-width: 400px) {
+    .about-area .about {
+        padding-right: 2.5rem;
+    }
+
+    .about-area .about .title {
+        font-size: 1.8rem;
+    }
+}

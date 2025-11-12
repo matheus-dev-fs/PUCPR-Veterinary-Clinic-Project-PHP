@@ -1,0 +1,5 @@
+@import '../reset.css';
+@import '../global.css';
+@import './schedule.css';
+@import '../shared/header.css';
+@import '../shared/footer.css';
