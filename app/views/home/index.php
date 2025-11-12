@@ -36,7 +36,7 @@
                                 atenção individualizada e cuidados adequados em todas as fases da vida, desde filhotes
                                 até a terceira idade, prevenindo doenças e promovendo uma vida longa e saudável.
                             </p>
-                            <button class="button"><a href="schedule.html">Agendar</a></button>
+                            <button class="button"><a href="/my-php-mvc-app/schedule">Agendar</a></button>
                         </div>
                         <div class="right-side">
                             <img src="/my-php-mvc-app/public/assets/images/services/dog-1.jpg" alt="Consulta Veterinária">
@@ -57,7 +57,7 @@
                                 antipulgas ou hidratantes, promovendo uma experiência agradável e completa para o animal
                                 e tranquilidade para o tutor.
                             </p>
-                            <button class="button"><a href="schedule.html">Agendar</a></button>
+                            <button class="button"><a href="/my-php-mvc-app/schedule">Agendar</a></button>
                         </div>
                         <div class="right-side">
                             <img src="/my-php-mvc-app/public/assets/images/services/dog-2.jpg" alt="Banho em Pets">
@@ -78,7 +78,7 @@
                                 realizado em ambiente tranquilo, com profissionais capacitados para lidar com diferentes
                                 temperamentos e necessidades.
                             </p>
-                            <button class="button"><a href="schedule.html">Agendar</a></button>
+                            <button class="button"><a href="/my-php-mvc-app/schedule">Agendar</a></button>
                         </div>
                         <div class="right-side">
                             <img src="/my-php-mvc-app/public/assets/images/services/dog-1.jpg" alt="Tosa em Pets">
@@ -100,7 +100,7 @@
                                 amor, fundamental para prevenir doenças graves e garantir uma vida mais segura ao seu
                                 companheiro.
                             </p>
-                            <button class="button"><a href="schedule.html">Agendar</a></button>
+                            <button class="button"><a href="/my-php-mvc-app/schedule">Agendar</a></button>
                         </div>
                         <div class="right-side">
                             <img src="/my-php-mvc-app/public/assets/images/services/dog-2.jpg" alt="Vacinação de Pets">
