@@ -17,7 +17,9 @@ class Router
         $controllerName = ucfirst($controllerName) . 'Controller';
 
         if (!class_exists($controllerName)) {
-            $controllerName = 'HttpErrorController';
+            $controller = new HttpErrorController();
+            $controller->notFound();
+            return;
         }
 
         $controller = new $controllerName();
@@ -26,7 +28,8 @@ class Router
 
         if (!method_exists($controller, $action)) {
             $controller = new HttpErrorController();
-            $action = 'notFound';
+            $controller->notFound();
+            return;
         }
 
         $params = array_slice($parts, 2);
