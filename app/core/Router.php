@@ -1,7 +1,7 @@
 <?php
 
 require_once '../app/controllers/HomeController.php';
-require_once '../app/controllers/Error404NotFoundController.php';
+require_once '../app/controllers/HttpErrorController.php';
 require_once '../app/controllers/ScheduleController.php';
 require_once '../app/controllers/AboutController.php';
 require_once '../app/controllers/FormActionController.php';
@@ -17,7 +17,7 @@ class Router
         $controllerName = ucfirst($controllerName) . 'Controller';
 
         if (!class_exists($controllerName)) {
-            $controllerName = 'Error404NotFoundController';
+            $controllerName = 'HttpErrorController';
         }
 
         $controller = new $controllerName();
@@ -25,10 +25,11 @@ class Router
         $action = $parts[1] ?? 'index';
 
         if (!method_exists($controller, $action)) {
-            $controller = new Error404NotFoundController();
-            $action = 'index';
+            $controller = new HttpErrorController();
+            $action = 'notFound';
         }
 
-        $controller->$action();
+        $params = array_slice($parts, 2);
+        call_user_func_array([$controller, $action], $params);
     }
 }
