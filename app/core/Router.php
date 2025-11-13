@@ -1,7 +1,7 @@
 <?php
 
 require_once '../app/controllers/HomeController.php';
-require_once '../app/controllers/HttpErrorController.php';
+require_once '../app/controllers/errors/HttpErrorController.php';
 require_once '../app/controllers/ScheduleController.php';
 require_once '../app/controllers/AboutController.php';
 require_once '../app/controllers/FormActionController.php';
