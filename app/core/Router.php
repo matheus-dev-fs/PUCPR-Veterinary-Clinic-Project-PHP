@@ -21,6 +21,14 @@ class Router
         }
 
         $controller = new $controllerName();
-        $controller->index();
+
+        $action = $parts[1] ?? 'index';
+
+        if (!method_exists($controller, $action)) {
+            $controller = new Error404NotFoundController();
+            $action = 'index';
+        }
+
+        $controller->$action();
     }
 }
