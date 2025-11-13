@@ -16,6 +16,8 @@ class Router
         $controllerName = $parts[0] ?? 'Home';
         $controllerName = ucfirst($controllerName) . 'Controller';
 
+        $action = $parts[1] ?? 'index';
+
         if (!class_exists($controllerName)) {
             $controller = new HttpErrorController();
             $controller->notFound();
@@ -23,8 +25,6 @@ class Router
         }
 
         $controller = new $controllerName();
-
-        $action = $parts[1] ?? 'index';
 
         if (!method_exists($controller, $action)) {
             $controller = new HttpErrorController();
