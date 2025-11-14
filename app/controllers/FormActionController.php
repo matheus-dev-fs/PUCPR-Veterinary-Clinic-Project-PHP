@@ -1,8 +1,11 @@
 <?php
+declare(strict_types=1);
 
-require_once '../app/core/Controller.php';
+namespace app\controllers;
 
-class FormActionController extends Controller{
+use app\core\Controller;
+
+class FormActionController extends Controller {
     public function index() {
         $this->view('formAction/index');
     }

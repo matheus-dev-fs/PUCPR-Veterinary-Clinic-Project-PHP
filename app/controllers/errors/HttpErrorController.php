@@ -1,7 +1,9 @@
 <?php
 declare(strict_types=1);
 
-require_once '../app/core/Controller.php';
+namespace app\controllers\errors;
+
+use app\core\Controller;
 
 class HttpErrorController extends Controller
 {

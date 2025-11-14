@@ -1,11 +1,15 @@
 <?php
+declare(strict_types=1);
 
-require_once '../app/core/Controller.php';
+namespace app\controllers;
 
-class HomeController extends Controller{
-    public function index() {
+use app\core\Controller;
+
+class HomeController extends Controller
+{
+    public function index()
+    {
         // Logic for handling the home page request
         $this->view('home/index');
     }
-
 }

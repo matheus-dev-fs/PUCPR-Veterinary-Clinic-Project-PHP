@@ -3,12 +3,12 @@
     "description": "This project is a web application developed using the MVC (Model-View-Controller) architectural pattern in PHP. It is designed to manage a veterinary clinic, providing features such as appointment scheduling, client and pet management, and informational pages about the clinic and its services. The application emphasizes clean code organization, security (by restricting access to sensitive directories), and a user-friendly interface. Error handling is centralized, and the structure is ready for future expansion. The project is ideal for learning and demonstrating best practices in PHP MVC development.",
     "authors": [
         {
-            "name": "mathjeus-dev-fs"
+            "name": "matheus-dev-fs"
         }
     ],
     "autoload": {
         "psr-4": {
-            "App\\": "app/"
+            "app\\": "app/"
         }
     },
     "require": {}

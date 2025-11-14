@@ -1,10 +1,9 @@
 <?php
+declare(strict_types=1);
 
-require_once '../app/controllers/HomeController.php';
-require_once '../app/controllers/errors/HttpErrorController.php';
-require_once '../app/controllers/ScheduleController.php';
-require_once '../app/controllers/AboutController.php';
-require_once '../app/controllers/FormActionController.php';
+namespace app\core;
+
+use app\controllers\errors\HttpErrorController;
 
 class Router
 {
@@ -14,7 +13,7 @@ class Router
         $parts = $url ? explode('/', $url) : [];
 
         $controllerName = $parts[0] ?? 'Home';
-        $controllerName = ucfirst($controllerName) . 'Controller';
+        $controllerName =  'app\controllers\\' . ucfirst($controllerName) . 'Controller';
 
         $action = $parts[1] ?? 'index';
 

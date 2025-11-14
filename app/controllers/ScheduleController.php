@@ -1,9 +1,14 @@
 <?php
+declare(strict_types=1);
 
-require_once '../app/core/Controller.php';
+namespace app\controllers;
 
-class ScheduleController extends Controller{
-    public function index() {
+use app\core\Controller;
+
+class ScheduleController extends Controller
+{
+    public function index()
+    {
         $this->view('schedule/index');
     }
 
