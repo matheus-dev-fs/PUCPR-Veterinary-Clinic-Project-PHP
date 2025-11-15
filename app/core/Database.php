@@ -30,4 +30,19 @@ class Database
             throw new \RuntimeException('Database connection failed: ' . $e->getMessage());
         }
     }
+
+    public function query(string $sql, array $params = []): \PDOStatement
+    {
+        if (!$this->pdo) {
+            $this->connect();
+        }
+
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute($params);
+            return $stmt;
+        } catch (\PDOException $e) {
+            throw new \RuntimeException('Database query failed: ' . $e->getMessage());
+        }
+    }
 }

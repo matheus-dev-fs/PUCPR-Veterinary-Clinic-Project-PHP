@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS Pets (
     sexo CHAR(1) COMMENT 'M para Macho, F para Fêmea',
     
     FOREIGN KEY (id_cliente) 
-        REFERENCES Clientes(id_cliente)
+        REFERENCES Clientes(id)
         ON DELETE CASCADE
 );
 
@@ -42,11 +42,11 @@ CREATE TABLE IF NOT EXISTS Consultas (
     observacoes TEXT,
     
     FOREIGN KEY (id_pet) 
-        REFERENCES Pets(id_pet)
+        REFERENCES Pets(id)
         ON DELETE CASCADE,
         
     FOREIGN KEY (id_servico) 
-        REFERENCES Servicos(id_servico)
+        REFERENCES Servicos(id)
         ON DELETE RESTRICT
 );
 
