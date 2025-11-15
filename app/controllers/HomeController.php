@@ -10,7 +10,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $database = new Database();
+        $database = Database::getInstance();
         $database->connect();
 
         // $stmt = $database->query('SELECT * FROM Clientes WHERE id = :id', ['id' => 1]);

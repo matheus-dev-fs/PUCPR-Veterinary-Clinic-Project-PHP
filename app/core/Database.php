@@ -7,6 +7,21 @@ namespace app\core;
 class Database
 {
     private \PDO $pdo;
+    private static ?Database $instance = null;
+
+    private function __construct()
+    {
+        $this->connect();
+    }
+
+    public static function getInstance(): Database
+    {
+        if (self::$instance === null) {
+            self::$instance = new self();
+        }
+
+        return self::$instance;
+    }
 
     public function connect(): \PDO
     {
@@ -33,10 +48,6 @@ class Database
 
     public function query(string $sql, array $params = []): \PDOStatement
     {
-        if (!$this->pdo) {
-            $this->connect();
-        }
-
         try {
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute($params);
