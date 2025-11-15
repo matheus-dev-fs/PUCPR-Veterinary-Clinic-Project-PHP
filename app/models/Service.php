@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace app\models;
 
-class Servico 
+class Service
 {
     private int $id;
     private string $nome_servico;

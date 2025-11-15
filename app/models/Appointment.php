@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace app\models;
 
-class Consulta 
+class Appointment 
 {
     private int $id;
     private int $id_pet;

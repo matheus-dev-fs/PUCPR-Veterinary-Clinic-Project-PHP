@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace app\models;
 
-class Cliente 
+class User 
 {
     private int $id;
     private string $nome;
