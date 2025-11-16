@@ -56,4 +56,27 @@ class Database
             throw new \RuntimeException('Database query failed: ' . $e->getMessage());
         }
     }
+
+    public function fetch(string $sql, array $params = []): array
+    {
+        $stmt = $this->query($sql, $params);
+        return $stmt->fetch();
+    }
+
+    public function fetchAll(string $sql, array $params = []): array
+    {
+        $stmt = $this->query($sql, $params);
+        return $stmt->fetchAll();
+    }
+
+    public function execute(string $sql, array $params = []): int
+    {
+        $stmt = $this->query($sql, $params);
+        return $stmt->rowCount();
+    }
+
+    public function lastInsertId(): string
+    {
+        return $this->pdo->lastInsertId();
+    }
 }

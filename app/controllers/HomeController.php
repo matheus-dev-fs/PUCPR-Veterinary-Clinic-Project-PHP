@@ -13,9 +13,9 @@ class HomeController extends Controller
         $database = Database::getInstance();
         $database->connect();
 
-        // $stmt = $database->query('SELECT * FROM Clientes WHERE id = :id', ['id' => 1]);
-        // $clients = $stmt->fetchAll();
-        // dd($clients);
+        // $client = $database->fetch('SELECT * FROM Clientes WHERE id = :id', ['id' => 1]);
+        // $clients = $database->fetchAll('SELECT * FROM Clientes');
+        // dd($client, $clients);
         // exit;
 
         $this->view('home/index');
