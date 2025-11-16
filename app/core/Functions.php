@@ -17,4 +17,9 @@ function dd(...$vars): void {
     echo '</pre>';
     die();
 }
+
+function config(string $key, $default = null): ?array {
+    $config = require __DIR__ . '/../config/Config.php';
+    return $config[$key] ?? $default;
+}
 ?>

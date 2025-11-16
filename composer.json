@@ -11,7 +11,7 @@
             "app\\": "app/"
         },
         "files": [
-            "app/core/functions.php"
+            "app/core/Functions.php"
         ]
     },
     "require": {}

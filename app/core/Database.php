@@ -25,13 +25,9 @@ class Database
 
     public function connect(): \PDO
     {
-        $host     = 'localhost';
-        $dbname   = 'clinica_db';
-        $username = 'root';
-        $password = '';
-        $charset  = 'utf8mb4';
+        $databaseConfig = config('database', []);
 
-        $dsn = "mysql:host=$host;dbname=$dbname;charset=$charset";
+        $dsn = "mysql:host={$databaseConfig['host']};dbname={$databaseConfig['dbname']};charset={$databaseConfig['charset']}";
 
         $options = [
             \PDO::ATTR_ERRMODE            => \PDO::ERRMODE_EXCEPTION,
@@ -39,7 +35,7 @@ class Database
         ];
 
         try {
-            $this->pdo = new \PDO($dsn, $username, $password, $options);
+            $this->pdo = new \PDO($dsn, $databaseConfig['username'], $databaseConfig['password'], $options);
             return $this->pdo;
         } catch (\PDOException $e) {
             throw new \RuntimeException('Database connection failed: ' . $e->getMessage());
