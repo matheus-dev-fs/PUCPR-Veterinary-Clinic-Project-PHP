@@ -5,6 +5,7 @@
     --primary-color: #59AC77;
     --grey-color: #e6e3e3;
     --dark-grey-color: #333;
+    --medium-grey-color: #777;
     --background-color: #FFF2EF;
     --font-family: 'Cormorant', serif;
 }
@@ -151,39 +152,6 @@ header .right--area {
     border-radius: 2px;
 }
 
-@media (max-width: 800px) {
-    header .container {
-        flex-direction: column;
-        gap: 0;
-        padding: 0 0.5rem;
-    }
-
-    header .logo-area {
-        padding: 8px 0;
-    }
-
-    header .left--area,
-    header .right--area {
-        width: 100%;
-        justify-content: space-between;
-    }
-
-    .menu {
-        flex-direction: column;
-        gap: 0;
-    }
-
-    .right--area.desactive {
-        display: none;
-    }
-
-    .mobile-menu {
-        display: flex;
-        margin-left: auto;
-        padding: 16px 0;
-    }
-}
-
 /* shared/footer.css */
 footer {
     padding: 1.5rem 1rem;
@@ -261,13 +229,10 @@ main.home-page {
 .banner-slide {
     position: absolute;
     inset: 0;
-
     background-size: cover;
     background-position: center;
-
     opacity: 0;
     transition: opacity 0.7s ease-in-out;
-
     display: flex;
     flex-direction: column;
 }
@@ -292,7 +257,6 @@ main.home-page {
     left: 0;
     right: 0;
     z-index: 2;
-
     padding-bottom: 2rem;
 }
 
@@ -348,18 +312,6 @@ main.home-page {
 
 .slider-area .dot.active {
     background-color: var(--primary-color);
-}
-
-@media (max-width: 768px) {
-    .banner-content h1 {
-        font-size: 2rem;
-        padding: 0 1rem;
-    }
-
-    .banner-content p {
-        font-size: 1rem;
-        padding: 0 1rem;
-    }
 }
 
 /* home/services.css */
@@ -446,20 +398,6 @@ main.home-page {
     width: 100%;
     border-radius: 10px;
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.9);
-}
-
-@media (max-width: 768px) {
-    .services .content .item {
-        flex-direction: column !important;
-    }
-
-    .services .right-side {
-        margin-top: 20px;
-    }
-
-    .services .content .item .left-side .button {
-        align-self: flex-start !important;
-    }
 }
 
 /* schedule/schedule.css */
@@ -660,75 +598,6 @@ main.schedule-page .overlay {
     cursor: pointer;
 }
 
-@media (max-width: 900px) {
-    .schedule .left-area {
-        display: none;
-    }
-
-    .schedule-form .input-group label {
-        font-size: 1rem;
-    }
-
-    .schedule-form .input-group .input-area input::placeholder {
-        font-size: 0.8rem;
-    }
-}
-
-@media (max-width: 550px) {
-    .schedule {
-        width: 95%;
-    }
-
-    .schedule-form .input-group {
-        flex-direction: column;
-        gap: 0;
-        height: 6rem;
-    }
-
-    .schedule-form .input-group label {
-        width: 100%;
-        font-size: 1rem;
-        text-align: left;
-    }
-
-    .schedule-form .input-group .input-area {
-        width: 100%;
-        height: 100%;
-    }
-
-    .schedule-form .input-group .input-area input {
-        width: 100%;
-        height: 65%;
-    }
-
-    .schedule-form .input-group .input-area input::placeholder {
-        font-size: 0.8rem;
-    }
-
-    .schedule-form .input-group .input-area.pet-sex .left,
-    .schedule-form .input-group .input-area.pet-sex .right {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        flex: 1;
-    }
-
-    .schedule-form .input-group .error-area .error-msg {
-        font-size: 1rem;
-    }
-}
-
-@media (max-height: 600px) {
-    .schedule-area {
-        height: auto;
-        padding: 1.5rem 0 3rem 0;
-    }
-
-    .schedule-form .input-group {
-        flex: none;
-    }
-}
-
 /* form-action/schedule-confirmation.css */
 main.schedule-confirmation-page {
     background-image: url('../images/banner/cuidados.jpg');
@@ -838,95 +707,6 @@ main .schedule-confirmation-area .schedule-confirmation {
     color: var(--dark-grey-color);
 }
 
-@media (max-width: 920px) {
-    main .schedule-confirmation-area .schedule-confirmation {
-        width: 75%;
-    }
-}
-
-@media (max-width: 768px) {
-    main .schedule-confirmation-area .schedule-confirmation {
-        width: 80%;
-    }
-
-    .schedule-confirmation-area .content-area .top-area .icon-area i {
-        font-size: 7rem;
-    }
-
-    .schedule-confirmation-area .content-area .top-area .text-area h2 {
-        font-size: 2.2rem;
-    }
-
-    .schedule-confirmation-area .content-area .top-area .text-area p {
-        font-size: 1.1rem;
-    }
-
-    .schedule-confirmation-area .content-area .bottom-area .schedule-infos .content .info-item {
-        flex-direction: column;
-        gap: 0.3rem;
-    }
-
-    .schedule-confirmation-area .content-area .bottom-area .schedule-infos .header {
-        font-size: 1.8rem;
-    }
-}
-
-@media (max-width: 700px) {
-    .schedule-confirmation-area .content-area .top-area .icon-area i {
-        font-size: 5rem;
-    }
-
-    .schedule-confirmation-area .content-area .top-area .text-area h2 {
-        font-size: 2rem;
-    }
-
-    .schedule-confirmation-area .content-area .top-area .text-area p {
-        font-size: 1rem;
-    }
-
-    .schedule-confirmation-area .content-area .bottom-area .schedule-infos .header {
-        font-size: 1.5rem;
-    }
-}
-
-@media (max-width: 600px) {
-    .schedule-confirmation-area .header-area h1 {
-        font-size: 2.5rem;
-    }
-
-    .schedule-confirmation-area .content-area .top-area .icon-area i {
-        font-size: 4rem;
-    }
-
-    .schedule-confirmation-area .content-area .top-area .text-area h2 {
-        font-size: 1.6rem;
-    }
-
-    .schedule-confirmation-area .content-area .top-area .text-area p {
-        font-size: 0.8rem;
-    }
-
-    .schedule-confirmation-area .content-area .bottom-area .schedule-infos .header {
-        font-size: 1.3rem;
-    }
-
-    .schedule-confirmation-area .content-area .bottom-area .schedule-infos .content .info-item .label {
-        font-size: 1.1rem;
-    }
-}
-
-@media (max-width: 500px) {
-    main .schedule-confirmation-area .schedule-confirmation {
-        width: 90%;
-    }
-}
-
-@media (max-width: 400px) {
-    main .schedule-confirmation-area .schedule-confirmation {
-        width: 97%;
-    }
-}
-
 /* about/about.css */
 main.about-page {
     background-image: url('../images/banner/tosa.jpg');
@@ -970,6 +750,7 @@ main.about-page .overlay {
     font-weight: 700;
 }
 
+/* page-404 */
 main.page-404 {
     padding: 2rem;
     background-color: var(--grey-color);
@@ -999,13 +780,110 @@ main.page-404 {
     color: var(--grey-color);
 }
 
+/* register-user */
+main.register-user-page {
+    background-image: url('../images/banner/cuidados.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 2rem 0;
+}
+
+.form-section.container .register-user-form {
+    margin: 0 auto;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    background-color: var(--background-color);
+    border-radius: 1rem;
+    width: 70%;
+}
+
+.register-user-form .input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    border-bottom: 0.1rem solid var(--grey-color);
+}
+
+.register-user-form .input-field {
+    display: flex;
+    flex-direction: column;
+    height: 5rem;
+}
+
+.register-user-form .input-field label {
+    height: 35%;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.register-user-form .input-field input {
+    height: 65%;
+    padding: 0.5rem 1rem;
+    border: none;
+    outline: none;
+    font-size: 1.2rem;
+    background-color: var(--grey-color);
+}
+
+.register-user-form .input-field input::placeholder {
+    font-size: 1rem;
+    color: var(--medium-grey-color);
+}
+
+.register-user-form .error-area {
+    height: 2rem;
+    max-height: 2rem;
+    min-height: 2rem;
+}
+
+.register-user-form .error-area .error-message {
+    display: none;
+    color: rgb(238, 69, 69);
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.register-user-form .error-area .error-message.show-error {
+    display: block;
+}
+
+/* MEDIA QUERIES */
+
 @media (max-width: 1280px) {
     .about-area .about {
         padding-left: 1rem;
     }
 }
 
+@media (max-width: 1024px) {
+    .form-section.container .register-user-form {
+        width: 80%;
+    }
+}
+
+@media (max-width: 920px) {
+    main .schedule-confirmation-area .schedule-confirmation {
+        width: 75%;
+    }
+}
+
 @media (max-width: 900px) {
+    .schedule .left-area {
+        display: none;
+    }
+
+    .schedule-form .input-group label {
+        font-size: 1rem;
+    }
+
+    .schedule-form .input-group .input-area input::placeholder {
+        font-size: 0.8rem;
+    }
+
     .about-area .about {
         padding-right: 15rem;
     }
@@ -1019,8 +897,97 @@ main.page-404 {
     }
 
     .about-area .about .credits a {
-
         font-size: 1.3rem;
+    }
+
+    .form-section.container .register-user-form {
+        width: 85%;
+    }
+}
+
+@media (max-width: 800px) {
+    header .container {
+        flex-direction: column;
+        gap: 0;
+        padding: 0 0.5rem;
+    }
+
+    header .logo-area {
+        padding: 8px 0;
+    }
+
+    header .left--area,
+    header .right--area {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .menu {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .right--area.desactive {
+        display: none;
+    }
+
+    .mobile-menu {
+        display: flex;
+        margin-left: auto;
+        padding: 16px 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .banner-content h1 {
+        font-size: 2rem;
+        padding: 0 1rem;
+    }
+
+    .banner-content p {
+        font-size: 1rem;
+        padding: 0 1rem;
+    }
+
+    .services .content .item {
+        flex-direction: column !important;
+    }
+
+    .services .right-side {
+        margin-top: 20px;
+    }
+
+    .services .content .item .left-side .button {
+        align-self: flex-start !important;
+    }
+
+    main .schedule-confirmation-area .schedule-confirmation {
+        width: 80%;
+    }
+
+    .schedule-confirmation-area .content-area .top-area .icon-area i {
+        font-size: 7rem;
+    }
+
+    .schedule-confirmation-area .content-area .top-area .text-area h2 {
+        font-size: 2.2rem;
+    }
+
+    .schedule-confirmation-area .content-area .top-area .text-area p {
+        font-size: 1.1rem;
+    }
+
+    .schedule-confirmation-area .content-area .bottom-area .schedule-infos .content .info-item {
+        flex-direction: column;
+        gap: 0.3rem;
+    }
+
+    .schedule-confirmation-area .content-area .bottom-area .schedule-infos .header {
+        font-size: 1.8rem;
+    }
+
+    .form-section.container .register-user-form {
+        width: 90%;
     }
 }
 
@@ -1042,7 +1009,53 @@ main.page-404 {
     }
 }
 
+@media (max-width: 700px) {
+    .schedule-confirmation-area .content-area .top-area .icon-area i {
+        font-size: 5rem;
+    }
+
+    .schedule-confirmation-area .content-area .top-area .text-area h2 {
+        font-size: 2rem;
+    }
+
+    .schedule-confirmation-area .content-area .top-area .text-area p {
+        font-size: 1rem;
+    }
+
+    .schedule-confirmation-area .content-area .bottom-area .schedule-infos .header {
+        font-size: 1.5rem;
+    }
+
+    .form-section.container .register-user-form {
+        width: 95%;
+    }
+}
+
 @media (max-width: 600px) {
+    .schedule-confirmation-area .header-area h1 {
+        font-size: 2.5rem;
+    }
+
+    .schedule-confirmation-area .content-area .top-area .icon-area i {
+        font-size: 4rem;
+    }
+
+    .schedule-confirmation-area .content-area .top-area .text-area h2 {
+        font-size: 1.6rem;
+    }
+
+    .schedule-confirmation-area .content-area .top-area .text-area p {
+        font-size: 0.8rem;
+    }
+
+    .schedule-confirmation-area .content-area .bottom-area .schedule-infos .header {
+        font-size: 1.3rem;
+    }
+
+    .schedule-confirmation-area .content-area .bottom-area .schedule-infos .content .info-item .label {
+        font-size: 1.1rem;
+    }
+
     .about-area .about {
         padding-right: 5rem;
     }
@@ -1068,7 +1081,55 @@ main.page-404 {
     }
 }
 
+@media (max-width: 550px) {
+    .schedule {
+        width: 95%;
+    }
+
+    .schedule-form .input-group {
+        flex-direction: column;
+        gap: 0;
+        height: 6rem;
+    }
+
+    .schedule-form .input-group label {
+        width: 100%;
+        font-size: 1rem;
+        text-align: left;
+    }
+
+    .schedule-form .input-group .input-area {
+        width: 100%;
+        height: 100%;
+    }
+
+    .schedule-form .input-group .input-area input {
+        width: 100%;
+        height: 65%;
+    }
+
+    .schedule-form .input-group .input-area input::placeholder {
+        font-size: 0.8rem;
+    }
+
+    .schedule-form .input-group .input-area.pet-sex .left,
+    .schedule-form .input-group .input-area.pet-sex .right {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        flex: 1;
+    }
+
+    .schedule-form .input-group .error-area .error-msg {
+        font-size: 1rem;
+    }
+}
+
 @media (max-width: 500px) {
+    main .schedule-confirmation-area .schedule-confirmation {
+        width: 90%;
+    }
+
     .about-area .about {
         padding-right: 5rem;
     }
@@ -1076,15 +1137,33 @@ main.page-404 {
     .about-area .about .title {
         font-size: 2rem;
     }
+
+    .form-section.container .register-user-form {
+        width: 100%;
+    }
 }
 
-
 @media (max-width: 400px) {
+    main .schedule-confirmation-area .schedule-confirmation {
+        width: 97%;
+    }
+
     .about-area .about {
         padding-right: 2.5rem;
     }
 
     .about-area .about .title {
         font-size: 1.8rem;
+    }
+}
+
+@media (max-height: 600px) {
+    .schedule-area {
+        height: auto;
+        padding: 1.5rem 0 3rem 0;
+    }
+
+    .schedule-form .input-group {
+        flex: none;
     }
 }

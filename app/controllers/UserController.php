@@ -15,6 +15,16 @@ class UserController extends Controller
         $this->userService = new UserService();
     }
 
+    public function register()
+    {
+        // if (isset($_SESSION)) {
+        //     header('Location: /my-php-mvc-app/home/');
+        //     exit;
+        // }
+
+        $this->view('user/register');
+    }
+
     public function save()
     {
         $createUserDTO = $this->getCreateUserDTO();
