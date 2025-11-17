@@ -41,5 +41,15 @@ class CreateUserDTO
             $this->phone
         );
     }
+
+    public function setPhone(string $phone): CreateUserDTO
+    {
+        return new CreateUserDTO(
+            $this->name,
+            $this->email,
+            $this->password,
+            $phone
+        );
+    }
 }
 ?>
