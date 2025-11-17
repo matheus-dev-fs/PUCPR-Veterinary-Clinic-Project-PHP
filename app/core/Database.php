@@ -53,7 +53,7 @@ class Database
         }
     }
 
-    public function fetch(string $sql, array $params = []): array
+    public function fetch(string $sql, array $params = []): array | false
     {
         $stmt = $this->query($sql, $params);
         return $stmt->fetch();

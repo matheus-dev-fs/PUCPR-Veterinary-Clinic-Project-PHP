@@ -21,13 +21,18 @@ class UserRepository extends Repository
 
     public function existsByName(string $name): bool
     {
-        throw new \Exception('Not implemented');
+        $sql = "SELECT * FROM User WHERE email = :email";
+        $params = [':email' => $name];
+
+        $result = $this->database->fetch($sql, $params);
+
+        return $result !== false;
     }
 
     public function save(CreateUserDTO $userDTO): ?User
     {
         try {
-            $sql = "INSERT INTO users (name, email, password, phone) VALUES (:name, :email, :password, :phone)";
+            $sql = "INSERT INTO User (name, email, password, phone) VALUES (:name, :email, :password, :phone)";
             $params = [
                 ':name'     => $userDTO->getName(),
                 ':email'    => $userDTO->getEmail(),
