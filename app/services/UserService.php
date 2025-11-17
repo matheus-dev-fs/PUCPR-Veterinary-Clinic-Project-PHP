@@ -88,7 +88,7 @@ class UserService
 
     private function emailExists(string $email): bool
     {
-        return $this->userRepository->existsByName($email);
+        return $this->userRepository->existsByEmail($email);
     }
 
     private function isPhoneValid(string $phone): bool

@@ -19,10 +19,10 @@ class UserRepository extends Repository
         throw new \Exception('Not implemented');
     }
 
-    public function existsByName(string $name): bool
+    public function existsByEmail(string $email): bool
     {
         $sql = "SELECT * FROM User WHERE email = :email";
-        $params = [':email' => $name];
+        $params = [':email' => $email];
 
         $result = $this->database->fetch($sql, $params);
 
