@@ -6,39 +6,39 @@ namespace app\models;
 class User 
 {
     private int $id;
-    private string $nome;
+    private string $name;
     private string $email;
-    private string $senha;
-    private string $telefone;
-    private \DateTime $dataCadastro;
+    private string $password;
+    private string $phone;
+    private \DateTime $createdAt;
 
-    public function __construct(int $id, string $nome, string $email, string $senha, string $telefone, \DateTime $dataCadastro) {
+    public function __construct(int $id, string $name, string $email, string $password, string $phone, \DateTime $createdAt) {
         $this->id = $id;
-        $this->nome = $nome;
+        $this->name = $name;
         $this->email = $email;
-        $this->senha = $senha;
-        $this->telefone = $telefone;
-        $this->dataCadastro = $dataCadastro;
+        $this->password = $password;
+        $this->phone = $phone;
+        $this->createdAt = $createdAt;
     }
 
     public function getId(): int {
         return $this->id;
     }
 
-    public function getNome(): string {
-        return $this->nome;
+    public function getName(): string {
+        return $this->name;
     }
 
     public function getEmail(): string {
         return $this->email;
     }
 
-    public function getTelefone(): string {
-        return $this->telefone;
+    public function getPhone(): string {
+        return $this->phone;
     }
 
-    public function getDataCadastro(): \DateTime {
-        return $this->dataCadastro;
+    public function getCreatedAt(): \DateTime {
+        return $this->createdAt;
     }
 }
 ?>
