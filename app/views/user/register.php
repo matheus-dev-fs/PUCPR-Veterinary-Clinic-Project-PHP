@@ -19,31 +19,32 @@
                 <div class="input-group name">
                     <div class="input-field">
                         <label for="name">Nome completo:</label>
-                        <input type="text" id="name" name="name" placeholder="fulano da silva">
+                        <input type="text" id="name" name="name" placeholder="fulano da silva" value="<?= htmlspecialchars(trim($_SESSION['old']['name'] ?? '')) ?>">
                     </div>
                     <div class="error-area">
-                        <span class="error-message required">O <strong>Nome Completo</strong> é obrigatório.</span>
-                        <span class="error-message invalid">O <strong>Nome Completo</strong> precisa ter no mínimo 3 caracteres.</span>
+                        <span class="error-message required <?= isset($_SESSION['errors']['name_required']) ? 'show-error' : '' ?>">O <strong>Nome Completo</strong> é obrigatório.</span>
+                        <span class="error-message invalid <?= isset($_SESSION['errors']['name_length']) ? 'show-error' : '' ?>">O <strong>Nome Completo</strong> precisa ter no mínimo 3 caracteres.</span>
                     </div>
                 </div>
                 <div class="input-group email">
                     <div class="input-field">
                         <label for="email">Email:</label>
-                        <input type="email" id="email" name="email" placeholder="fulano@example.com">
+                        <input type="email" id="email" name="email" placeholder="fulano@example.com" value="<?= htmlspecialchars(trim($_SESSION['old']['email'] ?? '')) ?>">
                     </div>
                     <div class="error-area">
-                        <span class="error-message required">O <strong>Email</strong> é obrigatório.</span>
-                        <span class="error-message invalid">O <strong>Email</strong> informado não é válido.</span>
+                        <span class="error-message required <?= isset($_SESSION['errors']['email_required']) ? 'show-error' : '' ?>">O <strong>Email</strong> é obrigatório.</span>
+                        <span class="error-message invalid <?= isset($_SESSION['errors']['email_invalid']) ? 'show-error' : '' ?>">O <strong>Email</strong> informado não é válido.</span>
+                        <span class="error-message exists <?= isset($_SESSION['errors']['email_exists']) ? 'show-error' : '' ?>">O <strong>Email</strong> informado já está em uso.</span>
                     </div>
                 </div>
                 <div class="input-group email-confirmation">
                     <div class="input-field">
                         <label for="email_confirmation">Confirmação do Email:</label>
-                        <input type="email" id="email_confirmation" name="email_confirmation" placeholder="fulano@example.com">
+                        <input type="email" id="email_confirmation" name="email_confirmation" placeholder="fulano@example.com" value="<?= htmlspecialchars(trim($_SESSION['old']['email_confirmation'] ?? '')) ?>">
                     </div>
                     <div class="error-area">
-                        <span class="error-message required">A <strong>Confirmação do Email</strong> é obrigatório.</span>
-                        <span class="error-message mismatch">O <strong>Email</strong> e a <strong>Confirmação do Email</strong> não coincidem.</span>
+                        <span class="error-message required <?= isset($_SESSION['errors']['email_confirmation_required']) ? 'show-error' : '' ?>">A <strong>Confirmação do Email</strong> é obrigatório.</span>
+                        <span class="error-message mismatch <?= isset($_SESSION['errors']['email_confirmation_mismatch']) ? 'show-error' : '' ?>">O <strong>Email</strong> e a <strong>Confirmação do Email</strong> não coincidem.</span>
                     </div>
                 </div>
                 <div class="input-group password">
@@ -52,8 +53,8 @@
                         <input type="password" id="password" name="password" placeholder="********">
                     </div>
                     <div class="error-area">
-                        <span class="error-message required">A <strong>Senha</strong> é obrigatória.</span>
-                        <span class="error-message invalid">
+                        <span class="error-message required <?= isset($_SESSION['errors']['password_required']) ? 'show-error' : '' ?>">A <strong>Senha</strong> é obrigatória.</span>
+                        <span class="error-message invalid <?= isset($_SESSION['errors']['password_invalid']) ? 'show-error' : '' ?>">
                             <strong>Senha:</strong> mínimo 8 caracteres, com maiúsculas, minúsculas, números e símbolos.
                         </span>
                     </div>
@@ -64,18 +65,18 @@
                         <input type="password" id="password_confirmation" name="password_confirmation" placeholder="********">
                     </div>
                     <div class="error-area">
-                        <span class="error-message required">A <strong>Confirmação de Senha</strong> é obrigatória.</span>
-                        <span class="error-message mismatch">A <strong>Senha</strong> e a <strong>Confirmação da Senha</strong> não coincidem.</span>
+                        <span class="error-message required <?= isset($_SESSION['errors']['password_confirmation_required']) ? 'show-error' : '' ?>">A <strong>Confirmação de Senha</strong> é obrigatória.</span>
+                        <span class="error-message mismatch <?= isset($_SESSION['errors']['password_confirmation_mismatch']) ? 'show-error' : '' ?>">A <strong>Senha</strong> e a <strong>Confirmação da Senha</strong> não coincidem.</span>
                     </div>
                 </div>
                 <div class="input-group contact">
                     <div class="input-field">
                         <label for="contact">Contato:</label>
-                        <input type="text" id="contact" name="contact" placeholder="(XX) XXXXX-XXXX ou (XX) XXXX-XXXX">
+                        <input type="text" id="contact" name="contact" placeholder="(XX) XXXXX-XXXX ou (XX) XXXX-XXXX" value="<?= htmlspecialchars(trim($_SESSION['old']['contact'] ?? '')) ?>">
                     </div>
                     <div class="error-area">
-                        <span class="error-message required">O <strong>Contato</strong> é obrigatório.</span>
-                        <span class="error-message invalid">
+                        <span class="error-message required <?= isset($_SESSION['errors']['phone_required']) ? 'show-error' : '' ?>">O <strong>Contato</strong> é obrigatório.</span>
+                        <span class="error-message invalid <?= isset($_SESSION['errors']['phone']) ? 'show-error' : '' ?>">
                             O <strong>Contato</strong> informado não é válido.
                         </span>
                     </div>

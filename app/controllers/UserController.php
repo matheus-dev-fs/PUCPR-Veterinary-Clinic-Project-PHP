@@ -17,36 +17,53 @@ class UserController extends Controller
 
     public function register()
     {
-        // if (isset($_SESSION)) {
-        //     header('Location: /my-php-mvc-app/home/');
-        //     exit;
-        // }
+        if (isset($_SESSION['user'])) {
+            header('Location: /my-php-mvc-app/home/');
+            exit;
+        }
 
         $this->view('user/register');
     }
 
     public function save()
     {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            header('Location: /my-php-mvc-app/user/register');
+            exit;
+        }
+
         $createUserDTO = $this->getCreateUserDTO();
 
         $user = $this->userService->save($createUserDTO);
 
         if (is_array($user) ) {
             $_SESSION['errors'] = $user['errors'];
-            dd($_SESSION['errors']);
+            $_SESSION['old'] = $_POST;
+            header('Location: /my-php-mvc-app/user/register');
+            exit;
         }
 
+        unset($_SESSION['errors']);
+        unset($_SESSION['old']);
+
+        $_SESSION['user'] = [
+            'id' => $user->getId(),
+            'name' => $user->getName(),
+            'email' => $user->getEmail(),
+        ];
+
         header('Location: /my-php-mvc-app/home/');
-        exit;
     }
 
     private function getCreateUserDTO(): CreateUserDTO
     {
         return new CreateUserDTO(
-            'teste5',
-            'teste567@gmail.com',
-            'Peperaio123#',
-            '(41) 99999-9959'
+            \htmlspecialchars(trim($_POST['name'] ?? '')),
+            \htmlspecialchars(trim($_POST['email'] ?? '')),
+            \htmlspecialchars(trim($_POST['email_confirmation'] ?? '')),
+            \htmlspecialchars(trim($_POST['password'] ?? '')),
+            \htmlspecialchars(trim($_POST['password_confirmation'] ?? '')),
+            \htmlspecialchars(trim($_POST['contact'] ?? ''))
         );
     }
 }

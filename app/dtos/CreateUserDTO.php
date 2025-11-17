@@ -8,7 +8,9 @@ class CreateUserDTO
     public function __construct(
         private readonly string $name,
         private readonly string $email,
+        private readonly string $emailConfirmation,
         private readonly string $password,
+        private readonly string $passwordConfirmation,
         private readonly string $phone
     ) {}
 
@@ -22,9 +24,19 @@ class CreateUserDTO
         return $this->email;
     }
 
+    public function getEmailConfirmation(): string
+    {
+        return $this->emailConfirmation;
+    }
+
     public function getPassword(): string
     {
         return $this->password;
+    }
+
+    public function getPasswordConfirmation(): string
+    {
+        return $this->passwordConfirmation;
     }
 
     public function getPhone(): string
@@ -37,7 +49,9 @@ class CreateUserDTO
         return new CreateUserDTO(
             $this->name,
             $this->email,
+            $this->emailConfirmation,
             $password,
+            $this->passwordConfirmation,
             $this->phone
         );
     }
@@ -47,7 +61,9 @@ class CreateUserDTO
         return new CreateUserDTO(
             $this->name,
             $this->email,
+            $this->emailConfirmation,
             $this->password,
+            $this->passwordConfirmation,
             $phone
         );
     }
