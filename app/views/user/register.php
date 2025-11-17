@@ -16,7 +16,7 @@
     <main class="register-user-page">
         <section class="form-section container">
             <form class="register-user-form" id="register-user-form" action="/my-php-mvc-app/user/save" method="POST">
-                <div class="input-group">
+                <div class="input-group name">
                     <div class="input-field">
                         <label for="name">Nome completo:</label>
                         <input type="text" id="name" name="name" placeholder="fulano da silva">
@@ -26,7 +26,7 @@
                         <span class="error-message invalid">O <strong>Nome Completo</strong> precisa ter no mínimo 3 caracteres.</span>
                     </div>
                 </div>
-                <div class="input-group">
+                <div class="input-group email">
                     <div class="input-field">
                         <label for="email">Email:</label>
                         <input type="email" id="email" name="email" placeholder="fulano@example.com">
@@ -36,7 +36,7 @@
                         <span class="error-message invalid">O <strong>Email</strong> informado não é válido.</span>
                     </div>
                 </div>
-                <div class="input-group">
+                <div class="input-group email-confirmation">
                     <div class="input-field">
                         <label for="email_confirmation">Confirmação do Email:</label>
                         <input type="email" id="email_confirmation" name="email_confirmation" placeholder="fulano@example.com">
@@ -46,7 +46,7 @@
                         <span class="error-message mismatch">O <strong>Email</strong> e a <strong>Confirmação do Email</strong> não coincidem.</span>
                     </div>
                 </div>
-                <div class="input-group">
+                <div class="input-group password">
                     <div class="input-field">
                         <label for="password">Senha:</label>
                         <input type="password" id="password" name="password" placeholder="********">
@@ -58,17 +58,17 @@
                         </span>
                     </div>
                 </div>
-                <div class="input-group">
+                <div class="input-group password-confirmation">
                     <div class="input-field">
                         <label for="password_confirmation">Confirmação da Senha:</label>
                         <input type="password" id="password_confirmation" name="password_confirmation" placeholder="********">
                     </div>
                     <div class="error-area">
-                        <span class="error-message required">A <strong>Senha</strong> é obrigatória.</span>
+                        <span class="error-message required">A <strong>Confirmação de Senha</strong> é obrigatória.</span>
                         <span class="error-message mismatch">A <strong>Senha</strong> e a <strong>Confirmação da Senha</strong> não coincidem.</span>
                     </div>
                 </div>
-                <div class="input-group">
+                <div class="input-group contact">
                     <div class="input-field">
                         <label for="contact">Contato:</label>
                         <input type="text" id="contact" name="contact" placeholder="(XX) XXXXX-XXXX ou (XX) XXXX-XXXX">
@@ -89,7 +89,7 @@
 
     <?php include_once __DIR__ . '/../partials/footer.php'; ?>
 
-    <script type="module" src="/my-php-mvc-app/public/assets/js/home/script.js"></script>
+    <script type="module" src="/my-php-mvc-app/public/assets/js/register-user/script.js?v=1.0.0"></script>
 </body>
 
 </html>
