@@ -23,17 +23,18 @@ class UserController extends Controller
 
         if (is_array($user) ) {
             $_SESSION['errors'] = $user['errors'];
-            dd($user);
+            dd($_SESSION['errors']);
         }
 
-        $this->view('home/index');
+        header('Location: /my-php-mvc-app/home/');
+        exit;
     }
 
     private function getCreateUserDTO(): CreateUserDTO
     {
         return new CreateUserDTO(
             'teste5',
-            'teste5@gmail.com',
+            'teste567@gmail.com',
             'Peperaio123#',
             '(41) 99999-9959'
         );
