@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace app\services;
 
 use app\dtos\CreateUserDTO;
-use app\models\User;
 use app\repositories\UserRepository;
+use app\responses\UserRegistrationResult;
 
 class UserService
 {
@@ -17,18 +17,19 @@ class UserService
         $this->userRepository = new UserRepository();
     }
 
-    public function save(CreateUserDTO $createUserDTO): User | array
+    public function save(CreateUserDTO $createUserDTO): UserRegistrationResult
     {
         $isAllFieldsValid = $this->isAllFieldsValid($createUserDTO);
 
         if ($isAllFieldsValid !== true) {
-            return ['errors' => $isAllFieldsValid];
+            return new UserRegistrationResult(null, $isAllFieldsValid);
         }
 
         $createUserDTO = $createUserDTO->setPhone($this->convertPhoneToDatabaseFormat($createUserDTO->getPhone()));
         $createUserDTO = $createUserDTO->setPassword($this->password_hash($createUserDTO->getPassword()));
 
-        return $this->userRepository->save($createUserDTO);
+        $user = $this->userRepository->save($createUserDTO);
+        return new UserRegistrationResult($user);
     }
 
     private function isAllFieldsValid(CreateUserDTO $createUserDTO): bool | array

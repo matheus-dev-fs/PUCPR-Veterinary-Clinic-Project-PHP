@@ -37,17 +37,17 @@ class UserController extends Controller
         }
 
         $createUserDTO = $this->getCreateUserDTO();
-        $user = $this->userService->save($createUserDTO);
+        $userRegistrationResult = $this->userService->save($createUserDTO);
 
-        if ($this->hasErrors($user)) {
+        if (!$userRegistrationResult->isSuccess()) {
             $this->view('user/register', [
-                'errors' => $user['errors'],
+                'errors' => $userRegistrationResult->getErrors(),
                 'old' => $_POST
             ]);
             return;
         }
 
-        $this->saveUserSession($user);
+        $this->saveUserSession($userRegistrationResult->getUser());
         $this->redirectToHome();
     }
 
