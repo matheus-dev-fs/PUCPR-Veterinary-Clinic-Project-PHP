@@ -8,8 +8,8 @@ use app\core\Controller;
 use app\dtos\CreateUserDTO;
 use app\mappers\UserMapper;
 use app\services\UserService;
-use app\models\User;
 use app\core\AuthHelper;
+use app\core\RedirectHelper;
 
 class UserController extends Controller
 {
@@ -25,7 +25,7 @@ class UserController extends Controller
     public function register()
     {
         if (AuthHelper::isUserLoggedIn()) {
-            $this->redirectToHome();
+            RedirectHelper::redirectToHome();
         }
 
         $this->view('user/register', [
@@ -37,11 +37,11 @@ class UserController extends Controller
     public function save()
     {
         if (AuthHelper::isUserLoggedIn()) {
-            $this->redirectToHome();
+            RedirectHelper::redirectToHome();
         }
 
         if (!$this->isPostRequest()) {
-            $this->redirectToRegister();
+            RedirectHelper::redirectToRegister();
         }
 
         $createUserDTO = $this->getCreateUserDTO();
@@ -56,13 +56,13 @@ class UserController extends Controller
         }
 
         AuthHelper::saveUserSession($userRegistrationResult->getUser());
-        $this->redirectToHome();
+        RedirectHelper::redirectToHome();
     }
 
     public function login()
     {
         if (AuthHelper::isUserLoggedIn()) {
-            $this->redirectToHome();
+            RedirectHelper::redirectToHome();
         }
 
         $this->view('user/login', [
@@ -74,11 +74,11 @@ class UserController extends Controller
     public function authenticate()
     {
         if (AuthHelper::isUserLoggedIn()) {
-            $this->redirectToHome();
+            RedirectHelper::redirectToHome();
         }
 
         if (!$this->isPostRequest()) {
-            $this->redirectToLogin();
+            RedirectHelper::redirectToLogin();
         }
 
         $loginUserDTO = $this->userMapper->toLoginUserDTO(
@@ -97,7 +97,7 @@ class UserController extends Controller
         }
 
         AuthHelper::saveUserSession($authenticationResult->getUser());
-        $this->redirectToHome();
+        RedirectHelper::redirectToHome();
     }
 
     public function logout(): void
@@ -106,24 +106,12 @@ class UserController extends Controller
             AuthHelper::destroySession();
         }
 
-        $this->redirectToHome();
+        RedirectHelper::redirectToHome();
     }
 
     private function isPostRequest(): bool
     {
         return $_SERVER['REQUEST_METHOD'] === 'POST';
-    }
-
-    private function redirectToRegister(): void
-    {
-        header('Location: /my-php-mvc-app/user/register');
-        exit;
-    }
-
-    private function redirectToLogin(): void
-    {
-        header('Location: /my-php-mvc-app/user/login');
-        exit;
     }
 
     private function getCreateUserDTO(): CreateUserDTO
@@ -136,11 +124,5 @@ class UserController extends Controller
             $_POST['password_confirmation'],
             $_POST['contact']
         );
-    }
-
-    private function redirectToHome(): void
-    {
-        header('Location: /my-php-mvc-app/home/');
-        exit;
     }
 }
