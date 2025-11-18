@@ -51,6 +51,15 @@ class UserController extends Controller
         $this->redirectToHome();
     }
 
+    public function logout(): void
+    {
+        if ($this->isUserLoggedIn()) {
+            $this->destroySession();
+        }
+
+        $this->redirectToHome();
+    }
+
     private function isUserLoggedIn(): bool
     {
         return isset($_SESSION['user']);
@@ -92,5 +101,11 @@ class UserController extends Controller
             'name' => $user->getName(),
             'email' => $user->getEmail(),
         ];
+    }
+
+    private function destroySession(): void
+    {
+        session_unset();
+        session_destroy();
     }
 }
