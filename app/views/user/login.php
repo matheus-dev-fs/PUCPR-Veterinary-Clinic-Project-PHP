@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0">
-    <link rel="stylesheet" href="/my-php-mvc-app/public/assets/css/style.css?v=2.0.0" />
+    <link rel="stylesheet" href="/my-php-mvc-app/public/assets/css/style.css?v=2.0.1" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="icon" href="/my-php-mvc-app/public/assets/images/favicon.svg" type="image/svg+xml">
     <title>Cliníca Veterinária</title>
@@ -18,10 +18,13 @@
             <section class="form-section container">
                 <h1>Login</h1>
                 <form class="login-user-form" id="login-user-form" action="/my-php-mvc-app/user/authenticate" method="POST">
-                    <div class="input-group name">
+                    <div class="input-group login">
                         <div class="input-field">
                             <label for="login">Email:</label>
                             <input type="text" id="login" name="login" placeholder="example@mail.com" value="<?= htmlspecialchars(trim($old['login'] ?? '')) ?>">
+                        </div>
+                        <div class="error-area">
+                            <p class="error-message required">Digite o <strong>Email</strong> para continuar.</p>
                         </div>
                     </div>
                     <div class="input-group password">
@@ -29,9 +32,12 @@
                             <label for="password">Senha:</label>
                             <input type="password" id="password" name="password" placeholder="Digite sua senha" value="<?= htmlspecialchars(trim($old['password'] ?? '')) ?>">
                         </div>
+                        <div class="error-area">
+                            <p class="error-message required">Digite o <strong>Email</strong> para continuar.</p>
+                        </div>
                     </div>
                     <div class="error-area">
-                        <p class="<?= isset($errors['invalid_credentials']) ? 'show-error' :  '' ?>">Email ou senha incorretos. Tente novamente.</p>
+                        <p class="error-message <?= isset($errors['invalid_credentials']) ? 'show-error' :  '' ?>">Email ou senha incorretos. Tente novamente.</p>
                     </div>
                     <div class="submit-area">
                         <button type="submit" class="submit-button button">Logar-se</button>
@@ -46,7 +52,7 @@
 
     <?php include_once __DIR__ . '/../partials/footer.php'; ?>
 
-    <script type="module" src="/my-php-mvc-app/public/assets/js/login-user/script.js?v=1.0.0"></script>
+    <script type="module" src="/my-php-mvc-app/public/assets/js/login-user/script.js?v=1.0.1"></script>
 </body>
 
 </html>

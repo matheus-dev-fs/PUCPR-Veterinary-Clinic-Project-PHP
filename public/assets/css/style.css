@@ -936,14 +936,14 @@ main.login-user-page {
     text-decoration: underline;
 }
 
-.login-user-form .error-area p {
+.login-user-form .error-message {
     display: none;
     color: rgb(255, 80, 80);
     font-weight: 500;
     font-size: 1rem;
 }
 
-.login-user-form .error-area p.show-error {
+.login-user-form .error-area .error-message.show-error {
     display: block;
 }
 
