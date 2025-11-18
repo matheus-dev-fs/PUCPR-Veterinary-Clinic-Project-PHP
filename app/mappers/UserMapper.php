@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace app\mappers;
 
 use app\dtos\CreateUserDTO;
+use app\dtos\LoginUserDTO;
 
 class UserMapper
 {
@@ -23,6 +24,16 @@ class UserMapper
             $this->sanitize($password ?? ''),
             $this->sanitize($passwordConfirmation ?? ''),
             $this->sanitize($phone ?? '')
+        );
+    }
+
+    public function toLoginUserDTO(
+        ?string $email,
+        ?string $password
+    ): LoginUserDTO {
+        return new LoginUserDTO(
+            $this->sanitize($email ?? ''),
+            $this->sanitize($password ?? '')
         );
     }
 
