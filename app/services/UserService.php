@@ -38,7 +38,7 @@ class UserService
         $user = $this->userRepository->findByEmail($loginUserDTO->getEmail());
 
         if ($user === null || !$this->password_verify($loginUserDTO->getPassword(), $user->getPassword())) {
-            return new UserResponseResult(null, ['invalid_credentials' => 'Email ou senha inválidos.']);
+            return new UserResponseResult(null, ['invalid_credentials' => true]);
         }
 
         return new UserResponseResult($user);
@@ -49,41 +49,41 @@ class UserService
         $errors = [];
 
         if (empty($createUserDTO->getName())) {
-            $errors['name_required'] = 'O nome é obrigatório.';
+            $errors['name_required'] = true;
         } elseif (strlen($createUserDTO->getName()) < 3) {
-            $errors['name_length'] = 'O nome deve ter pelo menos 3 caracteres.';
+            $errors['name_length'] = true;
         }
 
         if (empty($createUserDTO->getEmail())) {
-            $errors['email_required'] = 'O email é obrigatório.';
+            $errors['email_required'] = true;
         } elseif (!$this->isValidEmail($createUserDTO->getEmail())) {
-            $errors['email_invalid'] = 'Formato de email inválido.';
+            $errors['email_invalid'] = true;
         } elseif ($this->emailExists($createUserDTO->getEmail())) {
-            $errors['email_exists'] = 'O email informado já está em uso.';
+            $errors['email_exists'] = true;
         }
 
         if (empty($createUserDTO->getEmailConfirmation())) {
-            $errors['email_confirmation_required'] = 'A confirmação de email é obrigatória.';
+            $errors['email_confirmation_required'] = true;
         } elseif (!$this->isBothFieldsSame($createUserDTO->getEmail(), $createUserDTO->getEmailConfirmation())) {
-            $errors['email_confirmation_mismatch'] = 'O email e a confirmação de email não coincidem.';
+            $errors['email_confirmation_mismatch'] = true;
         }
 
         if (empty($createUserDTO->getPassword())) {
-            $errors['password_required'] = 'A senha é obrigatória.';
+            $errors['password_required'] = true;
         } elseif (!$this->isValidPassword($createUserDTO->getPassword())) {
-            $errors['password_invalid'] = 'A senha deve ter pelo menos 8 caracteres, incluindo letras maiúsculas, minúsculas, números e caracteres especiais.';
+            $errors['password_invalid'] = true;
         }
 
         if (empty($createUserDTO->getPasswordConfirmation())) {
-            $errors['password_confirmation_required'] = 'A confirmação de senha é obrigatória.';
+            $errors['password_confirmation_required'] = true;
         } elseif (!$this->isBothFieldsSame($createUserDTO->getPassword(), $createUserDTO->getPasswordConfirmation())) {
-            $errors['password_confirmation_mismatch'] = 'A senha e a confirmação de senha não coincidem.';
+            $errors['password_confirmation_mismatch'] = true;
         }
 
         if (empty($createUserDTO->getPhone())) {
-            $errors['phone_required'] = 'O número de telefone é obrigatório.';
+            $errors['phone_required'] = true;
         } elseif (!$this->isPhoneValid($createUserDTO->getPhone())) {
-            $errors['phone'] = 'O número de telefone deve estar no formato (XX) XXXXX-XXXX.';
+            $errors['phone'] = true;
         }
 
         return empty($errors) ? true : $errors;

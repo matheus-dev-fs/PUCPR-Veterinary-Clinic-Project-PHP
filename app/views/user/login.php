@@ -30,7 +30,7 @@
                     <div class="input-group password">
                         <div class="input-field">
                             <label for="password">Senha:</label>
-                            <input type="password" id="password" name="password" placeholder="Digite sua senha" value="<?= htmlspecialchars(trim($old['password'] ?? '')) ?>">
+                            <input type="password" id="password" name="password" placeholder="Digite sua senha">
                         </div>
                         <div class="error-area">
                             <p class="error-message required">Digite a <strong>Senha</strong> para continuar.</p>
