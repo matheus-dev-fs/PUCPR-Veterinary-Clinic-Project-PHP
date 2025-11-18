@@ -85,22 +85,6 @@ class UserController extends Controller
         exit;
     }
 
-    private function hasErrors($user): bool
-    {
-        return is_array($user);
-    }
-
-    private function handleErrors(array $errors): void
-    {
-        $_SESSION['errors'] = $errors;
-        $_SESSION['old'] = $_POST;
-    }
-
-    private function clearSessionErrors(): void
-    {
-        unset($_SESSION['errors'], $_SESSION['old']);
-    }
-
     private function saveUserSession(User $user): void
     {
         $_SESSION['user'] = [
