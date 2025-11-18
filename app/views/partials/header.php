@@ -19,6 +19,11 @@
                     <li class="<?= $view === "home/index" ? "" : "" ?>"><a href="/my-php-mvc-app/#services">SERVIÇOS</a></li>
                     <li class="<?= $view === "schedule/index" ? "selected" : "" ?>"><a href="/my-php-mvc-app/schedule/">AGENDAMENTO</a></li>
                     <li class="<?= $view === "about/index" ? "selected" : "" ?>"><a href="/my-php-mvc-app/about/">SOBRE</a></li>
+                    <?php if (isset($_SESSION['user'])): ?>
+                        <li><a href="/my-php-mvc-app/user/logout">SAIR</a></li>
+                    <?php else: ?>
+                        <li class="<?= $view === "user/login" ? "selected" : "" ?>"><a href="/my-php-mvc-app/user/login">LOGIN</a></li>
+                    <?php endif; ?>
                 </ul>
             </div>
         </div>
