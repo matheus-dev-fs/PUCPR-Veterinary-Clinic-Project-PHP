@@ -51,6 +51,18 @@ class UserController extends Controller
         $this->redirectToHome();
     }
 
+    public function login()
+    {
+        if ($this->isUserLoggedIn()) {
+            $this->redirectToHome();
+        }
+
+        $this->view('user/login', [
+            'errors' => [],
+            'old' => []
+        ]);
+    }
+
     public function logout(): void
     {
         if ($this->isUserLoggedIn()) {
