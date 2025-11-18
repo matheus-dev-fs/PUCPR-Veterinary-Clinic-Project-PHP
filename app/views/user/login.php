@@ -33,7 +33,7 @@
                             <input type="password" id="password" name="password" placeholder="Digite sua senha" value="<?= htmlspecialchars(trim($old['password'] ?? '')) ?>">
                         </div>
                         <div class="error-area">
-                            <p class="error-message required">Digite o <strong>Email</strong> para continuar.</p>
+                            <p class="error-message required">Digite a <strong>Senha</strong> para continuar.</p>
                         </div>
                     </div>
                     <div class="error-area">
