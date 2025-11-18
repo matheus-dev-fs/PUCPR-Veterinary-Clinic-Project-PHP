@@ -6,16 +6,19 @@ namespace app\controllers;
 
 use app\core\Controller;
 use app\dtos\CreateUserDTO;
+use app\mappers\UserMapper;
 use app\services\UserService;
 use app\models\User;
 
 class UserController extends Controller
 {
     private UserService $userService;
+    private UserMapper $userMapper;
 
     public function __construct()
     {
         $this->userService = new UserService();
+        $this->userMapper = new UserMapper();
     }
 
     public function register()
@@ -90,13 +93,13 @@ class UserController extends Controller
 
     private function getCreateUserDTO(): CreateUserDTO
     {
-        return new CreateUserDTO(
-            \htmlspecialchars(trim($_POST['name'] ?? '')),
-            \htmlspecialchars(trim($_POST['email'] ?? '')),
-            \htmlspecialchars(trim($_POST['email_confirmation'] ?? '')),
-            \htmlspecialchars(trim($_POST['password'] ?? '')),
-            \htmlspecialchars(trim($_POST['password_confirmation'] ?? '')),
-            \htmlspecialchars(trim($_POST['contact'] ?? ''))
+        return $this->userMapper->toCreateUserDTO(
+            $_POST['name'],
+            $_POST['email'],
+            $_POST['email_confirmation'],
+            $_POST['password'],
+            $_POST['password_confirmation'],
+            $_POST['contact']
         );
     }
 
