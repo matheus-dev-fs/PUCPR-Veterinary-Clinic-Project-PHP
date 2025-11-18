@@ -9,6 +9,7 @@ use app\dtos\CreateUserDTO;
 use app\mappers\UserMapper;
 use app\services\UserService;
 use app\models\User;
+use app\core\AuthHelper;
 
 class UserController extends Controller
 {
@@ -23,7 +24,7 @@ class UserController extends Controller
 
     public function register()
     {
-        if ($this->isUserLoggedIn()) {
+        if (AuthHelper::isUserLoggedIn()) {
             $this->redirectToHome();
         }
 
@@ -35,6 +36,10 @@ class UserController extends Controller
 
     public function save()
     {
+        if (AuthHelper::isUserLoggedIn()) {
+            $this->redirectToHome();
+        }
+
         if (!$this->isPostRequest()) {
             $this->redirectToRegister();
         }
@@ -50,13 +55,13 @@ class UserController extends Controller
             return;
         }
 
-        $this->saveUserSession($userRegistrationResult->getUser());
+        AuthHelper::saveUserSession($userRegistrationResult->getUser());
         $this->redirectToHome();
     }
 
     public function login()
     {
-        if ($this->isUserLoggedIn()) {
+        if (AuthHelper::isUserLoggedIn()) {
             $this->redirectToHome();
         }
 
@@ -68,7 +73,7 @@ class UserController extends Controller
 
     public function authenticate()
     {
-        if ($this->isUserLoggedIn()) {
+        if (AuthHelper::isUserLoggedIn()) {
             $this->redirectToHome();
         }
 
@@ -91,22 +96,17 @@ class UserController extends Controller
             return;
         }
 
-        $this->saveUserSession($authenticationResult->getUser());
+        AuthHelper::saveUserSession($authenticationResult->getUser());
         $this->redirectToHome();
     }
 
     public function logout(): void
     {
-        if ($this->isUserLoggedIn()) {
-            $this->destroySession();
+        if (AuthHelper::isUserLoggedIn()) {
+            AuthHelper::destroySession();
         }
 
         $this->redirectToHome();
-    }
-
-    private function isUserLoggedIn(): bool
-    {
-        return isset($_SESSION['user']);
     }
 
     private function isPostRequest(): bool
@@ -142,20 +142,5 @@ class UserController extends Controller
     {
         header('Location: /my-php-mvc-app/home/');
         exit;
-    }
-
-    private function saveUserSession(User $user): void
-    {
-        $_SESSION['user'] = [
-            'id' => $user->getId(),
-            'name' => $user->getName(),
-            'email' => $user->getEmail(),
-        ];
-    }
-
-    private function destroySession(): void
-    {
-        session_unset();
-        session_destroy();
     }
 }
