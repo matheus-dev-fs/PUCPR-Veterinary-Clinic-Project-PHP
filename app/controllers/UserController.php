@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace app\controllers;
 
 use app\core\Controller;
+use app\core\AuthHelper;
+use app\core\RedirectHelper;
+use app\core\RequestHelper;
 use app\dtos\CreateUserDTO;
 use app\mappers\UserMapper;
 use app\services\UserService;
-use app\core\AuthHelper;
-use app\core\RedirectHelper;
+
 
 class UserController extends Controller
 {
@@ -40,7 +42,7 @@ class UserController extends Controller
             RedirectHelper::redirectToHome();
         }
 
-        if (!$this->isPostRequest()) {
+        if (!RequestHelper::isPostRequest()) {
             RedirectHelper::redirectToRegister();
         }
 
@@ -77,7 +79,7 @@ class UserController extends Controller
             RedirectHelper::redirectToHome();
         }
 
-        if (!$this->isPostRequest()) {
+        if (!RequestHelper::isPostRequest()) {
             RedirectHelper::redirectToLogin();
         }
 
@@ -107,11 +109,6 @@ class UserController extends Controller
         }
 
         RedirectHelper::redirectToHome();
-    }
-
-    private function isPostRequest(): bool
-    {
-        return $_SERVER['REQUEST_METHOD'] === 'POST';
     }
 
     private function getCreateUserDTO(): CreateUserDTO
