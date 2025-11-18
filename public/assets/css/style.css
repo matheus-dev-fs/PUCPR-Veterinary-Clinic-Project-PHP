@@ -851,6 +851,107 @@ main.register-user-page {
     display: block;
 }
 
+/* LOGIN PAGE */
+main.login-user-page {
+    background-image: url('../images/banner/cuidados.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.login-user-page .overlay {
+    width: 100%;
+    height: inherit;
+    background-color: rgba(0, 0, 0, 0.4);
+    padding: 2rem 0;
+    min-height: calc(100vh - 80px);
+}
+
+.login-user-page .form-section {
+    margin: auto;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    background-color: var(--background-color);
+    border-radius: 1rem;
+    width: 35%;
+}
+
+.login-user-page .login-user-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.login-user-page .form-section h1 {
+    margin: 0 auto;
+    font-size: 2.5rem;
+    color: var(--primary-color);
+}
+
+.login-user-page .form-section .input-group {
+    border-bottom: 0.1rem solid var(--grey-color);
+    height: 6rem;
+    padding-bottom: 1rem;
+}
+
+.login-user-page .form-section .input-group .input-field {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.login-user-page .form-section .input-group .input-field label {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--primary-color);
+    height: 40%;
+}
+
+.login-user-page .form-section .input-group .input-field input {
+    height: 60%;
+    padding: 0.5rem 1rem;
+    border: none;
+    outline: none;
+    font-size: 1.2rem;
+    background-color: var(--grey-color);
+}
+
+.login-user-page .register-link-area p {
+    font-size: 1rem;
+    color: var(--dark-grey-color);
+    text-align: center;
+}
+
+.login-user-page .register-link-area a {
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.login-user-page .register-link-area a:hover {
+    text-decoration: underline;
+}
+
+.login-user-form .error-area p {
+    display: none;
+    color: rgb(255, 80, 80);
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+.login-user-form .error-area p.show-error {
+    display: block;
+}
+
+.login-user-page .form-section .input-group .input-field input::placeholder {
+    font-size: 1rem;
+    color: var(--medium-grey-color);
+}
+
 /* MEDIA QUERIES */
 
 @media (max-width: 1280px) {
@@ -863,12 +964,17 @@ main.register-user-page {
     .form-section.container .register-user-form {
         width: 80%;
     }
+
+    .login-user-page .form-section {
+        width: 45%;
+    }
 }
 
 @media (max-width: 920px) {
     main .schedule-confirmation-area .schedule-confirmation {
         width: 75%;
     }
+
 }
 
 @media (max-width: 900px) {
@@ -935,6 +1041,10 @@ main.register-user-page {
         display: flex;
         margin-left: auto;
         padding: 16px 0;
+    }
+
+    .login-user-page .form-section {
+        width: 55%;
     }
 }
 
@@ -1079,6 +1189,10 @@ main.register-user-page {
     .page-404-area p {
         font-size: 1.8rem;
     }
+
+    .login-user-page .form-section {
+        width: 65%;
+    }
 }
 
 @media (max-width: 550px) {
@@ -1140,6 +1254,10 @@ main.register-user-page {
 
     .form-section.container .register-user-form {
         width: 100%;
+    }
+
+    .login-user-page .form-section {
+        width: 80%;
     }
 }
 

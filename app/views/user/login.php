@@ -13,84 +13,40 @@
 <body>
     <?php include_once __DIR__ . '/../partials/header.php'; ?>
 
-    <main class="register-user-page">
-        <section class="form-section container">
-            <form class="register-user-form" id="register-user-form" action="/my-php-mvc-app/user/save" method="POST">
-                <div class="input-group name">
-                    <div class="input-field">
-                        <label for="name">Nome completo:</label>
-                        <input type="text" id="name" name="name" placeholder="fulano da silva" value="<?= htmlspecialchars(trim($old['name'] ?? '')) ?>">
+    <main class="login-user-page">
+        <div class="overlay">
+            <section class="form-section container">
+                <h1>Login</h1>
+                <form class="login-user-form" id="login-user-form" action="/my-php-mvc-app/user/authenticate" method="POST">
+                    <div class="input-group name">
+                        <div class="input-field">
+                            <label for="login">Email:</label>
+                            <input type="text" id="login" name="login" placeholder="example@mail.com" value="<?= htmlspecialchars(trim($old['login'] ?? '')) ?>">
+                        </div>
+                    </div>
+                    <div class="input-group password">
+                        <div class="input-field">
+                            <label for="password">Senha:</label>
+                            <input type="password" id="password" name="password" placeholder="Digite sua senha" value="<?= htmlspecialchars(trim($old['password'] ?? '')) ?>">
+                        </div>
                     </div>
                     <div class="error-area">
-                        <span class="error-message required <?= isset($errors['name_required']) ? 'show-error' : '' ?>">O <strong>Nome Completo</strong> é obrigatório.</span>
-                        <span class="error-message invalid <?= isset($errors['name_length']) ? 'show-error' : '' ?>">O <strong>Nome Completo</strong> precisa ter no mínimo 3 caracteres.</span>
+                        <p class="<?= isset($errors['invalid_credentials']) ? 'show-error' :  '' ?>">Email ou senha incorretos. Tente novamente.</p>
                     </div>
+                    <div class="submit-area">
+                        <button type="submit" class="submit-button button">Logar-se</button>
+                    </div>
+                </form>
+                <div class="register-link-area">
+                    <p>Ainda não possui uma conta? <a href="/my-php-mvc-app/user/register">Registre-se</a></p>
                 </div>
-                <div class="input-group email">
-                    <div class="input-field">
-                        <label for="email">Email:</label>
-                        <input type="email" id="email" name="email" placeholder="fulano@example.com" value="<?= htmlspecialchars(trim($old['email'] ?? '')) ?>">
-                    </div>
-                    <div class="error-area">
-                        <span class="error-message required <?= isset($errors['email_required']) ? 'show-error' : '' ?>">O <strong>Email</strong> é obrigatório.</span>
-                        <span class="error-message invalid <?= isset($errors['email_invalid']) ? 'show-error' : '' ?>">O <strong>Email</strong> informado não é válido.</span>
-                        <span class="error-message exists <?= isset($errors['email_exists']) ? 'show-error' : '' ?>">O <strong>Email</strong> informado já está em uso.</span>
-                    </div>
-                </div>
-                <div class="input-group email-confirmation">
-                    <div class="input-field">
-                        <label for="email_confirmation">Confirmação do Email:</label>
-                        <input type="email" id="email_confirmation" name="email_confirmation" placeholder="fulano@example.com" value="<?= htmlspecialchars(trim($old['email_confirmation'] ?? '')) ?>">
-                    </div>
-                    <div class="error-area">
-                        <span class="error-message required <?= isset($errors['email_confirmation_required']) ? 'show-error' : '' ?>">A <strong>Confirmação do Email</strong> é obrigatório.</span>
-                        <span class="error-message mismatch <?= isset($errors['email_confirmation_mismatch']) ? 'show-error' : '' ?>">O <strong>Email</strong> e a <strong>Confirmação do Email</strong> não coincidem.</span>
-                    </div>
-                </div>
-                <div class="input-group password">
-                    <div class="input-field">
-                        <label for="password">Senha:</label>
-                        <input type="password" id="password" name="password" placeholder="********">
-                    </div>
-                    <div class="error-area">
-                        <span class="error-message required <?= isset($errors['password_required']) ? 'show-error' : '' ?>">A <strong>Senha</strong> é obrigatória.</span>
-                        <span class="error-message invalid <?= isset($errors['password_invalid']) ? 'show-error' : '' ?>">
-                            <strong>Senha:</strong> mínimo 8 caracteres, com maiúsculas, minúsculas, números e símbolos.
-                        </span>
-                    </div>
-                </div>
-                <div class="input-group password-confirmation">
-                    <div class="input-field">
-                        <label for="password_confirmation">Confirmação da Senha:</label>
-                        <input type="password" id="password_confirmation" name="password_confirmation" placeholder="********">
-                    </div>
-                    <div class="error-area">
-                        <span class="error-message required <?= isset($errors['password_confirmation_required']) ? 'show-error' : '' ?>">A <strong>Confirmação de Senha</strong> é obrigatória.</span>
-                        <span class="error-message mismatch <?= isset($errors['password_confirmation_mismatch']) ? 'show-error' : '' ?>">A <strong>Senha</strong> e a <strong>Confirmação da Senha</strong> não coincidem.</span>
-                    </div>
-                </div>
-                <div class="input-group contact">
-                    <div class="input-field">
-                        <label for="contact">Contato:</label>
-                        <input type="text" id="contact" name="contact" placeholder="(XX) XXXXX-XXXX ou (XX) XXXX-XXXX" value="<?= htmlspecialchars(trim($old['contact'] ?? '')) ?>">
-                    </div>
-                    <div class="error-area">
-                        <span class="error-message required <?= isset($errors['phone_required']) ? 'show-error' : '' ?>">O <strong>Contato</strong> é obrigatório.</span>
-                        <span class="error-message invalid <?= isset($errors['phone']) ? 'show-error' : '' ?>">
-                            O <strong>Contato</strong> informado não é válido.
-                        </span>
-                    </div>
-                </div>
-                <div class="submit-area">
-                    <button type="submit" class="submit-button button">Registrar-se</button>
-                </div>
-            </form>
-        </section>
+            </section>
+        </div>
     </main>
 
     <?php include_once __DIR__ . '/../partials/footer.php'; ?>
 
-    <script type="module" src="/my-php-mvc-app/public/assets/js/register-user/script.js?v=1.0.0"></script>
+    <script type="module" src="/my-php-mvc-app/public/assets/js/login-user/script.js?v=1.0.0"></script>
 </body>
 
 </html>

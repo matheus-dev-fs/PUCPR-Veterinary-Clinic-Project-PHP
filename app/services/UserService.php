@@ -37,7 +37,7 @@ class UserService
     {
         $user = $this->userRepository->findByEmail($loginUserDTO->getEmail());
 
-        if ($user === null || !password_verify($loginUserDTO->getPassword(), $user->getPassword())) {
+        if ($user === null || !$this->password_verify($loginUserDTO->getPassword(), $user->getPassword())) {
             return new UserResponseResult(null, ['invalid_credentials' => 'Email ou senha inválidos.']);
         }
 
