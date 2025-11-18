@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace app\services;
 
 use app\dtos\CreateUserDTO;
+use app\dtos\LoginUserDTO;
 use app\repositories\UserRepository;
 use app\responses\UserRegistrationResult;
 
@@ -29,6 +30,17 @@ class UserService
         $createUserDTO = $createUserDTO->setPassword($this->password_hash($createUserDTO->getPassword()));
 
         $user = $this->userRepository->save($createUserDTO);
+        return new UserRegistrationResult($user);
+    }
+
+    public function authenticate(LoginUserDTO $loginUserDTO): UserRegistrationResult
+    {
+        $user = $this->userRepository->findByEmail($loginUserDTO->getEmail());
+
+        if ($user === null || !password_verify($loginUserDTO->getPassword(), $user->getPassword())) {
+            return new UserRegistrationResult(null, ['invalid_credentials' => 'Email ou senha inválidos.']);
+        }
+
         return new UserRegistrationResult($user);
     }
 
@@ -110,5 +122,10 @@ class UserService
     private function password_hash(string $password): string
     {
         return password_hash($password, PASSWORD_BCRYPT);
+    }
+
+    private function password_verify(string $password, string $hashedPassword): bool
+    {
+        return password_verify($password, $hashedPassword);
     }
 }

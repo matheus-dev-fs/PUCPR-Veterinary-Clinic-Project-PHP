@@ -77,8 +77,8 @@ class UserController extends Controller
         }
 
         $loginUserDTO = $this->userMapper->toLoginUserDTO(
-            "dualipa@gmail.com",
-            "Dualipa123@"
+            $_POST['email'] ?? "",
+            $_POST['password'] ?? ""
         );
 
         $authenticationResult = $this->userService->authenticate($loginUserDTO);

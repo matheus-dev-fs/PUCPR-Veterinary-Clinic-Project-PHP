@@ -60,4 +60,29 @@ class UserRepository extends Repository
             throw new \RuntimeException('Failed to save user: ' . $e->getMessage());
         }
     }
+
+    public function findByEmail(string $email): ?User
+    {
+        try {
+            $sql = "SELECT * FROM User WHERE email = :email";
+            $params = [':email' => $email];
+
+            $result = $this->database->fetch($sql, $params);
+
+            if ($result === false) {
+                return null;
+            }
+
+            return new User(
+                id: (int)$result['id'],
+                name: $result['name'],
+                email: $result['email'],
+                password: $result['password'],
+                phone: $result['phone'],
+                createdAt: new \DateTime($result['created_at'])
+            );
+        } catch (\Exception $e) {
+            throw new \RuntimeException('Failed to find user by email: ' . $e->getMessage());
+        }
+    }
 }
