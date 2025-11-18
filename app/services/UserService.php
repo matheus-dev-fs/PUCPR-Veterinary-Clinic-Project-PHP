@@ -7,7 +7,7 @@ namespace app\services;
 use app\dtos\CreateUserDTO;
 use app\dtos\LoginUserDTO;
 use app\repositories\UserRepository;
-use app\responses\UserRegistrationResult;
+use app\responses\UserResponseResult;
 
 class UserService
 {
@@ -18,30 +18,30 @@ class UserService
         $this->userRepository = new UserRepository();
     }
 
-    public function save(CreateUserDTO $createUserDTO): UserRegistrationResult
+    public function save(CreateUserDTO $createUserDTO): UserResponseResult
     {
         $isAllFieldsValid = $this->isAllFieldsValid($createUserDTO);
 
         if ($isAllFieldsValid !== true) {
-            return new UserRegistrationResult(null, $isAllFieldsValid);
+            return new UserResponseResult(null, $isAllFieldsValid);
         }
 
         $createUserDTO = $createUserDTO->setPhone($this->convertPhoneToDatabaseFormat($createUserDTO->getPhone()));
         $createUserDTO = $createUserDTO->setPassword($this->password_hash($createUserDTO->getPassword()));
 
         $user = $this->userRepository->save($createUserDTO);
-        return new UserRegistrationResult($user);
+        return new UserResponseResult($user);
     }
 
-    public function authenticate(LoginUserDTO $loginUserDTO): UserRegistrationResult
+    public function authenticate(LoginUserDTO $loginUserDTO): UserResponseResult
     {
         $user = $this->userRepository->findByEmail($loginUserDTO->getEmail());
 
         if ($user === null || !password_verify($loginUserDTO->getPassword(), $user->getPassword())) {
-            return new UserRegistrationResult(null, ['invalid_credentials' => 'Email ou senha inválidos.']);
+            return new UserResponseResult(null, ['invalid_credentials' => 'Email ou senha inválidos.']);
         }
 
-        return new UserRegistrationResult($user);
+        return new UserResponseResult($user);
     }
 
     private function isAllFieldsValid(CreateUserDTO $createUserDTO): bool | array

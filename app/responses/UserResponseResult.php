@@ -5,7 +5,7 @@ namespace app\responses;
 
 use app\models\User;
 
-class UserRegistrationResult
+class UserResponseResult
 {
     private ?User $user;
     private array $errors;
