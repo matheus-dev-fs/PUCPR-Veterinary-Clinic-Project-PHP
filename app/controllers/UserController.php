@@ -24,7 +24,7 @@ class UserController extends Controller
         $this->userMapper = new UserMapper();
     }
 
-    public function register()
+    public function register(): void
     {
         if (AuthHelper::isUserLoggedIn()) {
             RedirectHelper::redirectToHome();
@@ -36,7 +36,7 @@ class UserController extends Controller
         ]);
     }
 
-    public function save()
+    public function save(): void
     {
         if (AuthHelper::isUserLoggedIn()) {
             RedirectHelper::redirectToHome();
@@ -61,7 +61,7 @@ class UserController extends Controller
         RedirectHelper::redirectToHome();
     }
 
-    public function login()
+    public function login(): void
     {
         if (AuthHelper::isUserLoggedIn()) {
             RedirectHelper::redirectToHome();
@@ -73,7 +73,7 @@ class UserController extends Controller
         ]);
     }
 
-    public function authenticate()
+    public function authenticate(): void
     {
         if (AuthHelper::isUserLoggedIn()) {
             RedirectHelper::redirectToHome();
