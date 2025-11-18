@@ -66,6 +66,35 @@ class UserController extends Controller
         ]);
     }
 
+    public function authenticate()
+    {
+        if ($this->isUserLoggedIn()) {
+            $this->redirectToHome();
+        }
+
+        if (!$this->isPostRequest()) {
+            $this->redirectToLogin();
+        }
+
+        $loginUserDTO = $this->userMapper->toLoginUserDTO(
+            "dualipa@gmail.com",
+            "Dualipa123@"
+        );
+
+        $authenticationResult = $this->userService->authenticate($loginUserDTO);
+
+        if (!$authenticationResult->isSuccess()) {
+            $this->view('user/login', [
+                'errors' => $authenticationResult->getErrors(),
+                'old' => $_POST
+            ]);
+            return;
+        }
+
+        $this->saveUserSession($authenticationResult->getUser());
+        $this->redirectToHome();
+    }
+
     public function logout(): void
     {
         if ($this->isUserLoggedIn()) {
@@ -88,6 +117,12 @@ class UserController extends Controller
     private function redirectToRegister(): void
     {
         header('Location: /my-php-mvc-app/user/register');
+        exit;
+    }
+
+    private function redirectToLogin(): void
+    {
+        header('Location: /my-php-mvc-app/user/login');
         exit;
     }
 
