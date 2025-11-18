@@ -24,7 +24,10 @@ class UserController extends Controller
             $this->redirectToHome();
         }
 
-        $this->view('user/register');
+        $this->view('user/register', [
+            'errors' => [],
+            'old' => []
+        ]);
     }
 
     public function save()
@@ -37,11 +40,13 @@ class UserController extends Controller
         $user = $this->userService->save($createUserDTO);
 
         if ($this->hasErrors($user)) {
-            $this->handleErrors($user['errors']);
-            $this->redirectToRegister();
+            $this->view('user/register', [
+                'errors' => $user['errors'],
+                'old' => $_POST
+            ]);
+            return;
         }
 
-        $this->clearSessionErrors();
         $this->saveUserSession($user);
         $this->redirectToHome();
     }
