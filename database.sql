@@ -61,10 +61,10 @@ INSERT INTO Services (service_name, description) VALUES
 ('Tosa', 'Corte e aparo dos pelos do animal.'),
 ('Vacinação', 'Aplicação de vacinas para prevenção de doenças.');
 
-INSERT INTO Pets (id_user, pet_name, pet_type, gender) VALUES
+INSERT INTO Pets (id_user, `name`, `type`, gender) VALUES
 (1, 'Rex', 'dog', 'M'),
-(2, 'Mia', 'cat', 'F'),
-(2, 'Toby', 'other', 'M');
+(1, 'Mia', 'cat', 'F'),
+(1, 'Toby', 'other', 'M');
 
 INSERT INTO Appointments (id_pet, id_service, appointment_date, appointment_status, observations) VALUES
 (1, 1, '2025-11-20 14:30:00', 'Agendada', 'Rex parece estar coçando muito a orelha.'),

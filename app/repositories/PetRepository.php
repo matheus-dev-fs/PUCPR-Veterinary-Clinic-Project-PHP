@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace app\repositories;
 
 use app\core\Repository;
+use app\dtos\CreatePetDTO;
+use app\models\Pet;
 
 class PetRepository extends Repository
 {
@@ -12,13 +14,34 @@ class PetRepository extends Repository
         throw new \Exception('Not implemented');
     }
 
-    public function findByName(string $name): ?object
+    public function save(CreatePetDTO $createPetDTO): ?Pet
     {
-        throw new \Exception('Not implemented');
-    }
+        try {
+            $sql = "INSERT INTO Pets (id_user, name, type, gender) VALUES (:id_user, :name, :type, :gender)";
+            $params = [
+                ':id_user' => $createPetDTO->getIdUser(),
+                ':name'    => $createPetDTO->getName(),
+                ':type'    => $createPetDTO->getType(),
+                ':gender'  => $createPetDTO->getGender()
+            ];
 
-    public function existsByName(string $name): bool
-    {
-        throw new \Exception('Not implemented');
+            $rows = $this->database->execute($sql, $params);
+
+            if ($rows === 0) {
+                return null;
+            }
+
+            $lastInsertId = (int)$this->database->lastInsertId();
+
+            return new Pet(
+                $lastInsertId,
+                $createPetDTO->getIdUser(),
+                $createPetDTO->getName(),
+                $createPetDTO->getType(),
+                $createPetDTO->getGender()
+            );
+        } catch (\Exception $e) {
+            throw new \Exception('Error saving pet: ' . $e->getMessage());
+        }   
     }
 }
