@@ -31,12 +31,12 @@
                     <div class="right-area">
                         <form class="new-pet-form" id="new-pet-form" action="/my-php-mvc-app/pets/create" method="POST">
                             <div class="input-group">
-                                <label for="petName">Nome do Pet</label>
+                                <label for="name">Nome do Pet</label>
                                 <div class="input-area pet-name">
-                                    <input class="input" type="text" id="petName" name="petName" placeholder="Rex">
+                                    <input class="input" type="text" id="name" name="name" placeholder="Rex" value="<?= htmlspecialchars(trim($old['name'] ?? '')) ?>">
                                     <div class="error-area">
-                                        <span class="error-msg required">O nome do pet é obrigatório.</span>
-                                        <span class="error-msg invalid">Precisa de pelo menos 3 caracteres.</span>
+                                        <span class="error-msg required <?= isset($errors['name_required']) && $errors['name_required'] ? 'show-error' : '' ?>">O nome do pet é obrigatório.</span>
+                                        <span class="error-msg invalid <?= isset($errors['name_length']) && $errors['name_length'] ? 'show-error' : '' ?>">Precisa de pelo menos 3 caracteres.</span>
                                     </div>
                                 </div>
                             </div>
@@ -44,11 +44,11 @@
                                 <label>Sexo do Pet</label>
                                 <div class="input-area pet-sex">
                                     <div class="left">
-                                        <input type="radio" id="male" name="sex" value="M" checked>
+                                        <input type="radio" id="male" name="gender" value="M" <?= (isset($old['gender']) && $old['gender'] === 'M' || !isset($old['gender'])) ? 'checked' : '' ?>>
                                         <label for="male">Macho</label>
                                     </div>
                                     <div class="right">
-                                        <input type="radio" id="female" name="sex" value="F">
+                                        <input type="radio" id="female" name="gender" value="F" <?= isset($old['gender']) && $old['gender'] === 'F' ? 'checked' : '' ?>>
                                         <label for="female">Fêmea</label>
                                     </div>
                                 </div>
@@ -56,14 +56,14 @@
                             <div class="input-group">
                                 <label for="type">Tipo do Pet</label>
                                 <div class="input-area type">
-                                    <select id="type" name="type">
+                                    <select id="type" name="type" value="<?= htmlspecialchars(trim($old['type'] ?? '')) ?>">
                                         <option value="">Selecione</option>
                                         <option value="dog">Cão</option>
                                         <option value="cat">Gato</option>
                                         <option value="other">Outro</option>
                                     </select>
                                     <div class="error-area">
-                                        <span class="error-msg required">Selecione um tipo.</span>
+                                        <span class="error-msg required <?= isset($errors['type_required']) && $errors['type_required'] ? 'show-error' : '' ?>">Selecione um tipo.</span>
                                     </div>
                                 </div>
                             </div>

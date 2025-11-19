@@ -12,7 +12,7 @@ class AuthHelper
         return isset($_SESSION['user']);
     }
 
-    public static function getUserId(): ?int
+    public static function getUserLoggedId(): ?int
     {
         return $_SESSION['user']['id'] ?? null;
     }
