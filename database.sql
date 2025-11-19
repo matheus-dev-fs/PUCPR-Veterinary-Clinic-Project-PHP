@@ -25,8 +25,8 @@ CREATE TABLE IF NOT EXISTS Services (
 CREATE TABLE IF NOT EXISTS Pets (
     id INT AUTO_INCREMENT PRIMARY KEY,
     id_user INT NOT NULL,
-    pet_name VARCHAR(100) NOT NULL,
-    pet_type ENUM('dog', 'cat', 'other') NOT NULL,
+    `name` VARCHAR(100) NOT NULL,
+    `type` ENUM('dog', 'cat', 'other') NOT NULL,
     gender CHAR(1) COMMENT 'M for Male, F for Female',
     
     FOREIGN KEY (id_user) 
