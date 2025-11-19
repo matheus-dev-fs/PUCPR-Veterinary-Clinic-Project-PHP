@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace app\services;
 
 use app\repositories\PetRepository;
+use app\core\Database;
 
 class PetService
 {
@@ -11,6 +12,6 @@ class PetService
 
     public function __construct()
     {
-        $this->petRepository = new PetRepository();
+        $this->petRepository = new PetRepository(Database::getInstance());
     }
 }

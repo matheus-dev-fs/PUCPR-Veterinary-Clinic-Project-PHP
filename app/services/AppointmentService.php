@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace app\services;
 
 use app\repositories\AppointmentRepository;
+use app\core\Database;
 
 class AppointmentService
 {
@@ -11,6 +12,6 @@ class AppointmentService
 
     public function __construct()
     {
-        $this->appointmentRepository = new AppointmentRepository();
+        $this->appointmentRepository = new AppointmentRepository(Database::getInstance());
     }
 }

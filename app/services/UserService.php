@@ -8,6 +8,7 @@ use app\dtos\CreateUserDTO;
 use app\dtos\LoginUserDTO;
 use app\repositories\UserRepository;
 use app\responses\UserResponseResult;
+use app\core\Database;
 
 class UserService
 {
@@ -15,7 +16,7 @@ class UserService
 
     public function __construct()
     {
-        $this->userRepository = new UserRepository();
+        $this->userRepository = new UserRepository(Database::getInstance());
     }
 
     public function save(CreateUserDTO $createUserDTO): UserResponseResult
