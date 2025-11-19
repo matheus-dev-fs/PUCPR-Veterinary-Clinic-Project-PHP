@@ -26,6 +26,7 @@ CREATE TABLE IF NOT EXISTS Pets (
     id INT AUTO_INCREMENT PRIMARY KEY,
     id_user INT NOT NULL,
     pet_name VARCHAR(100) NOT NULL,
+    pet_type ENUM('dog', 'cat', 'other') NOT NULL,
     gender CHAR(1) COMMENT 'M for Male, F for Female',
     
     FOREIGN KEY (id_user) 
@@ -60,10 +61,10 @@ INSERT INTO Services (service_name, description) VALUES
 ('Tosa', 'Corte e aparo dos pelos do animal.'),
 ('Vacinação', 'Aplicação de vacinas para prevenção de doenças.');
 
-INSERT INTO Pets (id_user, pet_name, gender) VALUES
-(1, 'Rex', 'M'),
-(2, 'Mia', 'F'),
-(2, 'Toby', 'M');
+INSERT INTO Pets (id_user, pet_name, pet_type, gender) VALUES
+(1, 'Rex', 'dog', 'M'),
+(2, 'Mia', 'cat', 'F'),
+(2, 'Toby', 'other', 'M');
 
 INSERT INTO Appointments (id_pet, id_service, appointment_date, appointment_status, observations) VALUES
 (1, 1, '2025-11-20 14:30:00', 'Agendada', 'Rex parece estar coçando muito a orelha.'),
