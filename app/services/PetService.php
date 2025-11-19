@@ -5,6 +5,8 @@ namespace app\services;
 
 use app\repositories\PetRepository;
 use app\core\Database;
+use app\dtos\CreatePetDTO;
+use app\responses\PetResponseResult;
 
 class PetService
 {
@@ -13,5 +15,36 @@ class PetService
     public function __construct()
     {
         $this->petRepository = new PetRepository(Database::getInstance());
+    }
+
+    public function save(CreatePetDTO $createPetDTO): PetResponseResult
+    {
+        $isAllFieldsValid = $this->isAllFieldsValid($createPetDTO);
+
+        if ($isAllFieldsValid !== true) {
+            return new PetResponseResult(null, $isAllFieldsValid);
+        }
+
+        $pet = $this->petRepository->save($createPetDTO);
+        return new PetResponseResult($pet);
+    }
+
+    private function isAllFieldsValid(CreatePetDTO $createPetDTO): bool | array
+    {
+        $errors = [];
+
+        if (empty($createPetDTO->getName())) {
+            $errors['name_required'] = true;
+        } elseif (strlen($createPetDTO->getName()) < 3) {
+            $errors['name_length'] = true;
+        }
+
+        if (empty($createPetDTO->getType())) {
+            $errors['type_required'] = true;
+        } elseif (!in_array($createPetDTO->getType(), ['dog', 'cat', 'other'])) {
+            $errors['type_invalid'] = true;
+        }
+
+        return empty($errors) ? true : $errors;
     }
 }
