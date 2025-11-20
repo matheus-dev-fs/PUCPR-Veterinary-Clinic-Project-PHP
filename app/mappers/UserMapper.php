@@ -6,6 +6,7 @@ namespace app\mappers;
 
 use app\dtos\CreateUserDTO;
 use app\dtos\LoginUserDTO;
+use app\utils\Sanitizer;
 
 class UserMapper
 {
@@ -18,12 +19,12 @@ class UserMapper
         ?string $phone
     ): CreateUserDTO {
         return new CreateUserDTO(
-            $this->sanitize($name ?? ''),
-            $this->sanitize($email ?? ''),
-            $this->sanitize($emailConfirmation ?? ''),
-            $this->sanitize($password ?? ''),
-            $this->sanitize($passwordConfirmation ?? ''),
-            $this->sanitize($phone ?? '')
+            Sanitizer::sanitize($name ?? ''),
+            Sanitizer::sanitize($email ?? ''),
+            Sanitizer::sanitize($emailConfirmation ?? ''),
+            Sanitizer::sanitize($password ?? ''),
+            Sanitizer::sanitize($passwordConfirmation ?? ''),
+            Sanitizer::sanitize($phone ?? '')
         );
     }
 
@@ -32,13 +33,8 @@ class UserMapper
         ?string $password
     ): LoginUserDTO {
         return new LoginUserDTO(
-            $this->sanitize($email ?? ''),
-            $this->sanitize($password ?? '')
+            Sanitizer::sanitize($email ?? ''),
+            Sanitizer::sanitize($password ?? '')
         );
-    }
-
-    private function sanitize(string $value): string
-    {
-        return htmlspecialchars(trim($value));
     }
 }

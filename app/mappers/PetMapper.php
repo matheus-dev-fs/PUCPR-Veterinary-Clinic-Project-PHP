@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace app\mappers;
 
 use app\dtos\CreatePetDTO;
+use app\utils\Sanitizer;
 
 class PetMapper
 {
@@ -16,14 +17,9 @@ class PetMapper
     ): CreatePetDTO {
         return new CreatePetDTO(
             $id_user,
-            $this->sanitize($name ?? ''),
-            $this->sanitize($type ?? ''),
-            $this->sanitize($gender ?? '')
+            Sanitizer::sanitize($name ?? ''),
+            Sanitizer::sanitize($type ?? ''),
+            Sanitizer::sanitize($gender ?? '')
         );
-    }
-
-    private function sanitize(string  $value): string
-    {
-        return htmlspecialchars(trim($value));
     }
 }
