@@ -30,7 +30,7 @@ class RedirectHelper
 
     public static function redirectToPets(): void
     {
-        header('Location: /my-php-mvc-app/pets/');
+        header('Location: /my-php-mvc-app/pet/');
         exit;
     }
 

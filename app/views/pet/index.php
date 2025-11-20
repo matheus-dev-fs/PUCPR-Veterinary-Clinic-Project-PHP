@@ -23,7 +23,7 @@ use app\utils\PetUtils; ?>
                 <div class="header-area">
                     <h1>Meus Pets</h1>
                     <div class="new-pet-button">
-                        <button class="button"><a href="/my-php-mvc-app/pets/new">Adicionar Pet</a></button>
+                        <button class="button"><a href="/my-php-mvc-app/pet/new">Adicionar Pet</a></button>
                     </div>
                 </div>
                 <div class="content-area">
@@ -41,7 +41,7 @@ use app\utils\PetUtils; ?>
                                     </div>
                                     <div class="pet-actions">
                                         <button class="edit-button">
-                                            <a href="/my-php-mvc-app/pets/edit/<?= $pet->getId() ?>">
+                                            <a href="/my-php-mvc-app/pet/edit/<?= $pet->getId() ?>">
                                                 <i class="fa-solid fa-pen-to-square"></i>
                                             </a>
                                         </button>
@@ -60,7 +60,7 @@ use app\utils\PetUtils; ?>
                     <div class="delete-pet-box">
                         <h2 class="title">Tem certeza que deseja deletar este pet?</h2>
                         <p class="text">Essa ação não poderá ser desfeita!</p>
-                        <form method="POST" class="delete-pet-form" action="/my-php-mvc-app/pets/delete/">
+                        <form method="POST" class="delete-pet-form" action="/my-php-mvc-app/pet/delete/">
                             <input type="hidden" name="pet-id" value="">
                             <div class="buttons-area">
                                 <button type="button" class="cancel-button button">Cancelar</button>

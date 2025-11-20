@@ -12,7 +12,7 @@ use app\services\PetService;
 use app\mappers\PetMapper;
 use app\dtos\CreatePetDTO;
 
-class PetsController extends Controller
+class PetController extends Controller
 {
     private PetService $petService;
     private PetMapper $petMapper;
@@ -31,9 +31,9 @@ class PetsController extends Controller
 
         $pets = $this->petService->getAllByUserId(AuthHelper::getUserLoggedId());
 
-        $this->view('pets/index', [
+        $this->view('pet/index', [
             'pets' => $pets ?? [],
-            'view' => 'pets/index'
+            'view' => 'pet/index'
         ]);
     }
 
@@ -43,10 +43,10 @@ class PetsController extends Controller
             RedirectHelper::redirectToLogin();
         }
 
-        $this->view('pets/new', [
+        $this->view('pet/new', [
             'errors' => [],
             'old' => [],
-            'view' => 'pets/new'
+            'view' => 'pet/new'
         ]);
     }
 
@@ -64,10 +64,10 @@ class PetsController extends Controller
         $petResponseResult = $this->petService->save($createPetDTO);
 
         if (!$petResponseResult->isSuccess()) {
-            $this->view('pets/new', [
+            $this->view('pet/new', [
                 'errors' => $petResponseResult->getErrors(),
                 'old' => $_POST,
-                'view' => 'pets/new'
+                'view' => 'pet/new'
             ]);
             return;
         }

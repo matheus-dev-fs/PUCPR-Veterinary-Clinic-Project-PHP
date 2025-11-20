@@ -29,7 +29,7 @@
                         </div>
                     </div>
                     <div class="right-area">
-                        <form class="new-pet-form" id="new-pet-form" action="/my-php-mvc-app/pets/create" method="POST">
+                        <form class="new-pet-form" id="new-pet-form" action="/my-php-mvc-app/pet/create" method="POST">
                             <div class="input-group">
                                 <label for="name">Nome do Pet</label>
                                 <div class="input-area pet-name">
