@@ -5,30 +5,36 @@ namespace app\models;
 
 class Pet {
     private int $id;
-    private int $id_cliente;
-    private string $nome_pet;
-    private string $sexo;
+    private int $id_user;
+    private string $name;
+    private string $type;
+    private string $gender;
 
-    public function __construct(int $id, int $id_cliente, string $nome_pet, string $sexo) {
+    public function __construct(int $id, int $id_user, string $name, string $type,string $gender) {
         $this->id = $id;
-        $this->id_cliente = $id_cliente;
-        $this->nome_pet = $nome_pet;
-        $this->sexo = $sexo;
+        $this->id_user = $id_user;
+        $this->name = $name;
+        $this->type = $type;
+        $this->gender = $gender;
     }
 
     public function getId(): int {
         return $this->id;
     }
 
-    public function getIdCliente(): int {
-        return $this->id_cliente;
+    public function getIdUser(): int {
+        return $this->id_user;
     }
 
-    public function getNomePet(): string {
-        return $this->nome_pet;
+    public function getName(): string {
+        return $this->name;
     }
 
-    public function getSexo(): string {
-        return $this->sexo;
+    public function getType(): string {
+        return $this->type;
+    }
+
+    public function getGender(): string {
+        return $this->gender;
     }
 }

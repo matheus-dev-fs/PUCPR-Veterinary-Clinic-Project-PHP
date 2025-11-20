@@ -6,6 +6,7 @@ namespace app\repositories;
 use app\core\Repository;
 use app\dtos\CreatePetDTO;
 use app\models\Pet;
+use app\mappers\PetMapper;
 
 class PetRepository extends Repository
 {
@@ -43,5 +44,18 @@ class PetRepository extends Repository
         } catch (\Exception $e) {
             throw new \Exception('Error saving pet: ' . $e->getMessage());
         }   
+    }
+
+    public function getAllByUserId(int $userId): array
+    {
+        try {
+            $sql = "SELECT id, id_user, `name`, `type`, gender FROM Pets WHERE id_user = :id_user";
+            $params = [':id_user' => $userId];
+
+            $results = $this->database->fetchAll($sql, $params);
+            return PetMapper::toPetArray($results);
+        } catch (\Exception $e) {
+            throw new \Exception('Error retrieving pets: ' . $e->getMessage());
+        }
     }
 }

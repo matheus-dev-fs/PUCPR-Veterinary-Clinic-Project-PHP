@@ -29,7 +29,11 @@ class PetsController extends Controller
             RedirectHelper::redirectToLogin();
         }
 
-        $this->view('pets/index');
+        $pets = $this->petService->getAllByUserId(AuthHelper::getUserLoggedId());
+
+        $this->view('pets/index', [
+            'pets' => $pets ?? []
+        ]);
     }
 
     public function new(): void

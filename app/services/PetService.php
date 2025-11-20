@@ -29,6 +29,11 @@ class PetService
         return new PetResponseResult($pet);
     }
 
+    public function getAllByUserId(int $userId): array
+    {
+        return $this->petRepository->getAllByUserId($userId);
+    } 
+
     private function isAllFieldsValid(CreatePetDTO $createPetDTO): bool | array
     {
         $errors = [];

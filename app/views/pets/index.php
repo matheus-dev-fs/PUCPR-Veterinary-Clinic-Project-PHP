@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0">
-    <link rel="stylesheet" href="/my-php-mvc-app/public/assets/css/style.css?v=3.0.0" />
+    <link rel="stylesheet" href="/my-php-mvc-app/public/assets/css/style.css?v=4.0.0" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="icon" href="/my-php-mvc-app/public/assets/images/favicon.svg" type="image/svg+xml">
     <title>Cliníca Veterinária</title>
@@ -20,128 +20,36 @@
                     <h1>Meus Pets</h1>
                     <div class="new-pet-button">
                         <button class="button"><a href="/my-php-mvc-app/pets/new">Adicionar Pet</a></button>
-                    </div> 
+                    </div>
                 </div>
                 <div class="content-area">
-                    <div class="no-pets">
+                    <div class="no-pets <?php echo (!empty($pets)) ? 'desactive' : '' ?>">
                         <h1 class="">Você ainda não possui pets cadastrados.</h1>
                     </div>
-                    <ul class="pet-items desactive">
-                        <li class="item">
-                            <div class=pet-infos>
-                                <p><strong>Nome:</strong> Rex</p>
-                                <p><strong>Tipo:</strong> Cão</p>
-                                <p><strong>Sexo:</strong> Macho</p>
-                            </div>
-                            <div class="pet-actions">
-                                <button class="edit-button">
-                                    <a href="/my-php-mvc-app/pets/edit/1">
-                                        <i class="fa-solid fa-pen-to-square"></i>
-                                    </a>
-                                </button>
-                                <button class="delete-button">
-                                    <a href="/my-php-mvc-app/pets/delete/1">
-                                        <i class="fa-solid fa-trash"></i>
-                                    </a>
-                                </button>
-                            </div>
-                        </li>
-                        <li class="item">
-                            <div class=pet-infos>
-                                <p><strong>Nome:</strong> Rex</p>
-                                <p><strong>Tipo:</strong> Cão</p>
-                                <p><strong>Sexo:</strong> Macho</p>
-                            </div>
-                            <div class="pet-actions">
-                                <button class="edit-button">
-                                    <a href="/my-php-mvc-app/pets/edit/1">
-                                        <i class="fa-solid fa-pen-to-square"></i>
-                                    </a>
-                                </button>
-                                <button class="delete-button">
-                                    <a href="/my-php-mvc-app/pets/delete/1">
-                                        <i class="fa-solid fa-trash"></i>
-                                    </a>
-                                </button>
-                            </div>
-                        </li>
-                        <li class="item">
-                            <div class=pet-infos>
-                                <p><strong>Nome:</strong> Rex</p>
-                                <p><strong>Tipo:</strong> Cão</p>
-                                <p><strong>Sexo:</strong> Macho</p>
-                            </div>
-                            <div class="pet-actions">
-                                <button class="edit-button">
-                                    <a href="/my-php-mvc-app/pets/edit/1">
-                                        <i class="fa-solid fa-pen-to-square"></i>
-                                    </a>
-                                </button>
-                                <button class="delete-button">
-                                    <a href="/my-php-mvc-app/pets/delete/1">
-                                        <i class="fa-solid fa-trash"></i>
-                                    </a>
-                                </button>
-                            </div>
-                        </li>
-                        <li class="item">
-                            <div class=pet-infos>
-                                <p><strong>Nome:</strong> Rex</p>
-                                <p><strong>Tipo:</strong> Cão</p>
-                                <p><strong>Sexo:</strong> Macho</p>
-                            </div>
-                            <div class="pet-actions">
-                                <button class="edit-button">
-                                    <a href="/my-php-mvc-app/pets/edit/1">
-                                        <i class="fa-solid fa-pen-to-square"></i>
-                                    </a>
-                                </button>
-                                <button class="delete-button">
-                                    <a href="/my-php-mvc-app/pets/delete/1">
-                                        <i class="fa-solid fa-trash"></i>
-                                    </a>
-                                </button>
-                            </div>
-                        </li>
-                        <li class="item">
-                            <div class=pet-infos>
-                                <p><strong>Nome:</strong> Rex</p>
-                                <p><strong>Tipo:</strong> Cão</p>
-                                <p><strong>Sexo:</strong> Macho</p>
-                            </div>
-                            <div class="pet-actions">
-                                <button class="edit-button">
-                                    <a href="/my-php-mvc-app/pets/edit/1">
-                                        <i class="fa-solid fa-pen-to-square"></i>
-                                    </a>
-                                </button>
-                                <button class="delete-button">
-                                    <a href="/my-php-mvc-app/pets/delete/1">
-                                        <i class="fa-solid fa-trash"></i>
-                                    </a>
-                                </button>
-                            </div>
-                        </li>
-                        <li class="item">
-                            <div class=pet-infos>
-                                <p><strong>Nome:</strong> Rex</p>
-                                <p><strong>Tipo:</strong> Cão</p>
-                                <p><strong>Sexo:</strong> Macho</p>
-                            </div>
-                            <div class="pet-actions">
-                                <button class="edit-button">
-                                    <a href="/my-php-mvc-app/pets/edit/1">
-                                        <i class="fa-solid fa-pen-to-square"></i>
-                                    </a>
-                                </button>
-                                <button class="delete-button">
-                                    <a href="/my-php-mvc-app/pets/delete/1">
-                                        <i class="fa-solid fa-trash"></i>
-                                    </a>
-                                </button>
-                            </div>
-                        </li>
-
+                    <ul class="pet-items <?php echo (empty($pets)) ? 'desactive' : '' ?>">
+                        <?php if (!empty($pets)) : ?>
+                            <?php foreach ($pets as $pet) : ?>
+                                <li class="item">
+                                    <div class=pet-infos>
+                                        <p><strong>Nome:</strong> <?= $pet->getName() ?></p>
+                                        <p><strong>Tipo:</strong> <?= $pet->getType() ?></p>
+                                        <p><strong>Sexo:</strong> <?= $pet->getGender() ?></p>
+                                    </div>
+                                    <div class="pet-actions">
+                                        <button class="edit-button">
+                                            <a href="/my-php-mvc-app/pets/edit/<?= $pet->getId() ?>">
+                                                <i class="fa-solid fa-pen-to-square"></i>
+                                            </a>
+                                        </button>
+                                        <button class="delete-button">
+                                            <a href="/my-php-mvc-app/pets/delete/<?= $pet->getId() ?>">
+                                                <i class="fa-solid fa-trash"></i>
+                                            </a>
+                                        </button>
+                                    </div>
+                                </li>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
                     </ul>
                 </div>
             </div>

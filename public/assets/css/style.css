@@ -1230,7 +1230,7 @@ main.pets-page .overlay {
     text-align: center;
 }
 
-.pets-page .pets-list .content-area h1.desactive,
+.pets-page .pets-list .content-area .no-pets.desactive,
 .pets-page .pets-list .content-area .pet-items.desactive {
     display: none;
 }
