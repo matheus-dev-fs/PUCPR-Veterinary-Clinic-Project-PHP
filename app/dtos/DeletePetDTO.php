@@ -7,17 +7,17 @@ namespace app\dtos;
 class DeletePetDTO
 {
     public function __construct(
-        private readonly int $user_id,
-        private readonly int $pet_id
+        private readonly int $userId,
+        private readonly int $petId
     ) {}
 
     public function getUserId(): int
     {
-        return $this->user_id;
+        return $this->userId;
     }
 
     public function getPetId(): int
     {
-        return $this->pet_id;
+        return $this->petId;
     }
 }

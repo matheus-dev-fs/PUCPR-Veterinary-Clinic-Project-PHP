@@ -32,7 +32,8 @@ class UserController extends Controller
 
         $this->view('user/register', [
             'errors' => [],
-            'old' => []
+            'old' => [],
+            'view' => 'user/register'
         ]);
     }
 
@@ -52,7 +53,8 @@ class UserController extends Controller
         if (!$userRegistrationResult->isSuccess()) {
             $this->view('user/register', [
                 'errors' => $userRegistrationResult->getErrors(),
-                'old' => $_POST
+                'old' => $_POST,
+                'view' => 'user/register'
             ]);
             return;
         }
@@ -69,7 +71,8 @@ class UserController extends Controller
 
         $this->view('user/login', [
             'errors' => [],
-            'old' => []
+            'old' => [],
+            'view' => 'user/login'
         ]);
     }
 
@@ -93,7 +96,8 @@ class UserController extends Controller
         if (!$authenticationResult->isSuccess()) {
             $this->view('user/login', [
                 'errors' => $authenticationResult->getErrors(),
-                'old' => $_POST
+                'old' => $_POST,
+                'view' => 'user/login'
             ]);
             return;
         }

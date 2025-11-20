@@ -7,9 +7,10 @@ use app\core\Controller;
 
 class ScheduleController extends Controller
 {
-    public function index()
+    public function index(): void
     {
-        $this->view('schedule/index');
+        $this->view('schedule/index', [
+            'view' => 'schedule/index'
+        ]);
     }
-
 }

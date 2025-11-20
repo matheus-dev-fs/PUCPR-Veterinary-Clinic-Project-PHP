@@ -6,24 +6,24 @@ namespace app\models;
 class Service
 {
     private int $id;
-    private string $nome_servico;
-    private string $descricao;
+    private string $name;
+    private string $description;
 
-    public function __construct(int $id, string $nome_servico, string $descricao, float $preco, \DateTime $dataCriacao) {
+    public function __construct(int $id, string $name, string $description) {
         $this->id = $id;
-        $this->nome_servico = $nome_servico;
-        $this->descricao = $descricao;
+        $this->name = $name;
+        $this->description = $description;
     }
 
     public function getId(): int {
         return $this->id;
     }
 
-    public function getNomeServico(): string {
-        return $this->nome_servico;
+    public function getName(): string {
+        return $this->name;
     }
 
-    public function getDescricao(): string {
-        return $this->descricao;
+    public function getDescription(): string {
+        return $this->description;
     }
 }

@@ -32,13 +32,13 @@ class PetService
 
     public function delete(DeletePetDTO $deletePetDTO): PetResponseResult 
     {
-        $pet = $this->petRepository->findById((int) $deletePetDTO->getPetId());
+        $pet = $this->petRepository->findById($deletePetDTO->getPetId());
 
         if ($pet === null) {
             return new PetResponseResult(null, ['pet_not_found' => true]);
         }
 
-        if ($pet->getIdUser() !== $deletePetDTO->getUserId()) {
+        if ($pet->getUserId() !== $deletePetDTO->getUserId()) {
             return new PetResponseResult(null, ['unauthorized' => true]);
         }
 

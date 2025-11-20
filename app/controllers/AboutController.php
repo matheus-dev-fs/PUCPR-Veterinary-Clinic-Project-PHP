@@ -7,8 +7,10 @@ use app\core\Controller;
 
 class AboutController extends Controller
 {
-    public function index()
+    public function index(): void
     {
-        $this->view('about/index');
+        $this->view('about/index', [
+            'view' => 'about/index'
+        ]);
     }
 }

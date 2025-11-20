@@ -6,15 +6,15 @@ namespace app\dtos;
 class CreatePetDTO
 {
     public function __construct(
-        private readonly int $id_user,
+        private readonly int $userId,
         private readonly string $name,
         private readonly string $type,
         private readonly string $gender
     ) {}
 
-    public function getIdUser(): int
+    public function getUserId(): int
     {
-        return $this->id_user;
+        return $this->userId;
     }
 
     public function getName(): string

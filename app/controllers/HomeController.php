@@ -7,8 +7,10 @@ use app\core\Controller;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function index(): void
     {
-        $this->view('home/index');
+        $this->view('home/index', [
+            'view' => 'home/index'
+        ]);
     }
 }

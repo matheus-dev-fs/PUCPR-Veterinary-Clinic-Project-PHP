@@ -6,42 +6,49 @@ namespace app\models;
 class Appointment 
 {
     private int $id;
-    private int $id_pet;
-    private int $id_servico;
-    private \DateTime $data_consulta;
-    private string $status_consulta;
-    private string $observacoes;
+    private int $petId;
+    private int $serviceId;
+    private \DateTime $appointmentDate;
+    private string $status;
+    private string $observations;
 
-    public function __construct(int $id, int $id_pet, int $id_servico, \DateTime $data_consulta, string $status_consulta, string $observacoes) {
+    public function __construct(
+        int $id, 
+        int $petId, 
+        int $serviceId, 
+        \DateTime $appointmentDate, 
+        string $status, 
+        string $observations
+    ) {
         $this->id = $id;
-        $this->id_pet = $id_pet;
-        $this->id_servico = $id_servico;
-        $this->data_consulta = $data_consulta;
-        $this->status_consulta = $status_consulta;
-        $this->observacoes = $observacoes;
+        $this->petId = $petId;
+        $this->serviceId = $serviceId;
+        $this->appointmentDate = $appointmentDate;
+        $this->status = $status;
+        $this->observations = $observations;
     }
 
     public function getId(): int {
         return $this->id;
     }
 
-    public function getIdPet(): int {
-        return $this->id_pet;
+    public function getPetId(): int {
+        return $this->petId;
     }
 
-    public function getIdServico(): int {
-        return $this->id_servico;
+    public function getServiceId(): int {
+        return $this->serviceId;
     }
 
-    public function getDataConsulta(): \DateTime {
-        return $this->data_consulta;
+    public function getAppointmentDate(): \DateTime {
+        return $this->appointmentDate;
     }
 
-    public function getStatusConsulta(): string {
-        return $this->status_consulta;
+    public function getStatus(): string {
+        return $this->status;
     }
 
-    public function getObservacoes(): string {
-        return $this->observacoes;
+    public function getObservations(): string {
+        return $this->observations;
     }
 }

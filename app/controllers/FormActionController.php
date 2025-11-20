@@ -6,8 +6,9 @@ namespace app\controllers;
 use app\core\Controller;
 
 class FormActionController extends Controller {
-    public function index() {
-        $this->view('formAction/index');
+    public function index(): void {
+        $this->view('formAction/index', [
+            'view' => 'formAction/index'
+        ]);
     }
-
 }

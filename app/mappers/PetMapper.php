@@ -12,13 +12,13 @@ use app\utils\Sanitizer;
 class PetMapper
 {
     public function toCreatePetDTO(
-        ?int $id_user,
+        ?int $userId,
         ?string $name,
         ?string $type,
         ?string $gender
     ): CreatePetDTO {
         return new CreatePetDTO(
-            $id_user,
+            $userId,
             Sanitizer::sanitize($name ?? ''),
             Sanitizer::sanitize($type ?? ''),
             Sanitizer::sanitize($gender ?? '')
@@ -38,7 +38,7 @@ class PetMapper
         return \array_map(function (array $item): Pet {
             return new Pet(
                 $item['id'],
-                $item['id_user'],
+                $item['user_id'],
                 $item['name'],
                 $item['type'],
                 $item['gender']
@@ -49,7 +49,7 @@ class PetMapper
     public static function responseToPet(array $data): Pet {
         return new Pet(
             $data['id'],
-            $data['id_user'],
+            $data['user_id'],
             $data['name'],
             $data['type'],
             $data['gender']

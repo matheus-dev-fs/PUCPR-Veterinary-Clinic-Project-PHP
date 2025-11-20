@@ -32,7 +32,8 @@ class PetsController extends Controller
         $pets = $this->petService->getAllByUserId(AuthHelper::getUserLoggedId());
 
         $this->view('pets/index', [
-            'pets' => $pets ?? []
+            'pets' => $pets ?? [],
+            'view' => 'pets/index'
         ]);
     }
 
@@ -42,7 +43,11 @@ class PetsController extends Controller
             RedirectHelper::redirectToLogin();
         }
 
-        $this->view('pets/new');
+        $this->view('pets/new', [
+            'errors' => [],
+            'old' => [],
+            'view' => 'pets/new'
+        ]);
     }
 
     public function create(): void
@@ -61,7 +66,8 @@ class PetsController extends Controller
         if (!$petResponseResult->isSuccess()) {
             $this->view('pets/new', [
                 'errors' => $petResponseResult->getErrors(),
-                'old' => $_POST
+                'old' => $_POST,
+                'view' => 'pets/new'
             ]);
             return;
         }
@@ -104,9 +110,9 @@ class PetsController extends Controller
     {
         return $this->petMapper->toCreatePetDTO(
             AuthHelper::getUserLoggedId(),
-            $_POST['name'],
-            $_POST['type'],
-            $_POST['gender'],
+            $_POST['name'] ?? null,
+            $_POST['type'] ?? null,
+            $_POST['gender'] ?? null
         );
     }
 }
