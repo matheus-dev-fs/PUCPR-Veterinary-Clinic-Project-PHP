@@ -1165,6 +1165,139 @@ main.new-pet-page .overlay {
     cursor: pointer;
 }
 
+/* PETS PAGE */
+main.pets-page {
+    background-image: url('../images/banner/bem-vindo.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+main.pets-page .overlay {
+    background-color: rgba(0, 0, 0, 0.6);
+    width: 100%;
+    height: 100%;
+    height: calc(100vh - 80px);
+    padding: 2rem;
+}
+
+.pets-page .pets-list {
+    width: 70%;
+}
+
+.pets-page .pets-list .header-area {
+    background-color: var(--primary-color);
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pets-page .pets-list .header-area h1 {
+    color: var(--background-color);
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+.pets-page .pets-list .header-area .button {
+    background-color: var(--background-color);
+}
+
+.pets-page .pets-list .header-area .button a {
+    text-decoration: none;
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+.pets-page .pets-list .content-area {
+    background-color: var(--background-color);
+    padding: 1rem;
+    height: 60vh;
+    max-height: 60vh;
+}
+
+.pets-page .pets-list .content-area .no-pets {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pets-page .pets-list .content-area h1 {
+    color: var(--dark-grey-color);
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+.pets-page .pets-list .content-area h1.desactive,
+.pets-page .pets-list .content-area .pet-items.desactive {
+    display: none;
+}
+
+.pets-page .pets-list .content-area .pet-items {
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0 0.5rem;
+}
+
+.pets-page .pets-list .content-area .pet-items .item {
+    display: flex;
+    align-items: center;
+    height: 3.5rem;
+    min-height: 3.5rem;
+    max-height: 3.5rem;
+    width: 100%;
+    background-color: var(--grey-color);
+    border: 0.1rem solid var(--primary-color);
+}
+
+.pets-list .item .pet-infos {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    padding: 0 1rem;
+    flex: 5;
+}
+
+.pets-list .item .pet-infos p {
+    font-size: 1rem;
+    color: var(--dark-grey-color);
+}
+
+.pets-list .item .pet-infos strong {
+    font-size: 1.2rem;
+    color: var(--primary-color);
+}
+
+.pets-list .item .pet-actions {
+    height: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 1rem;
+    flex: 1;
+    background-color: var(--primary-color);
+}
+
+.pets-list .item .pet-actions button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.pets-list .item .pet-actions i {
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: white;
+}
+
 /* MEDIA QUERIES */
 
 @media (max-width: 1280px) {
@@ -1181,6 +1314,37 @@ main.new-pet-page .overlay {
     .login-user-page .form-section {
         width: 45%;
     }
+
+    header .container {
+        flex-direction: column;
+        gap: 0;
+        padding: 0 0.5rem;
+    }
+
+    header .logo-area {
+        padding: 8px 0;
+    }
+
+    header .left--area,
+    header .right--area {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .menu {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .mobile-menu {
+        display: flex;
+        margin-left: auto;
+        padding: 16px 0;
+    }
+
+    .right--area.desactive {
+        display: none;
+    }
 }
 
 @media (max-width: 920px) {
@@ -1188,9 +1352,13 @@ main.new-pet-page .overlay {
         width: 75%;
     }
 
+    .pets-page .pets-list {
+        width: 80%;
+    }
 }
 
 @media (max-width: 900px) {
+
     .schedule .left-area,
     .new-pet .left-area {
         display: none;
@@ -1224,37 +1392,6 @@ main.new-pet-page .overlay {
 }
 
 @media (max-width: 800px) {
-    header .container {
-        flex-direction: column;
-        gap: 0;
-        padding: 0 0.5rem;
-    }
-
-    header .logo-area {
-        padding: 8px 0;
-    }
-
-    header .left--area,
-    header .right--area {
-        width: 100%;
-        justify-content: space-between;
-    }
-
-    .menu {
-        flex-direction: column;
-        gap: 0;
-    }
-
-    .right--area.desactive {
-        display: none;
-    }
-
-    .mobile-menu {
-        display: flex;
-        margin-left: auto;
-        padding: 16px 0;
-    }
-
     .login-user-page .form-section {
         width: 55%;
     }
@@ -1311,6 +1448,10 @@ main.new-pet-page .overlay {
     .form-section.container .register-user-form {
         width: 80%;
     }
+
+    .pets-page .pets-list {
+        width: 90%;
+    }
 }
 
 @media (max-width: 740px) {
@@ -1350,6 +1491,10 @@ main.new-pet-page .overlay {
 
     .form-section.container .register-user-form {
         width: 85%;
+    }
+
+    .pets-page .pets-list {
+        width: 100%;
     }
 }
 
@@ -1404,6 +1549,19 @@ main.new-pet-page .overlay {
 
     .login-user-page .form-section {
         width: 65%;
+    }
+
+    .pets-list .item .pet-infos p {
+        font-size: 0.9rem;
+    }
+
+    .pets-list .item .pet-infos strong {
+        font-size: 1.1rem;
+        color: var(--primary-color);
+    }
+
+    .pets-list .item .pet-actions i {
+        font-size: 1.2rem;
     }
 }
 
@@ -1461,6 +1619,10 @@ main.new-pet-page .overlay {
     .new-pet-form .input-group .error-area .error-msg {
         font-size: 1rem;
     }
+
+    .pets-list .item .pet-actions i {
+        font-size: 1rem;
+    }
 }
 
 @media (max-width: 500px) {
@@ -1483,6 +1645,53 @@ main.new-pet-page .overlay {
     .login-user-page .form-section {
         width: 80%;
     }
+
+    .pets-page .pets-list .header-area h1 {
+        font-size: 2rem;
+    }
+
+    .pets-page .pets-list .header-area button {
+        font-size: 0.9rem;
+    }
+
+    .pets-list .item .pet-actions {
+        justify-content: center;
+        gap: 0.5rem;
+    }
+}
+
+@media (max-width: 450px) {
+    .pets-page .pets-list .header-area h1 {
+        font-size: 1.5rem;
+    }
+
+    .pets-page .pets-list .header-area button {
+        font-size: 0.8rem;
+    }
+
+    .pets-list .item .pet-infos p {
+        font-size: 0.8rem;
+    }
+
+    .pets-list .item .pet-infos strong {
+        font-size: 0.9rem;
+        color: var(--primary-color);
+    }
+
+    .pets-list .item .pet-actions {
+        justify-content: center;
+        gap: 0.3rem;
+        flex: 2;
+    }
+
+    .pets-list .item .pet-actions i {
+        font-size: 0.8rem;
+    }
+
+    .pets-list .item .pet-infos {
+        flex: 6;
+    }
+
 }
 
 @media (max-width: 400px) {

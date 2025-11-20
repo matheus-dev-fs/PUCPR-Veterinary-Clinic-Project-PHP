@@ -23,6 +23,15 @@ class PetsController extends Controller
         $this->petMapper = new PetMapper();
     }
 
+    public function index(): void
+    {
+        if (!AuthHelper::isUserLoggedIn()) {
+            RedirectHelper::redirectToLogin();
+        }
+
+        $this->view('pets/index');
+    }
+
     public function new(): void
     {
         if (!AuthHelper::isUserLoggedIn()) {
@@ -32,7 +41,7 @@ class PetsController extends Controller
         $this->view('pets/new');
     }
 
-    public function create(): void 
+    public function create(): void
     {
         if (!AuthHelper::isUserLoggedIn()) {
             RedirectHelper::redirectToLogin();
@@ -56,7 +65,7 @@ class PetsController extends Controller
         RedirectHelper::redirectToHome();
     }
 
-    private function getCreatePetDTO(): CreatePetDTO 
+    private function getCreatePetDTO(): CreatePetDTO
     {
         return $this->petMapper->toCreatePetDTO(
             AuthHelper::getUserLoggedId(),
