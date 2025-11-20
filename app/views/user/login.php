@@ -1,3 +1,4 @@
+<?php use app\utils\Sanitizer; ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -21,7 +22,7 @@
                     <div class="input-group email">
                         <div class="input-field">
                             <label for="email">Email:</label>
-                            <input type="text" id="email" name="email" placeholder="example@mail.com" value="<?= htmlspecialchars(trim($old['email'] ?? '')) ?>">
+                            <input type="text" id="email" name="email" placeholder="example@mail.com" value="<?= Sanitizer::e($old['email'] ?? '') ?>">
                         </div>
                         <div class="error-area">
                             <p class="error-message required">Digite o <strong>Email</strong> para continuar.</p>

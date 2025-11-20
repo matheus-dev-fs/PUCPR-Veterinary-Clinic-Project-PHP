@@ -1,3 +1,4 @@
+<?php use app\utils\Sanitizer; ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -21,7 +22,7 @@
                     <div class="input-group name">
                         <div class="input-field">
                             <label for="name">Nome completo:</label>
-                            <input type="text" id="name" name="name" placeholder="fulano da silva" value="<?= htmlspecialchars(trim($old['name'] ?? '')) ?>">
+                            <input type="text" id="name" name="name" placeholder="fulano da silva" value="<?= Sanitizer::e($old['name'] ?? '') ?>">
                         </div>
                         <div class="error-area">
                             <span class="error-message required <?= isset($errors['name_required']) ? 'show-error' : '' ?>">O <strong>Nome Completo</strong> é obrigatório.</span>
@@ -31,7 +32,7 @@
                     <div class="input-group email">
                         <div class="input-field">
                             <label for="email">Email:</label>
-                            <input type="email" id="email" name="email" placeholder="fulano@example.com" value="<?= htmlspecialchars(trim($old['email'] ?? '')) ?>">
+                            <input type="email" id="email" name="email" placeholder="fulano@example.com" value="<?= Sanitizer::e($old['email'] ?? '') ?>">
                         </div>
                         <div class="error-area">
                             <span class="error-message required <?= isset($errors['email_required']) ? 'show-error' : '' ?>">O <strong>Email</strong> é obrigatório.</span>
@@ -42,7 +43,7 @@
                     <div class="input-group email-confirmation">
                         <div class="input-field">
                             <label for="email_confirmation">Confirmação do Email:</label>
-                            <input type="email" id="email_confirmation" name="email_confirmation" placeholder="fulano@example.com" value="<?= htmlspecialchars(trim($old['email_confirmation'] ?? '')) ?>">
+                            <input type="email" id="email_confirmation" name="email_confirmation" placeholder="fulano@example.com" value="<?= Sanitizer::e($old['email_confirmation'] ?? '') ?>">
                         </div>
                         <div class="error-area">
                             <span class="error-message required <?= isset($errors['email_confirmation_required']) ? 'show-error' : '' ?>">A <strong>Confirmação do Email</strong> é obrigatório.</span>
@@ -74,7 +75,7 @@
                     <div class="input-group phone">
                         <div class="input-field">
                             <label for="phone">Contato:</label>
-                            <input type="text" id="phone" name="phone" placeholder="(XX) XXXXX-XXXX ou (XX) XXXX-XXXX" value="<?= htmlspecialchars(trim($old['phone'] ?? '')) ?>">
+                            <input type="text" id="phone" name="phone" placeholder="(XX) XXXXX-XXXX ou (XX) XXXX-XXXX" value="<?= Sanitizer::e($old['phone'] ?? '') ?>">
                         </div>
                         <div class="error-area">
                             <span class="error-message required <?= isset($errors['phone_required']) ? 'show-error' : '' ?>">O <strong>Contato</strong> é obrigatório.</span>

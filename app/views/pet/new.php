@@ -1,3 +1,4 @@
+<?php use app\utils\Sanitizer; ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -33,7 +34,7 @@
                             <div class="input-group">
                                 <label for="name">Nome do Pet</label>
                                 <div class="input-area pet-name">
-                                    <input class="input" type="text" id="name" name="name" placeholder="Rex" value="<?= htmlspecialchars(trim($old['name'] ?? '')) ?>">
+                                    <input class="input" type="text" id="name" name="name" placeholder="Rex" value="<?= Sanitizer::e($old['name'] ?? '') ?>">
                                     <div class="error-area">
                                         <span class="error-msg required <?= isset($errors['name_required']) && $errors['name_required'] ? 'show-error' : '' ?>">O nome do pet é obrigatório.</span>
                                         <span class="error-msg invalid <?= isset($errors['name_length']) && $errors['name_length'] ? 'show-error' : '' ?>">Precisa de pelo menos 3 caracteres.</span>
@@ -56,7 +57,7 @@
                             <div class="input-group">
                                 <label for="type">Tipo do Pet</label>
                                 <div class="input-area type">
-                                    <select id="type" name="type" value="<?= htmlspecialchars(trim($old['type'] ?? '')) ?>">
+                                    <select id="type" name="type" value="<?= Sanitizer::e($old['type'] ?? '') ?>">
                                         <option value="">Selecione</option>
                                         <option value="dog">Cão</option>
                                         <option value="cat">Gato</option>

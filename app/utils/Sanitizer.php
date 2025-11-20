@@ -20,6 +20,6 @@ class Sanitizer
             return '';
         }
         
-        return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+        return htmlspecialchars(trim($value), ENT_QUOTES, 'UTF-8');
     }
 }
