@@ -1,3 +1,5 @@
+<?php use app\utils\PetUtils; ?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -32,8 +34,8 @@
                                 <li class="item">
                                     <div class=pet-infos>
                                         <p><strong>Nome:</strong> <?= $pet->getName() ?></p>
-                                        <p><strong>Tipo:</strong> <?= $pet->getType() ?></p>
-                                        <p><strong>Sexo:</strong> <?= $pet->getGender() ?></p>
+                                        <p><strong>Tipo:</strong> <?= PetUtils::convertTypeToPtBr($pet->getType()) ?></p>
+                                        <p><strong>Sexo:</strong> <?= PetUtils::convertGenderToPtBr($pet->getGender()) ?></p>
                                     </div>
                                     <div class="pet-actions">
                                         <button class="edit-button">

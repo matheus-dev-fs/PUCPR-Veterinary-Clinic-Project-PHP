@@ -23,4 +23,10 @@ class RedirectHelper
         header('Location: /my-php-mvc-app/home/');
         exit;
     }
+
+    public static function redirectToPets(): void
+    {
+        header('Location: /my-php-mvc-app/pets/');
+        exit;
+    }
 }

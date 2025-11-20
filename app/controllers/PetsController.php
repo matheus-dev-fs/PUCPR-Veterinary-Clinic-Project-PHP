@@ -52,7 +52,7 @@ class PetsController extends Controller
         }
 
         if (!RequestHelper::isPostRequest()) {
-            RedirectHelper::redirectToHome();
+            RedirectHelper::redirectToPets();
         }
 
         $createPetDTO = $this->getCreatePetDTO();
@@ -66,7 +66,7 @@ class PetsController extends Controller
             return;
         }
 
-        RedirectHelper::redirectToHome();
+        RedirectHelper::redirectToPets();
     }
 
     private function getCreatePetDTO(): CreatePetDTO
