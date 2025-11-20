@@ -19,7 +19,7 @@ class PetRepository extends Repository
 
             $result = $this->database->fetch($sql, $params);
 
-            return $result === false ? null : $result;
+            return $result === false ? null : PetMapper::responseToPet($result);
         } catch (\Exception $e) {
             throw new \Exception('Error finding pet by ID: ' . $e->getMessage());
         }

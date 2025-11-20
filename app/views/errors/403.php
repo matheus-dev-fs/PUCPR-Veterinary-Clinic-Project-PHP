@@ -16,7 +16,7 @@
     <main class="page-404">
         <div class="page-404-area container">
             <h1 class="title">403</h1>
-            <p>Desculpe, você não tem permissão para acessar esta página.</p>
+            <p>Desculpe, você não tem permissão.</p>
             <button class="button"><a href="/my-php-mvc-app/">Voltar para a Página Inicial</a></button>
         </div>
     </main>

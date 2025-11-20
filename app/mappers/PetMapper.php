@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace app\mappers;
 
 use app\dtos\CreatePetDTO;
+use app\dtos\DeletePetDTO;
 use app\models\Pet;
 use app\utils\Sanitizer;
 
@@ -21,6 +22,14 @@ class PetMapper
             Sanitizer::sanitize($name ?? ''),
             Sanitizer::sanitize($type ?? ''),
             Sanitizer::sanitize($gender ?? '')
+        );
+    }
+
+    public function toDeletePetDTO(?string $userId, ?string $petId): DeletePetDTO
+    {
+        return new DeletePetDTO(
+            (int) Sanitizer::sanitize($userId ?? ''),
+            (int) Sanitizer::sanitize($petId ?? '')
         );
     }
 

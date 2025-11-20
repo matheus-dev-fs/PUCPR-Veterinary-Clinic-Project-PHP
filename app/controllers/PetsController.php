@@ -69,6 +69,37 @@ class PetsController extends Controller
         RedirectHelper::redirectToPets();
     }
 
+    public function delete(): void {
+        if (!AuthHelper::isUserLoggedIn()) {
+            RedirectHelper::redirectToLogin();
+        }
+
+        if (!RequestHelper::isPostRequest()) {
+            RedirectHelper::redirectToPets();
+        }
+
+        $deleteMapDTO = $this->petMapper->toDeletePetDTO(
+            (string) AuthHelper::getUserLoggedId(),
+            $_POST['pet-id']
+        );
+
+        $petResponseResult = $this->petService->delete($deleteMapDTO);
+
+        if (!$petResponseResult->isSuccess()) {
+            $errors = $petResponseResult->getErrors();
+
+            if (isset($errors['pet_not_found'])) {
+                RedirectHelper::redirectToPets();
+            } else if (isset($errors['unauthorized'])) {
+                RedirectHelper::redirectTo403();
+            } else {
+                RedirectHelper::redirectToPets();
+            }
+        }
+
+        RedirectHelper::redirectToPets();
+    }
+
     private function getCreatePetDTO(): CreatePetDTO
     {
         return $this->petMapper->toCreatePetDTO(

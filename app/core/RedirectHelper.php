@@ -4,8 +4,12 @@ declare(strict_types=1);
 
 namespace app\core;
 
+use app\controllers\errors\HttpErrorController;
+
 class RedirectHelper
 {
+    private static HttpErrorController $errorController;
+
     public static function redirectToRegister(): void
     {
         header('Location: /my-php-mvc-app/user/register');
@@ -28,5 +32,19 @@ class RedirectHelper
     {
         header('Location: /my-php-mvc-app/pets/');
         exit;
+    }
+
+    public static function redirectTo403(): void
+    {
+        self::getErrorController()->forbidden();
+        exit;
+    }
+
+    private static function getErrorController(): HttpErrorController
+    {
+        if (!isset(self::$errorController)) {
+            self::$errorController = new HttpErrorController();
+        }
+        return self::$errorController;
     }
 }
