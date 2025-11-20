@@ -977,6 +977,7 @@ main.new-pet-page {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    height: calc(100vh - 80px);
 }
 
 main.new-pet-page .overlay {
@@ -989,13 +990,12 @@ main.new-pet-page .overlay {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 1.5rem 0;
+    height: 100%;
 }
 
 .new-pet {
     display: flex;
-    width: 80%;
-    height: 100%;
+    width: 65%;
     margin: 0 auto;
     background-color: var(--background-color);
     border-radius: 1.5rem;
@@ -1408,9 +1408,12 @@ main.new-pet-page .overlay {
 }
 
 @media (max-width: 550px) {
-    .schedule,
-    .new-pet {
+    .schedule {
         width: 95%;
+    }
+
+    .new-pet {
+        width: 85%;
     }
 
     .schedule-form .input-group,
@@ -1497,14 +1500,12 @@ main.new-pet-page .overlay {
 }
 
 @media (max-height: 600px) {
-    .schedule-area,
-    .new-pet-area {
+    .schedule-area {
         height: auto;
         padding: 1.5rem 0 3rem 0;
     }
 
-    .schedule-form .input-group,
-    .new-pet-form .input-group {
+    .schedule-form .input-group {
         flex: none;
     }
 }
