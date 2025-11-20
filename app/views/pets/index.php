@@ -1,4 +1,6 @@
-<?php use app\utils\PetUtils; ?>
+<?php
+
+use app\utils\PetUtils; ?>
 
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -43,8 +45,8 @@
                                                 <i class="fa-solid fa-pen-to-square"></i>
                                             </a>
                                         </button>
-                                        <button class="delete-button">
-                                            <a data-id="<?= $pet->getId() ?>">
+                                        <button class="delete-button" data-id="<?= $pet->getId() ?>">
+                                            <a>
                                                 <i class="fa-solid fa-trash"></i>
                                             </a>
                                         </button>
@@ -58,10 +60,13 @@
                     <div class="delete-pet-box">
                         <h2 class="title">Tem certeza que deseja deletar este pet?</h2>
                         <p class="text">Essa ação não poderá ser desfeita!</p>
-                        <div class="buttons-area">
-                            <button class="cancel-button button">Cancelar</button>
-                            <button class="confirm-delete-button button">Deletar</button>
-                        </div>
+                        <form method="POST" class="delete-pet-form" action="/my-php-mvc-app/pets/delete/">
+                            <input type="hidden" name="pet-id" value="">
+                            <div class="buttons-area">
+                                <button type="button" class="cancel-button button">Cancelar</button>
+                                <button type="submit" class="confirm-delete-button button">Deletar</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -70,7 +75,7 @@
 
     <?php include_once __DIR__ . '/../partials/footer.php'; ?>
 
-    <script type="module" src="/my-php-mvc-app/public/assets/js/pets/script.js?v=2.0.0"></script>
+    <script type="module" src="/my-php-mvc-app/public/assets/js/delete-pet/script.js?v=3.0.0"></script>
 </body>
 
 </html>
