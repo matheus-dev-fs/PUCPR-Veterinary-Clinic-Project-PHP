@@ -1264,11 +1264,13 @@ main.pets-page .overlay {
     height: 100%;
     padding: 0 1rem;
     flex: 5;
+    gap: 1rem;
 }
 
 .pets-list .item .pet-infos p {
     font-size: 1rem;
     color: var(--dark-grey-color);
+    flex: 1;
 }
 
 .pets-list .item .pet-infos strong {
@@ -1495,6 +1497,12 @@ main.pets-page .overlay {
 
     .pets-page .pets-list {
         width: 100%;
+    }
+
+    .pets-list .item .pet-infos p {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
 }
 
