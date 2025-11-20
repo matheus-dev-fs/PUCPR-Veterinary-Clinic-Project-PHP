@@ -8,8 +8,6 @@ use app\dtos\CreatePetDTO;
 use app\models\Pet;
 use app\utils\Sanitizer;
 
-use function PHPSTORM_META\map;
-
 class PetMapper
 {
     public function toCreatePetDTO(

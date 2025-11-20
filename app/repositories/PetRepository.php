@@ -8,11 +8,10 @@ use app\dtos\CreatePetDTO;
 use app\dtos\DeletePetDTO;
 use app\models\Pet;
 use app\mappers\PetMapper;
-use app\responses\PetResponseResult;
 
 class PetRepository extends Repository
 {
-    public function findById(int $id): PetResponseResult
+    public function findById(int $id): ?Pet
     {
         try {
             $sql = "SELECT id, id_user, `name`, `type`, gender FROM Pets WHERE id = :id";
@@ -20,12 +19,7 @@ class PetRepository extends Repository
 
             $result = $this->database->fetch($sql, $params);
 
-            if ($result === false) {
-                return new PetResponseResult(null, ['not_found' => true]);
-            }
-
-            $pet = PetMapper::responseToPet($result);
-            return new PetResponseResult($pet);
+            return $result === false ? null : $result;
         } catch (\Exception $e) {
             throw new \Exception('Error finding pet by ID: ' . $e->getMessage());
         }

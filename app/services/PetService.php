@@ -6,6 +6,7 @@ namespace app\services;
 use app\repositories\PetRepository;
 use app\core\Database;
 use app\dtos\CreatePetDTO;
+use app\dtos\DeletePetDTO;
 use app\responses\PetResponseResult;
 
 class PetService
@@ -26,6 +27,27 @@ class PetService
         }
 
         $pet = $this->petRepository->save($createPetDTO);
+        return new PetResponseResult($pet);
+    }
+
+    public function delete(DeletePetDTO $deletePetDTO): PetResponseResult 
+    {
+        $pet = $this->petRepository->findById($deletePetDTO->getPetId());
+
+        if ($pet === null) {
+            return new PetResponseResult(null, ['pet_not_found' => true]);
+        }
+
+        if ($pet->getIdUser() !== $deletePetDTO->getUserId()) {
+            return new PetResponseResult(null, ['unauthorized' => true]);
+        }
+
+        $isDeleted = $this->petRepository->delete($deletePetDTO);
+
+        if (!$isDeleted) {
+            return new PetResponseResult(null, ['deletion_failed' => true]);
+        }
+
         return new PetResponseResult($pet);
     }
 
