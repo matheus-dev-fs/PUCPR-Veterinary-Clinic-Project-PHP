@@ -8,7 +8,7 @@ use app\utils\PetUtils; ?>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0">
-    <link rel="stylesheet" href="/my-php-mvc-app/public/assets/css/style.css?v=5.0.0" />
+    <link rel="stylesheet" href="/my-php-mvc-app/public/assets/css/style.css?v=1.0.0" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="icon" href="/my-php-mvc-app/public/assets/images/favicon.svg" type="image/svg+xml">
     <title>Cliníca Veterinária</title>
@@ -23,12 +23,12 @@ use app\utils\PetUtils; ?>
                 <div class="header-area">
                     <h1>Meus Pets</h1>
                     <div class="new-pet-button">
-                        <button class="button"><a href="/my-php-mvc-app/pet/new">Adicionar Pet</a></button>
+                        <button class="button"><a href="/my-php-mvc-app/pet/new">Cadastrar Pet</a></button>
                     </div>
                 </div>
                 <div class="content-area">
                     <div class="no-pets <?php echo (!empty($pets)) ? 'desactive' : '' ?>">
-                        <h1 class="">Você ainda não possui pets cadastrados.</h1>
+                        <h1 class="">Você não possui pets cadastrados.</h1>
                     </div>
                     <ul class="pet-items <?php echo (empty($pets)) ? 'desactive' : '' ?>">
                         <?php if (!empty($pets)) : ?>

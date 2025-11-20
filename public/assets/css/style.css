@@ -1297,7 +1297,9 @@ main.pets-page .overlay {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    padding: 0 0.5rem;
+    padding: 0.3rem;
+    background-color: var(--grey-color);
+    border: 0.1rem solid var(--primary-color);
 }
 
 .pets-page .pets-list .content-area .pet-items .item {
@@ -1307,7 +1309,7 @@ main.pets-page .overlay {
     min-height: 3.5rem;
     max-height: 3.5rem;
     width: 100%;
-    background-color: var(--grey-color);
+    background-color: var(--background-color);
     border: 0.1rem solid var(--primary-color);
 }
 
