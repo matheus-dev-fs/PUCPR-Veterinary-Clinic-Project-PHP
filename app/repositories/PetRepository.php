@@ -5,14 +5,30 @@ namespace app\repositories;
 
 use app\core\Repository;
 use app\dtos\CreatePetDTO;
+use app\dtos\DeletePetDTO;
 use app\models\Pet;
 use app\mappers\PetMapper;
+use app\responses\PetResponseResult;
 
 class PetRepository extends Repository
 {
-    public function findById(int $id): ?object
+    public function findById(int $id): PetResponseResult
     {
-        throw new \Exception('Not implemented');
+        try {
+            $sql = "SELECT id, id_user, `name`, `type`, gender FROM Pets WHERE id = :id";
+            $params = [':id' => $id];
+
+            $result = $this->database->fetch($sql, $params);
+
+            if ($result === false) {
+                return new PetResponseResult(null, ['not_found' => true]);
+            }
+
+            $pet = PetMapper::responseToPet($result);
+            return new PetResponseResult($pet);
+        } catch (\Exception $e) {
+            throw new \Exception('Error finding pet by ID: ' . $e->getMessage());
+        }
     }
 
     public function save(CreatePetDTO $createPetDTO): ?Pet
@@ -56,6 +72,22 @@ class PetRepository extends Repository
             return PetMapper::toPetArray($results);
         } catch (\Exception $e) {
             throw new \Exception('Error retrieving pets: ' . $e->getMessage());
+        }
+    }
+
+    public function delete(DeletePetDTO $deletePetDTO): bool
+    {
+        try {
+            $sql = "DELETE FROM Pets WHERE id = :pet_id AND id_user = :user_id";
+            $params = [
+                ':pet_id'  => $deletePetDTO->getPetId(),
+                ':user_id' => $deletePetDTO->getUserId()
+            ];
+
+            $rows = $this->database->execute($sql, $params);
+            return $rows > 0;
+        } catch (\Exception $e) {
+            throw new \Exception('Error deleting pet: ' . $e->getMessage());
         }
     }
 }

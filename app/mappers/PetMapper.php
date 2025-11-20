@@ -38,4 +38,14 @@ class PetMapper
             );
         }, $data);
     }
+
+    public static function responseToPet(array $data): Pet {
+        return new Pet(
+            $data['id'],
+            $data['id_user'],
+            $data['name'],
+            $data['type'],
+            $data['gender']
+        );
+    }
 }
