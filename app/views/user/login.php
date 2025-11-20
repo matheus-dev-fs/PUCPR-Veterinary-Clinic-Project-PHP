@@ -18,10 +18,10 @@
             <section class="form-section container">
                 <h1>Login</h1>
                 <form class="login-user-form" id="login-user-form" action="/my-php-mvc-app/user/authenticate" method="POST">
-                    <div class="input-group login">
+                    <div class="input-group email">
                         <div class="input-field">
-                            <label for="login">Email:</label>
-                            <input type="text" id="login" name="login" placeholder="example@mail.com" value="<?= htmlspecialchars(trim($old['login'] ?? '')) ?>">
+                            <label for="email">Email:</label>
+                            <input type="text" id="email" name="email" placeholder="example@mail.com" value="<?= htmlspecialchars(trim($old['email'] ?? '')) ?>">
                         </div>
                         <div class="error-area">
                             <p class="error-message required">Digite o <strong>Email</strong> para continuar.</p>

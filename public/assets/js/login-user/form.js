@@ -17,14 +17,14 @@ export class LoginUserForm {
     _cacheElements() {
         this._formElement = document.querySelector('#login-user-form');
         this._inputsGroup = {
-            login: this._formElement.querySelector('.input-group.login'),
+            email: this._formElement.querySelector('.input-group.email'),
             password: this._formElement.querySelector('.input-group.password'),
         };
         this._submitButton = this._formElement.querySelector('button[type="submit"]');
     }
 
     _addEventListeners() {
-        this._inputsGroup.login.addEventListener('input', (e) => this._validateField(e.target));
+        this._inputsGroup.email.addEventListener('input', (e) => this._validateField(e.target));
         this._inputsGroup.password.addEventListener('input', (e) => this._validateField(e.target));
 
         this._formElement.addEventListener('submit', (e) => this._handleFormSubmit(e));
@@ -58,7 +58,7 @@ export class LoginUserForm {
 
     _validateAllFields() {
         const validationResults = {
-            login: this._validateField(this._getInputElement(this._inputsGroup.login)),
+            email: this._validateField(this._getInputElement(this._inputsGroup.email)),
             password: this._validateField(this._getInputElement(this._inputsGroup.password)),
         };
 

@@ -73,13 +73,13 @@
                             </div>
                             <div class="input-group">
                                 <label>Sexo do Pet</label>
-                                <div class="input-area pet-sex">
+                                <div class="input-area pet-gender">
                                     <div class="left">
-                                        <input type="radio" id="male" name="sex" value="macho" checked>
+                                        <input type="radio" id="male" name="gender" value="M" checked>
                                         <label for="male">Macho</label>
                                     </div>
                                     <div class="right">
-                                        <input type="radio" id="female" name="sex" value="femea">
+                                        <input type="radio" id="female" name="gender" value="F">
                                         <label for="female">Fêmea</label>
                                     </div>
                                 </div>

@@ -549,13 +549,13 @@ main.schedule-page .overlay {
     color: var(--background-color);
 }
 
-.schedule-form .input-group .input-area.pet-sex {
+.schedule-form .input-group .input-area.pet-gender {
     flex-direction: row;
     align-items: center;
     gap: 30%;
 }
 
-.schedule-form .input-group .input-area.pet-sex input {
+.schedule-form .input-group .input-area.pet-gender input {
     width: auto;
     margin: auto 0 auto 1rem;
 }
@@ -1116,13 +1116,13 @@ main.new-pet-page .overlay {
     color: var(--background-color);
 }
 
-.new-pet-form .input-group .input-area.pet-sex {
+.new-pet-form .input-group .input-area.pet-gender {
     flex-direction: row;
     align-items: center;
     gap: 30%;
 }
 
-.new-pet-form .input-group .input-area.pet-sex input {
+.new-pet-form .input-group .input-area.pet-gender input {
     width: auto;
     margin: auto 0 auto 1rem;
 }
@@ -1736,10 +1736,10 @@ main.pets-page .overlay {
         font-size: 0.8rem;
     }
 
-    .schedule-form .input-group .input-area.pet-sex .left,
-    .schedule-form .input-group .input-area.pet-sex .right,
-    .new-pet-form .input-group .input-area.pet-sex .left,
-    .new-pet-form .input-group .input-area.pet-sex .right {
+    .schedule-form .input-group .input-area.pet-gender .left,
+    .schedule-form .input-group .input-area.pet-gender .right,
+    .new-pet-form .input-group .input-area.pet-gender .left,
+    .new-pet-form .input-group .input-area.pet-gender .right {
         display: flex;
         align-items: center;
         gap: 0.5rem;

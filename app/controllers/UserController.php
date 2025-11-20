@@ -87,7 +87,7 @@ class UserController extends Controller
         }
 
         $loginUserDTO = $this->userMapper->toLoginUserDTO(
-            $_POST['login'] ?? "",
+            $_POST['email'] ?? "",
             $_POST['password'] ?? ""
         );
 
@@ -123,7 +123,7 @@ class UserController extends Controller
             $_POST['email_confirmation'],
             $_POST['password'],
             $_POST['password_confirmation'],
-            $_POST['contact']
+            $_POST['phone']
         );
     }
 }

@@ -1,5 +1,5 @@
 export class FormAction {
-    static _REQUIRED_PARAMS = ['tutorName', 'email', 'phone', 'petName', 'sex', 'service', 'date'];
+    static _REQUIRED_PARAMS = ['tutorName', 'email', 'phone', 'petName', 'gender', 'service', 'date'];
 
     _elements;
 
@@ -14,7 +14,7 @@ export class FormAction {
             email: document.querySelector('.info-item.email .value'),
             phone: document.querySelector('.info-item.phone .value'),
             petName: document.querySelector('.info-item.petName .value'),
-            sex: document.querySelector('.info-item.sex .value'),
+            gender: document.querySelector('.info-item.gender .value'),
             service: document.querySelector('.info-item.service .value'),
             date: document.querySelector('.info-item.date .value'),
         }

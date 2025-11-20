@@ -71,10 +71,10 @@
                             <span class="error-message mismatch <?= isset($errors['password_confirmation_mismatch']) ? 'show-error' : '' ?>">A <strong>Senha</strong> e a <strong>Confirmação da Senha</strong> não coincidem.</span>
                         </div>
                     </div>
-                    <div class="input-group contact">
+                    <div class="input-group phone">
                         <div class="input-field">
-                            <label for="contact">Contato:</label>
-                            <input type="text" id="contact" name="contact" placeholder="(XX) XXXXX-XXXX ou (XX) XXXX-XXXX" value="<?= htmlspecialchars(trim($old['contact'] ?? '')) ?>">
+                            <label for="phone">Contato:</label>
+                            <input type="text" id="phone" name="phone" placeholder="(XX) XXXXX-XXXX ou (XX) XXXX-XXXX" value="<?= htmlspecialchars(trim($old['phone'] ?? '')) ?>">
                         </div>
                         <div class="error-area">
                             <span class="error-message required <?= isset($errors['phone_required']) ? 'show-error' : '' ?>">O <strong>Contato</strong> é obrigatório.</span>

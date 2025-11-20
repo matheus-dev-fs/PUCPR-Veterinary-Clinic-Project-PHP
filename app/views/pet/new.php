@@ -42,7 +42,7 @@
                             </div>
                             <div class="input-group">
                                 <label>Sexo do Pet</label>
-                                <div class="input-area pet-sex">
+                                <div class="input-area pet-gender">
                                     <div class="left">
                                         <input type="radio" id="male" name="gender" value="M" <?= (isset($old['gender']) && $old['gender'] === 'M' || !isset($old['gender'])) ? 'checked' : '' ?>>
                                         <label for="male">Macho</label>

@@ -52,9 +52,9 @@
                                             <span class="label">Nome do Pet:</span>
                                             <span class="value" id="pet-name">placeholder</span>
                                         </div>
-                                        <div class="info-item sex">
+                                        <div class="info-item gender">
                                             <span class="label">Sexo do Pet:</span>
-                                            <span class="value" id="pet-sex">placeholder</span>
+                                            <span class="value" id="pet-gender">placeholder</span>
                                         </div>
                                         <div class="info-item service">
                                             <span class="label">Serviço Agendado:</span>

@@ -34,7 +34,7 @@ export class RegisterUserForm {
             emailConfirmation: this._formElement.querySelector('.input-group.email-confirmation'),
             password: this._formElement.querySelector('.input-group.password'),
             passwordConfirmation: this._formElement.querySelector('.input-group.password-confirmation'),
-            phone: this._formElement.querySelector('.input-group.contact'),
+            phone: this._formElement.querySelector('.input-group.phone'),
         };
         this._submitButton = this._formElement.querySelector('button[type="submit"]');
     }
