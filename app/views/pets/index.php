@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0">
-    <link rel="stylesheet" href="/my-php-mvc-app/public/assets/css/style.css?v=4.0.0" />
+    <link rel="stylesheet" href="/my-php-mvc-app/public/assets/css/style.css?v=5.0.0" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="icon" href="/my-php-mvc-app/public/assets/images/favicon.svg" type="image/svg+xml">
     <title>Cliníca Veterinária</title>
@@ -44,7 +44,7 @@
                                             </a>
                                         </button>
                                         <button class="delete-button">
-                                            <a href="/my-php-mvc-app/pets/delete/<?= $pet->getId() ?>">
+                                            <a data-id="<?= $pet->getId() ?>">
                                                 <i class="fa-solid fa-trash"></i>
                                             </a>
                                         </button>
@@ -53,6 +53,16 @@
                             <?php endforeach; ?>
                         <?php endif; ?>
                     </ul>
+                </div>
+                <div class="delete-pet-area desactive">
+                    <div class="delete-pet-box">
+                        <h2 class="title">Tem certeza que deseja deletar este pet?</h2>
+                        <p class="text">Essa ação não poderá ser desfeita!</p>
+                        <div class="buttons-area">
+                            <button class="cancel-button button">Cancelar</button>
+                            <button class="confirm-delete-button button">Deletar</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
