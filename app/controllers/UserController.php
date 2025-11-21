@@ -7,8 +7,6 @@ namespace app\controllers;
 use app\core\Controller;
 use app\core\AuthHelper;
 use app\core\RedirectHelper;
-use app\core\RequestHelper;
-use app\dtos\CreateUserDTO;
 use app\mappers\UserMapper;
 use app\services\UserService;
 
@@ -26,9 +24,7 @@ class UserController extends Controller
 
     public function register(): void
     {
-        if (AuthHelper::isUserLoggedIn()) {
-            RedirectHelper::redirectToHome();
-        }
+        $this->redirectIfAuthenticated();
 
         $this->view('user/register', [
             'errors' => [],
@@ -39,15 +35,18 @@ class UserController extends Controller
 
     public function save(): void
     {
-        if (AuthHelper::isUserLoggedIn()) {
-            RedirectHelper::redirectToHome();
-        }
+        $this->redirectIfAuthenticated();
+        $this->ensurePostRequest(RedirectHelper::redirectToRegister(...));
 
-        if (!RequestHelper::isPostRequest()) {
-            RedirectHelper::redirectToRegister();
-        }
+        $createUserDTO = $this->userMapper->toCreateUserDTO(
+            $_POST['name'] ?? null,
+            $_POST['email'] ?? null,
+            $_POST['email_confirmation'] ?? null,
+            $_POST['password'] ?? null,
+            $_POST['password_confirmation'] ?? null,
+            $_POST['phone'] ?? null
+        );
 
-        $createUserDTO = $this->getCreateUserDTO();
         $userRegistrationResult = $this->userService->save($createUserDTO);
 
         if (!$userRegistrationResult->isSuccess()) {
@@ -65,9 +64,7 @@ class UserController extends Controller
 
     public function login(): void
     {
-        if (AuthHelper::isUserLoggedIn()) {
-            RedirectHelper::redirectToHome();
-        }
+        $this->redirectIfAuthenticated();
 
         $this->view('user/login', [
             'errors' => [],
@@ -78,13 +75,8 @@ class UserController extends Controller
 
     public function authenticate(): void
     {
-        if (AuthHelper::isUserLoggedIn()) {
-            RedirectHelper::redirectToHome();
-        }
-
-        if (!RequestHelper::isPostRequest()) {
-            RedirectHelper::redirectToLogin();
-        }
+        $this->redirectIfAuthenticated();
+        $this->ensurePostRequest(RedirectHelper::redirectToLogin(...));
 
         $loginUserDTO = $this->userMapper->toLoginUserDTO(
             $_POST['email'] ?? "",
@@ -113,17 +105,5 @@ class UserController extends Controller
         }
 
         RedirectHelper::redirectToHome();
-    }
-
-    private function getCreateUserDTO(): CreateUserDTO
-    {
-        return $this->userMapper->toCreateUserDTO(
-            $_POST['name'],
-            $_POST['email'],
-            $_POST['email_confirmation'],
-            $_POST['password'],
-            $_POST['password_confirmation'],
-            $_POST['phone']
-        );
     }
 }

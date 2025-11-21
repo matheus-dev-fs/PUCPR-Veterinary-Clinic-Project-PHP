@@ -7,11 +7,9 @@ namespace app\controllers;
 use app\core\Controller;
 use app\core\AuthHelper;
 use app\core\RedirectHelper;
-use app\core\RequestHelper;
 use app\services\PetService;
 use app\mappers\PetMapper;
-use app\dtos\CreatePetDTO;
-use app\dtos\UpdatePetDTO;
+use app\responses\PetResponseResult;
 
 class PetController extends Controller
 {
@@ -26,23 +24,19 @@ class PetController extends Controller
 
     public function index(): void
     {
-        if (!AuthHelper::isUserLoggedIn()) {
-            RedirectHelper::redirectToLogin();
-        }
+        $this->ensureAuthenticated();
 
         $pets = $this->petService->getAllByUserId(AuthHelper::getUserLoggedId());
 
         $this->view('pet/index', [
-            'pets' => $pets ?? [],
+            'pets' => $pets,
             'view' => 'pet/index'
         ]);
     }
 
     public function new(): void
     {
-        if (!AuthHelper::isUserLoggedIn()) {
-            RedirectHelper::redirectToLogin();
-        }
+        $this->ensureAuthenticated();
 
         $this->view('pet/new', [
             'errors' => [],
@@ -53,15 +47,16 @@ class PetController extends Controller
 
     public function create(): void
     {
-        if (!AuthHelper::isUserLoggedIn()) {
-            RedirectHelper::redirectToLogin();
-        }
+        $this->ensureAuthenticated();
+        $this->ensurePostRequest(RedirectHelper::redirectToPets(...));
 
-        if (!RequestHelper::isPostRequest()) {
-            RedirectHelper::redirectToPets();
-        }
+        $createPetDTO = $this->petMapper->toCreatePetDTO(
+            AuthHelper::getUserLoggedId(),
+            $_POST['name'] ?? null,
+            $_POST['type'] ?? null,
+            $_POST['gender'] ?? null
+        );
 
-        $createPetDTO = $this->getCreatePetDTO();
         $petResponseResult = $this->petService->save($createPetDTO);
 
         if (!$petResponseResult->isSuccess()) {
@@ -76,60 +71,16 @@ class PetController extends Controller
         RedirectHelper::redirectToPets();
     }
 
-    public function delete(): void {
-        if (!AuthHelper::isUserLoggedIn()) {
-            RedirectHelper::redirectToLogin();
-        }
-
-        if (!RequestHelper::isPostRequest()) {
-            RedirectHelper::redirectToPets();
-        }
-
-        $deleteMapDTO = $this->petMapper->toDeletePetDTO(
-            (string) AuthHelper::getUserLoggedId(),
-            $_POST['pet-id']
-        );
-
-        $petResponseResult = $this->petService->delete($deleteMapDTO);
-
-        if (!$petResponseResult->isSuccess()) {
-            $errors = $petResponseResult->getErrors();
-
-            if (isset($errors['pet_not_found'])) {
-                RedirectHelper::redirectToPets();
-            } else if (isset($errors['unauthorized'])) {
-                RedirectHelper::redirectTo403();
-            } else {
-                RedirectHelper::redirectToPets();
-            }
-        }
-
-        RedirectHelper::redirectToPets();
-    }
-
     public function edit(?int $petId): void
     {
-        if (!AuthHelper::isUserLoggedIn()) {
-            RedirectHelper::redirectToLogin();
-        }
+        $this->ensureAuthenticated();
 
-        if ($petId === null || !\is_numeric($petId)) {
+        if ($petId === null) {
             RedirectHelper::redirectToPets();
         }
 
-        $petResponseResult = $this->petService->getPetId($petId);
-
-        if (!$petResponseResult->isSuccess()) {
-            $errors = $petResponseResult->getErrors();
-
-            if (isset($errors['pet_not_found'])) {
-                RedirectHelper::redirectToPets();
-            } else if (isset($errors['unauthorized'])) {
-                RedirectHelper::redirectTo403();
-            } else {
-                RedirectHelper::redirectToPets();
-            }
-        }
+        $petResponseResult = $this->petService->getPetById($petId);
+        $this->handlePetResponseErrors($petResponseResult);
 
         $this->view('pet/edit', [
             'pet' => $petResponseResult->getPet(),
@@ -139,56 +90,82 @@ class PetController extends Controller
         ]);
     }
 
-    public function update(): void {
-        if (!AuthHelper::isUserLoggedIn()) {
-            RedirectHelper::redirectToLogin();
-        }
-
-        if (!RequestHelper::isPostRequest()) {
-            RedirectHelper::redirectToPets();
-        }
-
-        $updatePetDTO = $this->getUpdatePetDTO();
-        $petResponseResult = $this->petService->update($updatePetDTO);
-
-        if (!$petResponseResult->isSuccess()) {
-            $errors = $petResponseResult->getErrors();
-
-            if (isset($errors['pet_not_found'])) {
-                RedirectHelper::redirectToPets();
-            } else if (isset($errors['unauthorized'])) {
-                RedirectHelper::redirectTo403();
-            } else {
-                $this->view('pet/edit', [
-                    'pet' => $updatePetDTO,
-                    'errors' => $errors,
-                    'old' => $_POST,
-                    'view' => 'pet/edit'
-                ]);
-                return;
-            }
-        }
-
-        RedirectHelper::redirectToPets();
-    }
-
-    private function getCreatePetDTO(): CreatePetDTO
+    public function update(): void
     {
-        return $this->petMapper->toCreatePetDTO(
-            AuthHelper::getUserLoggedId(),
-            $_POST['name'] ?? null,
-            $_POST['type'] ?? null,
-            $_POST['gender'] ?? null
-        );
-    }
+        $this->ensureAuthenticated();
+        $this->ensurePostRequest(RedirectHelper::redirectToPets(...));
 
-    private function getUpdatePetDTO(): UpdatePetDTO
-    {
-        return $this->petMapper->toUpdatePetDTO(
+        $updatePetDTO = $this->petMapper->toUpdatePetDTO(
             $_POST['id'] ?? null,
             $_POST['name'] ?? null,
             $_POST['type'] ?? null,
             $_POST['gender'] ?? null
         );
+
+        $petResponseResult = $this->petService->update($updatePetDTO);
+
+        if (!$petResponseResult->isSuccess()) {
+            $errors = $petResponseResult->getErrors();
+
+            if ($this->shouldRedirectOnError($errors)) {
+                $this->handlePetResponseErrors($petResponseResult);
+            }
+
+            $pet = $this->petService->getPetById($updatePetDTO->getId());
+            
+            $this->view('pet/edit', [
+                'pet' => $pet->getPet(),
+                'errors' => $errors,
+                'old' => $_POST,
+                'view' => 'pet/edit'
+            ]);
+            return;
+        }
+
+        RedirectHelper::redirectToPets();
+    }
+
+    public function delete(): void
+    {
+        $this->ensureAuthenticated();
+        $this->ensurePostRequest(RedirectHelper::redirectToPets(...));
+
+        $deletePetDTO = $this->petMapper->toDeletePetDTO(
+            (string) AuthHelper::getUserLoggedId(),
+            $_POST['pet-id'] ?? null
+        );
+
+        $petResponseResult = $this->petService->delete($deletePetDTO);
+        $this->handlePetResponseErrors($petResponseResult);
+
+        RedirectHelper::redirectToPets();
+    }
+
+    private function handlePetResponseErrors(PetResponseResult $result): void
+    {
+        if ($result->isSuccess()) {
+            return;
+        }
+
+        $errors = $result->getErrors();
+
+        if (isset($errors['pet_not_found'])) {
+            RedirectHelper::redirectToPets();
+        }
+
+        if (isset($errors['unauthorized'])) {
+            RedirectHelper::redirectTo403();
+        }
+
+        if (isset($errors['deletion_failed'])) {
+            RedirectHelper::redirectToPets();
+        }
+    }
+
+    private function shouldRedirectOnError(array $errors): bool
+    {
+        return isset($errors['pet_not_found']) || 
+               isset($errors['unauthorized']) || 
+               isset($errors['deletion_failed']);
     }
 }

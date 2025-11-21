@@ -14,4 +14,28 @@ class Controller
 
         require_once $viewFile;
     }
+
+    protected function ensureAuthenticated(): void
+    {
+        if (!AuthHelper::isUserLoggedIn()) {
+            RedirectHelper::redirectToLogin();
+        }
+    }
+
+    protected function redirectIfAuthenticated(): void
+    {
+        if (AuthHelper::isUserLoggedIn()) {
+            RedirectHelper::redirectToHome();
+        }
+    }
+
+    protected function ensurePostRequest(?callable $redirectCallback = null): void
+    {
+        if (!RequestHelper::isPostRequest()) {
+            if ($redirectCallback !== null) {
+                $redirectCallback();
+            }
+            throw new \Exception('Invalid request method');
+        }
+    }
 }
