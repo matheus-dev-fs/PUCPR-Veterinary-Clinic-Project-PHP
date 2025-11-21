@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 namespace app\services;
@@ -12,6 +11,11 @@ use app\core\Database;
 
 class UserService
 {
+    private const MIN_NAME_LENGTH = 3;
+    private const PASSWORD_PATTERN = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/';
+    private const PHONE_PATTERN = '/^\(\d{2}\) \d{4,5}-\d{4}$/';
+    private const PHONE_DIGITS_PATTERN = '/\D/';
+
     private UserRepository $userRepository;
 
     public function __construct()
@@ -21,14 +25,23 @@ class UserService
 
     public function save(CreateUserDTO $createUserDTO): UserResponseResult
     {
-        $isAllFieldsValid = $this->isAllFieldsValid($createUserDTO);
+        $errors = $this->validateUserData($createUserDTO);
 
-        if ($isAllFieldsValid !== true) {
-            return new UserResponseResult(null, $isAllFieldsValid);
+        if (!empty($errors)) {
+            return new UserResponseResult(null, $errors);
         }
 
-        $createUserDTO = $createUserDTO->setPhone($this->convertPhoneToDatabaseFormat($createUserDTO->getPhone()));
-        $createUserDTO = $createUserDTO->setPassword($this->password_hash($createUserDTO->getPassword()));
+        $createUserDTO = $createUserDTO->setPhone(
+            $this->convertPhoneToDatabaseFormat(
+                $createUserDTO->getPhone()
+            )
+        );
+
+        $createUserDTO = $createUserDTO->setPassword(
+            $this->hashPassword(
+                $createUserDTO->getPassword()
+            )
+        );
 
         $user = $this->userRepository->save($createUserDTO);
         return new UserResponseResult($user);
@@ -38,66 +51,122 @@ class UserService
     {
         $user = $this->userRepository->findByEmail($loginUserDTO->getEmail());
 
-        if ($user === null || !$this->password_verify($loginUserDTO->getPassword(), $user->getPassword())) {
+        if (
+            $user === null || 
+            !$this->verifyPassword(
+                $loginUserDTO->getPassword(), 
+                $user->getPassword()
+            )
+        ) {
             return new UserResponseResult(null, ['invalid_credentials' => true]);
         }
 
         return new UserResponseResult($user);
     }
 
-    private function isAllFieldsValid(CreateUserDTO $createUserDTO): bool | array
+    private function validateUserData(CreateUserDTO $createUserDTO): array
     {
         $errors = [];
 
-        if (empty($createUserDTO->getName())) {
+        $errors = array_merge($errors, $this->validateName($createUserDTO->getName()));
+        $errors = array_merge($errors, $this->validateEmail($createUserDTO->getEmail()));
+        $errors = array_merge($errors, $this->validateEmailConfirmation(
+            $createUserDTO->getEmail(),
+            $createUserDTO->getEmailConfirmation()
+        ));
+        $errors = array_merge($errors, $this->validatePassword($createUserDTO->getPassword()));
+        $errors = array_merge($errors, $this->validatePasswordConfirmation(
+            $createUserDTO->getPassword(),
+            $createUserDTO->getPasswordConfirmation()
+        ));
+        $errors = array_merge($errors, $this->validatePhone($createUserDTO->getPhone()));
+
+        return $errors;
+    }
+
+    private function validateName(string $name): array
+    {
+        $errors = [];
+
+        if (empty($name)) {
             $errors['name_required'] = true;
-        } elseif (strlen($createUserDTO->getName()) < 3) {
+        } elseif (strlen($name) < self::MIN_NAME_LENGTH) {
             $errors['name_length'] = true;
         }
 
-        if (empty($createUserDTO->getEmail())) {
+        return $errors;
+    }
+
+    private function validateEmail(string $email): array
+    {
+        $errors = [];
+
+        if (empty($email)) {
             $errors['email_required'] = true;
-        } elseif (!$this->isValidEmail($createUserDTO->getEmail())) {
+        } elseif (!$this->isValidEmail($email)) {
             $errors['email_invalid'] = true;
-        } elseif ($this->emailExists($createUserDTO->getEmail())) {
+        } elseif ($this->emailExists($email)) {
             $errors['email_exists'] = true;
         }
 
-        if (empty($createUserDTO->getEmailConfirmation())) {
+        return $errors;
+    }
+
+    private function validateEmailConfirmation(string $email, string $emailConfirmation): array
+    {
+        $errors = [];
+
+        if (empty($emailConfirmation)) {
             $errors['email_confirmation_required'] = true;
-        } elseif (!$this->isBothFieldsSame($createUserDTO->getEmail(), $createUserDTO->getEmailConfirmation())) {
+        } elseif ($email !== $emailConfirmation) {
             $errors['email_confirmation_mismatch'] = true;
         }
 
-        if (empty($createUserDTO->getPassword())) {
+        return $errors;
+    }
+
+    private function validatePassword(string $password): array
+    {
+        $errors = [];
+
+        if (empty($password)) {
             $errors['password_required'] = true;
-        } elseif (!$this->isValidPassword($createUserDTO->getPassword())) {
+        } elseif (!$this->isValidPassword($password)) {
             $errors['password_invalid'] = true;
         }
 
-        if (empty($createUserDTO->getPasswordConfirmation())) {
+        return $errors;
+    }
+
+    private function validatePasswordConfirmation(string $password, string $passwordConfirmation): array
+    {
+        $errors = [];
+
+        if (empty($passwordConfirmation)) {
             $errors['password_confirmation_required'] = true;
-        } elseif (!$this->isBothFieldsSame($createUserDTO->getPassword(), $createUserDTO->getPasswordConfirmation())) {
+        } elseif ($password !== $passwordConfirmation) {
             $errors['password_confirmation_mismatch'] = true;
         }
 
-        if (empty($createUserDTO->getPhone())) {
+        return $errors;
+    }
+
+    private function validatePhone(string $phone): array
+    {
+        $errors = [];
+
+        if (empty($phone)) {
             $errors['phone_required'] = true;
-        } elseif (!$this->isPhoneValid($createUserDTO->getPhone())) {
+        } elseif (!$this->isPhoneValid($phone)) {
             $errors['phone'] = true;
         }
 
-        return empty($errors) ? true : $errors;
+        return $errors;
     }
 
     private function isValidPassword(string $password): bool
     {
-        return preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/', $password) === 1;
-    }
-
-    private function isBothFieldsSame(string $field, string $fieldConfirmation): bool
-    {
-        return $field === $fieldConfirmation;
+        return preg_match(self::PASSWORD_PATTERN, $password) === 1;
     }
 
     private function emailExists(string $email): bool
@@ -107,12 +176,12 @@ class UserService
 
     private function isPhoneValid(string $phone): bool
     {
-        return preg_match('/^\(\d{2}\) \d{4,5}-\d{4}$/', $phone) === 1;
+        return preg_match(self::PHONE_PATTERN, $phone) === 1;
     }
 
     private function convertPhoneToDatabaseFormat(string $phone): string
     {
-        return preg_replace('/\D/', '', $phone);
+        return preg_replace(self::PHONE_DIGITS_PATTERN, '', $phone);
     }
 
     private function isValidEmail(string $email): bool
@@ -120,13 +189,17 @@ class UserService
         return filter_var($email, FILTER_VALIDATE_EMAIL) !== false;
     }
 
-    private function password_hash(string $password): string
+    private function hashPassword(string $password): string
     {
         return password_hash($password, PASSWORD_BCRYPT);
     }
 
-    private function password_verify(string $password, string $hashedPassword): bool
+    private function verifyPassword(string $password, string $hashedPassword): bool
     {
+        if ($hashedPassword === null || $hashedPassword === '') {
+            return false;
+        }
+
         return password_verify($password, $hashedPassword);
     }
 }
