@@ -10,7 +10,7 @@ use app\utils\Sanitizer;
 
 class UserMapper
 {
-    public function toCreateUserDTO(
+    public static function toCreateUserDTO(
         ?string $name,
         ?string $email,
         ?string $emailConfirmation,
@@ -19,21 +19,21 @@ class UserMapper
         ?string $phone
     ): CreateUserDTO {
         return new CreateUserDTO(
-            Sanitizer::sanitize($name ?? ''),
-            Sanitizer::sanitize($email ?? ''),
-            Sanitizer::sanitize($emailConfirmation ?? ''),
+            Sanitizer::name($name ?? ''),
+            Sanitizer::email($email ?? ''),
+            Sanitizer::email($emailConfirmation ?? ''),
             Sanitizer::sanitize($password ?? ''),
             Sanitizer::sanitize($passwordConfirmation ?? ''),
             Sanitizer::sanitize($phone ?? '')
         );
     }
 
-    public function toLoginUserDTO(
+    public static function toLoginUserDTO(
         ?string $email,
         ?string $password
     ): LoginUserDTO {
         return new LoginUserDTO(
-            Sanitizer::sanitize($email ?? ''),
+            Sanitizer::email($email ?? ''),
             Sanitizer::sanitize($password ?? '')
         );
     }

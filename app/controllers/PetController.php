@@ -14,12 +14,10 @@ use app\responses\PetResponseResult;
 class PetController extends Controller
 {
     private PetService $petService;
-    private PetMapper $petMapper;
 
     public function __construct()
     {
         $this->petService = new PetService();
-        $this->petMapper = new PetMapper();
     }
 
     public function index(): void
@@ -50,7 +48,7 @@ class PetController extends Controller
         $this->ensureAuthenticated();
         $this->ensurePostRequest(RedirectHelper::redirectToPets(...));
 
-        $createPetDTO = $this->petMapper->toCreatePetDTO(
+        $createPetDTO = PetMapper::toCreatePetDTO(
             AuthHelper::getUserLoggedId(),
             $_POST['name'] ?? null,
             $_POST['type'] ?? null,
@@ -95,7 +93,7 @@ class PetController extends Controller
         $this->ensureAuthenticated();
         $this->ensurePostRequest(RedirectHelper::redirectToPets(...));
 
-        $updatePetDTO = $this->petMapper->toUpdatePetDTO(
+        $updatePetDTO = PetMapper::toUpdatePetDTO(
             $_POST['id'] ?? null,
             $_POST['name'] ?? null,
             $_POST['type'] ?? null,
@@ -130,7 +128,7 @@ class PetController extends Controller
         $this->ensureAuthenticated();
         $this->ensurePostRequest(RedirectHelper::redirectToPets(...));
 
-        $deletePetDTO = $this->petMapper->toDeletePetDTO(
+        $deletePetDTO = PetMapper::toDeletePetDTO(
             (string) AuthHelper::getUserLoggedId(),
             $_POST['pet-id'] ?? null
         );

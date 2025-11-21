@@ -14,12 +14,10 @@ use app\services\UserService;
 class UserController extends Controller
 {
     private UserService $userService;
-    private UserMapper $userMapper;
 
     public function __construct()
     {
         $this->userService = new UserService();
-        $this->userMapper = new UserMapper();
     }
 
     public function register(): void
@@ -38,7 +36,7 @@ class UserController extends Controller
         $this->redirectIfAuthenticated();
         $this->ensurePostRequest(RedirectHelper::redirectToRegister(...));
 
-        $createUserDTO = $this->userMapper->toCreateUserDTO(
+        $createUserDTO = UserMapper::toCreateUserDTO(
             $_POST['name'] ?? null,
             $_POST['email'] ?? null,
             $_POST['email_confirmation'] ?? null,
@@ -78,7 +76,7 @@ class UserController extends Controller
         $this->redirectIfAuthenticated();
         $this->ensurePostRequest(RedirectHelper::redirectToLogin(...));
 
-        $loginUserDTO = $this->userMapper->toLoginUserDTO(
+        $loginUserDTO = UserMapper::toLoginUserDTO(
             $_POST['email'] ?? "",
             $_POST['password'] ?? ""
         );

@@ -12,7 +12,7 @@ use app\utils\Sanitizer;
 
 class PetMapper
 {
-    public function toCreatePetDTO(
+    public static function toCreatePetDTO(
         ?int $userId,
         ?string $name,
         ?string $type,
@@ -20,13 +20,13 @@ class PetMapper
     ): CreatePetDTO {
         return new CreatePetDTO(
             $userId,
-            Sanitizer::sanitize($name ?? ''),
+            Sanitizer::name($name ?? ''),
             Sanitizer::sanitize($type ?? ''),
             Sanitizer::sanitize($gender ?? '')
         );
     }
 
-    public function toDeletePetDTO(?string $userId, ?string $petId): DeletePetDTO
+    public static function toDeletePetDTO(?string $userId, ?string $petId): DeletePetDTO
     {
         return new DeletePetDTO(
             (int) Sanitizer::sanitize($userId ?? ''),
@@ -34,7 +34,7 @@ class PetMapper
         );
     }
 
-    public function toUpdatePetDTO(
+    public static function toUpdatePetDTO(
         ?string $id,
         ?string $name,
         ?string $type,
@@ -42,7 +42,7 @@ class PetMapper
     ): UpdatePetDTO {
         return new UpdatePetDTO(
             (int) Sanitizer::sanitize($id ?? ''),
-            Sanitizer::sanitize($name ?? ''),
+            Sanitizer::name($name ?? ''),
             Sanitizer::sanitize($type ?? ''),
             Sanitizer::sanitize($gender ?? '')
         );
