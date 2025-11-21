@@ -31,17 +31,7 @@ class UserService
             return new UserResponseResult(null, $errors);
         }
 
-        $createUserDTO = $createUserDTO->setPhone(
-            $this->convertPhoneToDatabaseFormat(
-                $createUserDTO->getPhone()
-            )
-        );
-
-        $createUserDTO = $createUserDTO->setPassword(
-            $this->hashPassword(
-                $createUserDTO->getPassword()
-            )
-        );
+        $createUserDTO = $this->prepareUserDataForSaving($createUserDTO);
 
         $user = $this->userRepository->save($createUserDTO);
         return new UserResponseResult($user);
@@ -103,7 +93,7 @@ class UserService
 
         if (empty($email)) {
             $errors['email_required'] = true;
-        } elseif (!$this->isValidEmail($email)) {
+        } elseif (!$this->isValidEmailFormat($email)) {
             $errors['email_invalid'] = true;
         } elseif ($this->emailExists($email)) {
             $errors['email_exists'] = true;
@@ -131,7 +121,7 @@ class UserService
 
         if (empty($password)) {
             $errors['password_required'] = true;
-        } elseif (!$this->isValidPassword($password)) {
+        } elseif (!$this->isValidPasswordFormat($password)) {
             $errors['password_invalid'] = true;
         }
 
@@ -157,14 +147,24 @@ class UserService
 
         if (empty($phone)) {
             $errors['phone_required'] = true;
-        } elseif (!$this->isPhoneValid($phone)) {
+        } elseif (!$this->isValidPhoneFormat($phone)) {
             $errors['phone'] = true;
         }
 
         return $errors;
     }
 
-    private function isValidPassword(string $password): bool
+    private function prepareUserDataForSaving(CreateUserDTO $createUserDTO): CreateUserDTO
+    {
+        $hashedPassword = $this->hashPassword($createUserDTO->getPassword());
+        $formattedPhone = $this->convertPhoneToDatabaseFormat($createUserDTO->getPhone());
+
+        return $createUserDTO
+            ->setPassword($hashedPassword)
+            ->setPhone($formattedPhone);
+    }
+
+    private function isValidPasswordFormat(string $password): bool
     {
         return preg_match(self::PASSWORD_PATTERN, $password) === 1;
     }
@@ -174,7 +174,7 @@ class UserService
         return $this->userRepository->existsByEmail($email);
     }
 
-    private function isPhoneValid(string $phone): bool
+    private function isValidPhoneFormat(string $phone): bool
     {
         return preg_match(self::PHONE_PATTERN, $phone) === 1;
     }
@@ -184,7 +184,7 @@ class UserService
         return preg_replace(self::PHONE_DIGITS_PATTERN, '', $phone);
     }
 
-    private function isValidEmail(string $email): bool
+    private function isValidEmailFormat(string $email): bool
     {
         return filter_var($email, FILTER_VALIDATE_EMAIL) !== false;
     }

@@ -60,7 +60,7 @@ class PetService
 
         $this->petRepository->update($updatePetDTO);
         
-        return new PetResponseResult(true);
+        return $this->getPetById($updatePetDTO->getId());
     }
 
     public function delete(DeletePetDTO $deletePetDTO): PetResponseResult 
@@ -97,11 +97,28 @@ class PetService
     {
         $errors = [];
 
+        $errors = array_merge($errors, $this->validateName($name));
+        $errors = array_merge($errors, $this->validateType($type));
+
+        return $errors;
+    }
+
+    private function validateName(string $name): array
+    {
+        $errors = [];
+
         if (empty($name)) {
             $errors['name_required'] = true;
         } elseif (strlen($name) < self::MIN_NAME_LENGTH) {
             $errors['name_length'] = true;
         }
+
+        return $errors;
+    }
+
+    private function validateType(string $type): array
+    {
+        $errors = [];
 
         if (empty($type)) {
             $errors['type_required'] = true;
