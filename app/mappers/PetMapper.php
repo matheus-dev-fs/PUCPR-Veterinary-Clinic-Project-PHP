@@ -6,6 +6,7 @@ namespace app\mappers;
 
 use app\dtos\CreatePetDTO;
 use app\dtos\DeletePetDTO;
+use app\dtos\UpdatePetDTO;
 use app\models\Pet;
 use app\utils\Sanitizer;
 
@@ -30,6 +31,20 @@ class PetMapper
         return new DeletePetDTO(
             (int) Sanitizer::sanitize($userId ?? ''),
             (int) Sanitizer::sanitize($petId ?? '')
+        );
+    }
+
+    public function toUpdatePetDTO(
+        ?string $id,
+        ?string $name,
+        ?string $type,
+        ?string $gender
+    ): UpdatePetDTO {
+        return new UpdatePetDTO(
+            (int) Sanitizer::sanitize($id ?? ''),
+            Sanitizer::sanitize($name ?? ''),
+            Sanitizer::sanitize($type ?? ''),
+            Sanitizer::sanitize($gender ?? '')
         );
     }
 

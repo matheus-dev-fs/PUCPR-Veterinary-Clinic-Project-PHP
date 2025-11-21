@@ -11,6 +11,7 @@ use app\core\RequestHelper;
 use app\services\PetService;
 use app\mappers\PetMapper;
 use app\dtos\CreatePetDTO;
+use app\dtos\UpdatePetDTO;
 
 class PetController extends Controller
 {
@@ -138,10 +139,53 @@ class PetController extends Controller
         ]);
     }
 
+    public function update(): void {
+        if (!AuthHelper::isUserLoggedIn()) {
+            RedirectHelper::redirectToLogin();
+        }
+
+        if (!RequestHelper::isPostRequest()) {
+            RedirectHelper::redirectToPets();
+        }
+
+        $updatePetDTO = $this->getUpdatePetDTO();
+        $petResponseResult = $this->petService->update($updatePetDTO);
+
+        if (!$petResponseResult->isSuccess()) {
+            $errors = $petResponseResult->getErrors();
+
+            if (isset($errors['pet_not_found'])) {
+                RedirectHelper::redirectToPets();
+            } else if (isset($errors['unauthorized'])) {
+                RedirectHelper::redirectTo403();
+            } else {
+                $this->view('pet/edit', [
+                    'pet' => $updatePetDTO,
+                    'errors' => $errors,
+                    'old' => $_POST,
+                    'view' => 'pet/edit'
+                ]);
+                return;
+            }
+        }
+
+        RedirectHelper::redirectToPets();
+    }
+
     private function getCreatePetDTO(): CreatePetDTO
     {
         return $this->petMapper->toCreatePetDTO(
             AuthHelper::getUserLoggedId(),
+            $_POST['name'] ?? null,
+            $_POST['type'] ?? null,
+            $_POST['gender'] ?? null
+        );
+    }
+
+    private function getUpdatePetDTO(): UpdatePetDTO
+    {
+        return $this->petMapper->toUpdatePetDTO(
+            $_POST['id'] ?? null,
             $_POST['name'] ?? null,
             $_POST['type'] ?? null,
             $_POST['gender'] ?? null

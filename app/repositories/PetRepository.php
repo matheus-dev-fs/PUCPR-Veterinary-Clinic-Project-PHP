@@ -6,6 +6,7 @@ namespace app\repositories;
 use app\core\Repository;
 use app\dtos\CreatePetDTO;
 use app\dtos\DeletePetDTO;
+use app\dtos\UpdatePetDTO;
 use app\models\Pet;
 use app\mappers\PetMapper;
 
@@ -82,6 +83,23 @@ class PetRepository extends Repository
             return $rows > 0;
         } catch (\Exception $e) {
             throw new \Exception('Error deleting pet: ' . $e->getMessage());
+        }
+    }
+
+    public function update(UpdatePetDTO $updatePetDTO): void
+    {
+        try {
+            $sql = "UPDATE Pet SET name = :name, type = :type, gender = :gender WHERE id = :id";
+            $params = [
+                ':name' => $updatePetDTO->getName(),
+                ':type' => $updatePetDTO->getType(),
+                ':gender' => $updatePetDTO->getGender(),
+                ':id' => $updatePetDTO->getId()
+            ];
+
+            $this->database->execute($sql, $params);
+        } catch (\Exception $e) {
+            throw new \Exception('Error updating pet: ' . $e->getMessage());
         }
     }
 }

@@ -8,6 +8,7 @@ use app\repositories\PetRepository;
 use app\core\Database;
 use app\dtos\CreatePetDTO;
 use app\dtos\DeletePetDTO;
+use app\dtos\UpdatePetDTO;
 use app\responses\PetResponseResult;
 
 class PetService
@@ -21,7 +22,7 @@ class PetService
 
     public function save(CreatePetDTO $createPetDTO): PetResponseResult
     {
-        $isAllFieldsValid = $this->isAllFieldsValid($createPetDTO);
+        $isAllFieldsValid = $this->isAllFieldsFromCreatePetDTOValid($createPetDTO);
 
         if ($isAllFieldsValid !== true) {
             return new PetResponseResult(null, $isAllFieldsValid);
@@ -33,6 +34,10 @@ class PetService
 
     public function delete(DeletePetDTO $deletePetDTO): PetResponseResult 
     {
+        if (empty($deletePetDTO->getPetId())) {
+            return new PetResponseResult(null, ['pet_id_required' => true]);
+        }
+
         $pet = $this->petRepository->findById($deletePetDTO->getPetId());
 
         if ($pet === null) {
@@ -50,6 +55,27 @@ class PetService
         }
 
         return new PetResponseResult($pet);
+    }
+
+    public function update(UpdatePetDTO $updatePetDTO): PetResponseResult
+    {   
+        $isAllFieldsValid = $this->isAllFieldsFromUpdatePetDTOValid($updatePetDTO);
+        if ($isAllFieldsValid !== true) {
+            return new PetResponseResult(null, $isAllFieldsValid);
+        }
+
+        $pet = $this->petRepository->findById($updatePetDTO->getId());
+
+        if ($pet === null) {
+            return new PetResponseResult(null, ['pet_not_found' => true]);
+        }
+
+        if (!$this->isPetOwnedByLoggedUser($pet->getUserId())) {
+            return new PetResponseResult(null, ['unauthorized' => true]);
+        }
+
+        $this->petRepository->update($updatePetDTO);
+        return new PetResponseResult($updatePetDTO);
     }
 
     public function getAllByUserId(int $userId): array
@@ -72,7 +98,7 @@ class PetService
         return new PetResponseResult($pet);
     }
 
-    private function isAllFieldsValid(CreatePetDTO $createPetDTO): bool | array
+    private function isAllFieldsFromCreatePetDTOValid(CreatePetDTO $createPetDTO): bool | array
     {
         $errors = [];
 
@@ -85,6 +111,29 @@ class PetService
         if (empty($createPetDTO->getType())) {
             $errors['type_required'] = true;
         } elseif (!in_array($createPetDTO->getType(), ['dog', 'cat', 'other'])) {
+            $errors['type_invalid'] = true;
+        }
+
+        return empty($errors) ? true : $errors;
+    }
+
+     private function isAllFieldsFromUpdatePetDTOValid(UpdatePetDTO $updatePetDTO): bool | array
+    {
+        $errors = [];
+
+        if (empty($updatePetDTO->getId())) {
+            $errors['pet_id_required'] = true;
+        }
+
+        if (empty($updatePetDTO->getName())) {
+            $errors['name_required'] = true;
+        } elseif (strlen($updatePetDTO->getName()) < 3) {
+            $errors['name_length'] = true;
+        }
+
+        if (empty($updatePetDTO->getType())) {
+            $errors['type_required'] = true;
+        } elseif (!in_array($updatePetDTO->getType(), ['dog', 'cat', 'other'])) {
             $errors['type_invalid'] = true;
         }
 
