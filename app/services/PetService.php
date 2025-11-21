@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace app\services;
 
+use app\core\AuthHelper;
 use app\repositories\PetRepository;
 use app\core\Database;
 use app\dtos\CreatePetDTO;
@@ -56,6 +57,21 @@ class PetService
         return $this->petRepository->getAllByUserId($userId);
     } 
 
+    public function getPetId(int $petId): PetResponseResult
+    {
+        $pet = $this->petRepository->findById($petId);
+
+        if ($pet === null) {
+            return new PetResponseResult(null, ['pet_not_found' => true]);
+        }
+
+        if (!$this->isPetOwnedByLoggedUser($pet->getUserId())) {
+            return new PetResponseResult(null, ['unauthorized' => true]);
+        }
+
+        return new PetResponseResult($pet);
+    }
+
     private function isAllFieldsValid(CreatePetDTO $createPetDTO): bool | array
     {
         $errors = [];
@@ -73,5 +89,9 @@ class PetService
         }
 
         return empty($errors) ? true : $errors;
+    }
+
+    private function isPetOwnedByLoggedUser(int $petId): bool {
+        return AuthHelper::getUserLoggedId() === $petId;
     }
 }

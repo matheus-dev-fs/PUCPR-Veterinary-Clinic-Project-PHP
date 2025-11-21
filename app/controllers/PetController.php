@@ -106,6 +106,38 @@ class PetController extends Controller
         RedirectHelper::redirectToPets();
     }
 
+    public function edit(?int $petId): void
+    {
+        if (!AuthHelper::isUserLoggedIn()) {
+            RedirectHelper::redirectToLogin();
+        }
+
+        if ($petId === null || !\is_numeric($petId)) {
+            RedirectHelper::redirectToPets();
+        }
+
+        $petResponseResult = $this->petService->getPetId($petId);
+
+        if (!$petResponseResult->isSuccess()) {
+            $errors = $petResponseResult->getErrors();
+
+            if (isset($errors['pet_not_found'])) {
+                RedirectHelper::redirectToPets();
+            } else if (isset($errors['unauthorized'])) {
+                RedirectHelper::redirectTo403();
+            } else {
+                RedirectHelper::redirectToPets();
+            }
+        }
+
+        $this->view('pet/edit', [
+            'pet' => $petResponseResult->getPet(),
+            'errors' => [],
+            'old' => [],
+            'view' => 'pet/edit'
+        ]);
+    }
+
     private function getCreatePetDTO(): CreatePetDTO
     {
         return $this->petMapper->toCreatePetDTO(

@@ -968,11 +968,13 @@ main.login-user-page {
 
 /* NEW PET PAGE */
 
-body.new-pet-page {
+body.new-pet-page,
+body.edit-pet-page {
     height: 100vh;
 }
 
-main.new-pet-page {
+main.new-pet-page,
+main.edit-pet-page {
     background-image: url('../images/banner/bem-vindo.jpg');
     background-size: cover;
     background-position: center;
@@ -980,20 +982,23 @@ main.new-pet-page {
     height: calc(100vh - 80px);
 }
 
-main.new-pet-page .overlay {
+main.new-pet-page .overlay,
+main.edit-pet-page .overlay {
     background-color: rgba(0, 0, 0, 0.6);
     width: 100%;
     height: 100%;
 }
 
-.new-pet-area {
+.new-pet-area,
+.edit-pet-area {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100%;
 }
 
-.new-pet {
+.new-pet,
+.edit-pet {
     display: flex;
     width: 65%;
     margin: 0 auto;
@@ -1001,7 +1006,8 @@ main.new-pet-page .overlay {
     border-radius: 1.5rem;
 }
 
-.new-pet .left-area {
+.new-pet .left-area,
+.edit-pet .left-area {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -1012,7 +1018,8 @@ main.new-pet-page .overlay {
     border-bottom-left-radius: 1.5rem;
 }
 
-.new-pet .left-area .top-area {
+.new-pet .left-area .top-area,
+.edit-pet .left-area .top-area {
     display: flex;
     justify-content: center;
     align-items: flex-end;
@@ -1021,44 +1028,51 @@ main.new-pet-page .overlay {
     padding: 2rem;
 }
 
-.new-pet .left-area .top-area .img-area {
+.new-pet .left-area .top-area .img-area,
+.edit-pet .left-area .top-area .img-area {
     padding: 1.5rem;
     background-color: var(--background-color);
     border-radius: 50%;
 }
 
-.new-pet .left-area .top-area .img {
+.new-pet .left-area .top-area .img,
+.edit-pet .left-area .top-area .img {
     font-size: 6rem;
     color: var(--primary-color);
 }
 
-.new-pet .left-area .bottom-area {
+.new-pet .left-area .bottom-area,
+.edit-pet .left-area .bottom-area {
     flex: 1;
     width: 100%;
     padding: 2rem;
     text-align: center;
 }
 
-.new-pet .left-area .bottom-area .title {
+.new-pet .left-area .bottom-area .title,
+.edit-pet .left-area .bottom-area .title {
     color: var(--background-color);
     font-size: 1.7rem;
     font-weight: 700;
     margin-bottom: 0.5rem;
 }
 
-.new-pet .left-area .bottom-area .subtitle {
+.new-pet .left-area .bottom-area .subtitle,
+.edit-pet .left-area .bottom-area .subtitle {
     color: var(--grey-color);
     font-size: 1.1rem;
     font-weight: 500;
 }
 
-.new-pet .right-area {
+.new-pet .right-area,
+.edit-pet .right-area {
     flex: 4;
     border-top-right-radius: 1.5rem;
     border-bottom-right-radius: 1.5rem;
 }
 
-.new-pet .new-pet-form {
+.new-pet .new-pet-form,
+.edit-pet .edit-pet-form {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -1067,7 +1081,8 @@ main.new-pet-page .overlay {
     padding: 2rem;
 }
 
-.new-pet-form .input-group {
+.new-pet-form .input-group,
+.edit-pet-form .input-group {
     display: flex;
     justify-content: space-between;
     gap: 0.3rem;
@@ -1075,7 +1090,8 @@ main.new-pet-page .overlay {
     border-bottom: 0.1rem solid var(--grey-color);
 }
 
-.new-pet-form .input-group label {
+.new-pet-form .input-group label,
+.edit-pet-form .input-group label {
     width: 40%;
     padding-top: 0.5rem;
     font-size: 1.1rem;
@@ -1083,14 +1099,17 @@ main.new-pet-page .overlay {
     color: var(--primary-color);
 }
 
-.new-pet-form .input-group .input-area {
+.new-pet-form .input-group .input-area,
+.edit-pet-form .input-group .input-area {
     display: flex;
     flex-direction: column;
     width: 60%;
 }
 
 .new-pet-form .input-group .input-area input,
-.new-pet-form .input-group .input-area select {
+.new-pet-form .input-group .input-area select,
+.edit-pet-form .input-group .input-area input,
+.edit-pet-form .input-group .input-area select {
     width: 100%;
     border: none;
     outline: none;
@@ -1098,41 +1117,49 @@ main.new-pet-page .overlay {
     padding: 0 1rem;
 }
 
-.new-pet-form .input-group .input-area input {
+.new-pet-form .input-group .input-area input,
+.edit-pet-form .input-group .input-area input {
     height: 65%;
 }
 
-.new-pet-form .input-group .input-area select {
+.new-pet-form .input-group .input-area select,
+.edit-pet-form .input-group .input-area select {
     flex: 1;
     color: var(--dark-grey-color);
 }
 
-.new-pet-form .input-group .input-area select option {
+.new-pet-form .input-group .input-area select option,
+.edit-pet-form .input-group .input-area select option {
     width: auto;
 }
 
-.new-pet-form .input-group .input-area select option:checked {
+.new-pet-form .input-group .input-area select option:checked,
+.edit-pet-form .input-group .input-area select option:checked {
     background-color: var(--primary-color);
     color: var(--background-color);
 }
 
-.new-pet-form .input-group .input-area.pet-gender {
+.new-pet-form .input-group .input-area.pet-gender,
+.edit-pet-form .input-group .input-area.pet-gender {
     flex-direction: row;
     align-items: center;
     gap: 30%;
 }
 
-.new-pet-form .input-group .input-area.pet-gender input {
+.new-pet-form .input-group .input-area.pet-gender input,
+.edit-pet-form .input-group .input-area.pet-gender input {
     width: auto;
     margin: auto 0 auto 1rem;
 }
 
-.new-pet-form .input-group input[type="radio"] {
+.new-pet-form .input-group input[type="radio"],
+.edit-pet-form .input-group input[type="radio"] {
     accent-color: var(--primary-color);
     cursor: pointer;
 }
 
-.new-pet-form .input-group .error-area {
+.new-pet-form .input-group .error-area,
+.edit-pet-form .input-group .error-area {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -1142,18 +1169,21 @@ main.new-pet-page .overlay {
     font-weight: 500;
 }
 
-.new-pet-form .input-group .error-area .error-msg {
+.new-pet-form .input-group .error-area .error-msg,
+.edit-pet-form .input-group .error-area .error-msg {
     display: none;
     width: 100%;
     height: 100%;
     font-size: 1rem;
 }
 
-.new-pet-form .input-group .error-area .error-msg.show-error {
+.new-pet-form .input-group .error-area .error-msg.show-error,
+.edit-pet-form .input-group .error-area .error-msg.show-error {
     display: block;
 }
 
-.new-pet-form .submit-area .submit-button {
+.new-pet-form .submit-area .submit-button,
+.edit-pet-form .submit-area .submit-button {
     display: block;
     padding: 0.5rem 1rem;
     margin-left: auto;
@@ -1418,17 +1448,20 @@ main.pets-page .overlay {
 @media (max-width: 900px) {
 
     .schedule .left-area,
-    .new-pet .left-area {
+    .new-pet .left-area,
+    .edit-pet .left-area {
         display: none;
     }
 
     .schedule-form .input-group label,
-    .new-pet-form .input-group label {
+    .new-pet-form .input-group label,
+    .edit-pet-form .input-group label {
         font-size: 1rem;
     }
 
     .schedule-form .input-group .input-area input::placeholder,
-    .new-pet-form .input-group .input-area input::placeholder {
+    .new-pet-form .input-group .input-area input::placeholder,
+    .edit-pet-form .input-group .input-area input::placeholder {
         font-size: 0.8rem;
     }
 
@@ -1703,45 +1736,53 @@ main.pets-page .overlay {
         width: 95%;
     }
 
-    .new-pet {
+    .new-pet,
+    .edit-pet {
         width: 85%;
     }
 
     .schedule-form .input-group,
-    .new-pet-form .input-group {
+    .new-pet-form .input-group,
+    .edit-pet-form .input-group {
         flex-direction: column;
         gap: 0;
         height: 6rem;
     }
 
     .schedule-form .input-group label,
-    .new-pet-form .input-group label {
+    .new-pet-form .input-group label,
+    .edit-pet-form .input-group label {
         width: 100%;
         font-size: 1rem;
         text-align: left;
     }
 
     .schedule-form .input-group .input-area,
-    .new-pet-form .input-group .input-area {
+    .new-pet-form .input-group .input-area,
+    .edit-pet-form .input-group .input-area {
         width: 100%;
         height: 100%;
     }
 
     .schedule-form .input-group .input-area input,
-    .new-pet-form .input-group .input-area input {
+    .new-pet-form .input-group .input-area input,
+    .edit-pet-form .input-group .input-area input {
         width: 100%;
         height: 65%;
     }
 
     .schedule-form .input-group .input-area input::placeholder,
-    .new-pet-form .input-group .input-area input::placeholder {
+    .new-pet-form .input-group .input-area input::placeholder,
+    .edit-pet-form .input-group .input-area input::placeholder {
         font-size: 0.8rem;
     }
 
     .schedule-form .input-group .input-area.pet-gender .left,
     .schedule-form .input-group .input-area.pet-gender .right,
     .new-pet-form .input-group .input-area.pet-gender .left,
-    .new-pet-form .input-group .input-area.pet-gender .right {
+    .new-pet-form .input-group .input-area.pet-gender .right,
+    .edit-pet-form .input-group .input-area.pet-gender .left,
+    .edit-pet-form .input-group .input-area.pet-gender .right {
         display: flex;
         align-items: center;
         gap: 0.5rem;
@@ -1749,7 +1790,8 @@ main.pets-page .overlay {
     }
 
     .schedule-form .input-group .error-area .error-msg,
-    .new-pet-form .input-group .error-area .error-msg {
+    .new-pet-form .input-group .error-area .error-msg,
+    .edit-pet-form .input-group .error-area .error-msg {
         font-size: 1rem;
     }
 
