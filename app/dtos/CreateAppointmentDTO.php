@@ -5,17 +5,20 @@ namespace app\dtos;
 
 class CreateAppointmentDTO {
     private readonly int $petId;
+    private readonly int $userId;
     private readonly int $serviceId;
     private readonly string $infos;
     private readonly string $date;
 
     public function __construct(
         int $petId,
+        int $userId,
         int $serviceId,
         string $infos,
         string $date
     ) {
         $this->petId = $petId;
+        $this->userId = $userId;
         $this->serviceId = $serviceId;
         $this->date = $date;
         $this->infos = $infos;
@@ -23,6 +26,10 @@ class CreateAppointmentDTO {
 
     public function getPetId(): int {
         return $this->petId;
+    }
+
+    public function getUserId(): int {
+        return $this->userId;
     }
 
     public function getServiceId(): int {

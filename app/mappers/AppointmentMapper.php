@@ -30,12 +30,14 @@ class AppointmentMapper
 
     public static function toCreateAppointmentDTO(
         string $petId,
+        ?int $userId,
         string $serviceId,
         ?string $infos,
         ?string $appointmentDate
     ): CreateAppointmentDTO {
         return new CreateAppointmentDTO(
             (int) Sanitizer::sanitize($petId),
+            $userId,
             (int) Sanitizer::sanitize($serviceId),
             Sanitizer::sanitize($infos),
             Sanitizer::sanitize($appointmentDate)

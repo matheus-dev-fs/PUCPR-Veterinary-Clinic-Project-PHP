@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace app\controllers;
 
+use app\core\AuthHelper;
 use app\core\Controller;
 use app\services\AppointmentService;
 use app\core\RedirectHelper;
@@ -77,6 +78,7 @@ class AppointmentController extends Controller
     {
         return AppointmentMapper::toCreateAppointmentDTO(
             $_POST['pets'] ?? null,
+            AuthHelper::getUserLoggedId() ?? null,
             $_POST['service'] ?? null,
             $_POST['infos'] ?? null,
             $_POST['date'] ?? null

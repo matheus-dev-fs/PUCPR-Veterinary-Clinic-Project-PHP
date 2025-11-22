@@ -27,10 +27,11 @@ class AppointmentRepository extends Repository
     public function save(CreateAppointmentDTO $createAppointmentDTO): ?Appointment
     {
         try {
-            $sql = "INSERT INTO Appointment (pet_id, service_id, appointment_date, infos) 
-                    VALUES (:pet_id, :service_id, :appointment_date, :infos)";
+            $sql = "INSERT INTO Appointment (pet_id, user_id, service_id, appointment_date, infos) 
+                    VALUES (:pet_id, :user_id, :service_id, :appointment_date, :infos)";
             $params = [
                 ':pet_id'          => $createAppointmentDTO->getPetId(),
+                ':user_id'         => $createAppointmentDTO->getUserId(),
                 ':service_id'      => $createAppointmentDTO->getServiceId(),
                 ':appointment_date'=> $createAppointmentDTO->getDate(),
                 ':infos'           => $createAppointmentDTO->getInfos()

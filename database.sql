@@ -37,6 +37,7 @@ CREATE TABLE IF NOT EXISTS Pet (
 CREATE TABLE IF NOT EXISTS Appointment (
     id INT AUTO_INCREMENT PRIMARY KEY,
     pet_id INT NOT NULL,
+    user_id INT NOT NULL,
     service_id INT NOT NULL,
     appointment_date DATE NOT NULL,
     infos TEXT,
@@ -65,10 +66,10 @@ INSERT INTO Pet (user_id, `name`, `type`, gender) VALUES
 (1, 'Mia', 'cat', 'F'),
 (1, 'Toby', 'other', 'M');
 
-INSERT INTO Appointment (pet_id, service_id, appointment_date, infos) VALUES
-(1, 1, '2025-11-20 14:30:00', 'Rex parece estar coçando muito a orelha.'),
-(2, 2, '2025-11-21 10:00:00', 'Primeira vacina da Mia.'),
-(3, 3, '2025-11-22 11:00:00', 'Tosa completa, animal estava com muitos nós.');
+INSERT INTO Appointment (pet_id, user_id, service_id, appointment_date, infos) VALUES
+(1, 1, 1, '2025-11-20 14:30:00', 'Rex parece estar coçando muito a orelha.'),
+(2, 1, 2, '2025-11-21 10:00:00', 'Primeira vacina da Mia.'),
+(3, 1, 3, '2025-11-22 11:00:00', 'Tosa completa, animal estava com muitos nós.');
 
 COMMIT;
 
