@@ -5,12 +5,26 @@ namespace app\repositories;
 
 use app\core\Repository;
 use app\mappers\ServiceMapper;
+use app\models\Service;
 
 class ServiceRepository extends Repository
 {
-    public function findById(int $id): ?object
+    public function findById(int $id): ?Service
     {
-        throw new \Exception('Not implemented');
+        try {
+            $sql = "SELECT * FROM `Service` WHERE `id` = :id LIMIT 1";
+            $params = ['id' => $id];
+            $result = $this->database->fetch($sql, $params);
+
+            if ($result === false) {
+                return null;
+            }
+
+            $mapper = new ServiceMapper();
+            return $mapper->toService($result);
+        } catch (\Exception $e) {
+            throw new \Exception('Error fetching service by ID: ' . $e->getMessage());
+        }
     }
 
     public function findByName(string $name): ?object

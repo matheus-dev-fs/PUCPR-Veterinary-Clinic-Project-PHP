@@ -22,4 +22,17 @@ class ServiceMapper
         
         return $array;
     }
+
+    public function toService(?array $data): ?Service
+    {
+        if ($data === null) {
+            return null;
+        }
+
+        return new Service(
+            $data['id'],
+            $data['name'],
+            $data['description']
+        );
+    }
 }

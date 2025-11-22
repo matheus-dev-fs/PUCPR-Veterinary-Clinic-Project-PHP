@@ -30,7 +30,7 @@
                         </div>
                     </div>
                     <div class="right-area">
-                        <form class="appointment-new-form" id="appointment-new-form" action="/my-php-mvc-app/formAction/" method="GET">
+                        <form class="appointment-new-form" id="appointment-new-form" action="/my-php-mvc-app/appointment/create" method="POST">
                             <div class="input-group">
                                 <label for="pets">Selecione seu Pet:</label>
                                 <div class="input-area pets">
@@ -41,7 +41,7 @@
                                         <?php endforeach; ?>
                                     </select>
                                     <div class="error-area">
-                                        <span class="error-msg required">Selecione um pet.</span>
+                                        <span class="error-msg required <?= isset($errors['required_pet']) ? 'show-error' : '' ?>">Selecione um pet.</span>
                                     </div>
                                 </div>
                             </div>
@@ -55,7 +55,7 @@
                                         <?php endforeach; ?>
                                     </select>
                                     <div class="error-area">
-                                        <span class="error-msg required">Selecione um serviço.</span>
+                                        <span class="error-msg required <?= isset($errors['required_service']) ? 'show-error' : '' ?>">Selecione um serviço.</span>
                                     </div>
                                 </div>
                             </div>
@@ -72,8 +72,8 @@
                                 <div class="input-area date">
                                     <input type="date" id="date" name="date">
                                     <div class="error-area">
-                                        <span class="error-msg required">A data é obrigatória.</span>
-                                        <span class="error-msg invalid">Escolha uma data presente/futura.</span>
+                                        <span class="error-msg required <?= isset($errors['required_date']) ? 'show-error' : '' ?>">A data é obrigatória.</span>
+                                        <span class="error-msg invalid <?= isset($errors['invalid_date']) ? 'show-error' : '' ?>">Escolha uma data presente/futura.</span>
                                     </div>
                                 </div>
                             </div>

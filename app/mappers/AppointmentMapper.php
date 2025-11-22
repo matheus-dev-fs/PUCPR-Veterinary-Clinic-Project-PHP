@@ -2,11 +2,14 @@
 declare(strict_types=1);
 
 namespace app\mappers;
+
 use app\models\Appointment;
+use app\dtos\CreateAppointmentDTO;
+use app\utils\Sanitizer;
 
 class AppointmentMapper
 {
-    public function toAppointmentArray(array $data): array
+    public static function toAppointmentArray(array $data): array
     {
         $array = [];
 
@@ -15,7 +18,7 @@ class AppointmentMapper
                 $item['id'],
                 $item['pet_id'],
                 $item['service_id'],
-                $item['appointment_date'],
+                $item['date'],
                 $item['infos']
             );
 
@@ -23,5 +26,19 @@ class AppointmentMapper
         }
         
         return $array;
+    }
+
+    public static function toCreateAppointmentDTO(
+        string $petId,
+        string $serviceId,
+        ?string $infos,
+        ?string $appointmentDate
+    ): CreateAppointmentDTO {
+        return new CreateAppointmentDTO(
+            (int) Sanitizer::sanitize($petId),
+            (int) Sanitizer::sanitize($serviceId),
+            Sanitizer::sanitize($infos),
+            Sanitizer::sanitize($appointmentDate)
+        );
     }
 }

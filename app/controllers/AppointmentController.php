@@ -6,6 +6,10 @@ namespace app\controllers;
 
 use app\core\Controller;
 use app\services\AppointmentService;
+use app\core\RedirectHelper;
+use app\dtos\CreateAppointmentDTO;
+use app\mappers\AppointmentMapper;
+use app\responses\AppointmentResult;
 
 class AppointmentController extends Controller
 {
@@ -48,5 +52,70 @@ class AppointmentController extends Controller
             'view' => 'appointment/new',
             'data' => $data
         ]);
+    }
+
+    public function create(): void
+    {
+        $this->ensureAuthenticated();
+        $this->ensurePostRequest(RedirectHelper::redirectToAppointmentNew(...));
+
+        $createAppointmentDTO = $this->getCreateAppointmentDTOFromPost();
+        $appointmentResponseResult = $this->appointmentService->save($createAppointmentDTO);
+
+        if (!$appointmentResponseResult->isSuccess()) {
+            $errors = $appointmentResponseResult->getErrors();
+
+            if ($this->shouldRedirectOnError($errors)) {
+                $this->handleAppointmentResponseErrors($appointmentResponseResult);
+            }
+        }
+
+        RedirectHelper::redirectToHome();
+    }
+
+    private function getCreateAppointmentDTOFromPost(): CreateAppointmentDTO
+    {
+        return AppointmentMapper::toCreateAppointmentDTO(
+            $_POST['pets'] ?? null,
+            $_POST['service'] ?? null,
+            $_POST['infos'] ?? null,
+            $_POST['date'] ?? null
+        );
+    }
+
+    private function handleAppointmentResponseErrors(AppointmentResult $result): void
+    {
+        if ($result->isSuccess()) {
+            return;
+        }
+
+        $errors = $result->getErrors();
+
+        if (isset($errors['required_pet']) || isset($errors['invalid_pet']) ||
+            isset($errors['required_service']) || isset($errors['invalid_service']) ||
+            isset($errors['required_date']) || isset($errors['invalid_date'])
+        ) {
+            $this->view('appointment/new', [
+                'errors' => $errors,
+                'old' => $_POST,
+                'view' => 'appointment/new'
+            ]);
+            return;
+        }
+
+        if (isset($errors['unauthorized'])) {
+            RedirectHelper::redirectTo403();
+        }
+    }
+
+    private function shouldRedirectOnError(array $errors): bool
+    {
+        return isset($errors['required_pet']) || 
+               isset($errors['invalid_pet']) ||
+               isset($errors['required_service']) || 
+               isset($errors['invalid_service']) ||
+               isset($errors['required_date']) || 
+               isset($errors['invalid_date']) ||
+               isset($errors['unauthorized']);
     }
 }

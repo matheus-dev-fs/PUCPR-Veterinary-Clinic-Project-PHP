@@ -47,4 +47,10 @@ class RedirectHelper
         }
         return self::$errorController;
     }
+
+    public static function redirectToAppointmentNew(): void
+    {
+        header('Location: /my-php-mvc-app/appointment/new');
+        exit;
+    }
 }

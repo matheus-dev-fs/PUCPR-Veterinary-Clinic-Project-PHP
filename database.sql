@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS Appointment (
     id INT AUTO_INCREMENT PRIMARY KEY,
     pet_id INT NOT NULL,
     service_id INT NOT NULL,
-    appointment_date DATETIME NOT NULL,
+    appointment_date DATE NOT NULL,
     infos TEXT,
     
     FOREIGN KEY (pet_id) 
