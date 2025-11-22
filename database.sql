@@ -39,8 +39,7 @@ CREATE TABLE IF NOT EXISTS Appointment (
     pet_id INT NOT NULL,
     service_id INT NOT NULL,
     appointment_date DATETIME NOT NULL,
-    status VARCHAR(50) NOT NULL DEFAULT 'Scheduled',
-    observations TEXT,
+    infos TEXT,
     
     FOREIGN KEY (pet_id) 
         REFERENCES Pet(id)
@@ -66,10 +65,10 @@ INSERT INTO Pet (user_id, `name`, `type`, gender) VALUES
 (1, 'Mia', 'cat', 'F'),
 (1, 'Toby', 'other', 'M');
 
-INSERT INTO Appointment (pet_id, service_id, appointment_date, status, observations) VALUES
-(1, 1, '2025-11-20 14:30:00', 'Agendada', 'Rex parece estar coçando muito a orelha.'),
-(2, 2, '2025-11-21 10:00:00', 'Agendada', 'Primeira vacina da Mia.'),
-(3, 3, '2025-11-22 11:00:00', 'Concluída', 'Tosa completa, animal estava com muitos nós.');
+INSERT INTO Appointment (pet_id, service_id, appointment_date, infos) VALUES
+(1, 1, '2025-11-20 14:30:00', 'Rex parece estar coçando muito a orelha.'),
+(2, 2, '2025-11-21 10:00:00', 'Primeira vacina da Mia.'),
+(3, 3, '2025-11-22 11:00:00', 'Tosa completa, animal estava com muitos nós.');
 
 COMMIT;
 

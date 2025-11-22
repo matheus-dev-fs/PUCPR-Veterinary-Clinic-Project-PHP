@@ -5,12 +5,19 @@ namespace app\controllers;
 
 use app\core\Controller;
 
-class ScheduleController extends Controller
+class AppointmentController extends Controller
 {
     public function index(): void
     {
         $this->view('schedule/index', [
             'view' => 'schedule/index'
+        ]);
+    }
+
+    public function new(): void
+    {
+        $this->view('appointment/new', [
+            'view' => 'appointment/new'
         ]);
     }
 }
