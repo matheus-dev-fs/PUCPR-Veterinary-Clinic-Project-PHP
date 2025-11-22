@@ -36,10 +36,9 @@
                                 <div class="input-area pets">
                                     <select id="pets" name="pets">
                                         <option value="">Selecione</option>
-                                        <option value="1">Zezinho</option>
-                                        <option value="2">Rex</option>
-                                        <option value="3">Pepe</option>
-                                        <option value="4">Lulu</option>
+                                        <?php foreach ($data['pets'] as $pet): ?>
+                                            <option value="<?= $pet->getId(); ?>"><?= $pet->getName(); ?></option>
+                                        <?php endforeach; ?>
                                     </select>
                                     <div class="error-area">
                                         <span class="error-msg required">Selecione um pet.</span>
@@ -51,10 +50,9 @@
                                 <div class="input-area service">
                                     <select id="service" name="service">
                                         <option value="">Selecione</option>
-                                        <option value="consulta">Consulta</option>
-                                        <option value="banho">Banho</option>
-                                        <option value="tosa">Tosa</option>
-                                        <option value="vacina">Vacinação</option>
+                                        <?php foreach ($data['services'] as $service): ?>
+                                            <option value="<?= $service->getId(); ?>"><?= $service->getName(); ?></option>
+                                        <?php endforeach; ?>
                                     </select>
                                     <div class="error-area">
                                         <span class="error-msg required">Selecione um serviço.</span>
