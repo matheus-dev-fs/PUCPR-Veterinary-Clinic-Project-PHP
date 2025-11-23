@@ -74,6 +74,35 @@ class AppointmentController extends Controller
         RedirectHelper::redirectToHome();
     }
 
+    public function summary(int $appointmentInt): void {
+        $this->ensureAuthenticated();
+
+        if (!$this->isAppointmentIdValid($appointmentInt)) {
+            RedirectHelper::redirectToHome();
+        }
+
+        $appointmentResult =$this->appointmentService->getSummaryData($appointmentInt);
+
+        if (!$appointmentResult->isSuccess()) {
+            $errors = $appointmentResult->getErrors();
+
+            if (isset($errors['not_found'])) {
+                RedirectHelper::redirectToHome();
+            }
+
+            if (isset($errors['unauthorized'])) {
+                RedirectHelper::redirectTo403();
+            }
+        }
+
+        $appointment = $appointmentResult->getAppointmentSummary();
+    }
+
+    private function isAppointmentIdValid(?int $appointmentId): bool
+    {
+        return isset($appointmentId) && is_int($appointmentId) && $appointmentId > 0;
+    }
+
     private function getCreateAppointmentDTOFromPost(): CreateAppointmentDTO
     {
         return AppointmentMapper::toCreateAppointmentDTO(
@@ -118,6 +147,7 @@ class AppointmentController extends Controller
                isset($errors['invalid_service']) ||
                isset($errors['required_date']) || 
                isset($errors['invalid_date']) ||
+               isset($errors['not_found']) ||
                isset($errors['unauthorized']);
     }
 }

@@ -7,22 +7,25 @@ class Appointment
 {
     private int $id;
     private int $petId;
+    private int $userId;
     private int $serviceId;
-    private \DateTime $appointmentDate;
     private string $infos;
+    private \DateTime $appointmentDate;
 
     public function __construct(
         int $id, 
         int $petId, 
+        int $userId,
         int $serviceId, 
+        string $infos,
         \DateTime $appointmentDate, 
-        string $infos
     ) {
         $this->id = $id;
         $this->petId = $petId;
+        $this->userId = $userId;
         $this->serviceId = $serviceId;
-        $this->appointmentDate = $appointmentDate;
         $this->infos = $infos;
+        $this->appointmentDate = $appointmentDate;
     }
 
     public function getId(): int {
@@ -31,6 +34,10 @@ class Appointment
 
     public function getPetId(): int {
         return $this->petId;
+    }
+
+    public function getUserId(): int {
+        return $this->userId;
     }
 
     public function getServiceId(): int {

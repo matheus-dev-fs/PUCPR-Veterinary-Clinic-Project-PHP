@@ -6,12 +6,29 @@ namespace app\repositories;
 use app\core\Repository;
 use app\dtos\CreateAppointmentDTO;
 use app\models\Appointment;
+use app\mappers\AppointmentMapper;
+use app\dtos\AppointmentSummaryDTO;
 
 class AppointmentRepository extends Repository
 {
-    public function findById(int $id): ?object
+    public function findById(int $id): ?Appointment
     {
-        throw new \Exception('Not implemented');
+        try {
+            $sql = "SELECT * FROM Appointment WHERE id = :id";
+            $params = [':id' => $id];
+
+            $result = $this->database->fetch($sql, $params);
+
+            if ($result === null) {
+                return null;
+            }
+
+            $appointment = AppointmentMapper::toAppointment($result);
+
+            return $appointment;
+        } catch (\Exception $e) {
+            throw new \Exception('Error retrieving appointment by ID: ' . $e->getMessage());
+        }
     }
 
     public function findByName(string $name): ?object
@@ -48,12 +65,50 @@ class AppointmentRepository extends Repository
             return new Appointment(
                 $lastInsertId,
                 $createAppointmentDTO->getPetId(),
+                $createAppointmentDTO->getUserId(),
                 $createAppointmentDTO->getServiceId(),
-                new \DateTime($createAppointmentDTO->getDate()),
-                $createAppointmentDTO->getInfos()
+                $createAppointmentDTO->getInfos(),
+                new \DateTime($createAppointmentDTO->getDate())
             );
         } catch (\Exception $e) {
             throw new \Exception('Error saving appointment: ' . $e->getMessage());
+        }
+    }
+
+    public function getSummaryData(int $appointmentId): ?AppointmentSummaryDTO
+    {
+        try {
+            $sql = "SELECT 
+                        p.name AS pet_name,
+                        u.name AS tutor_name,
+                        s.name AS service_name,
+                        a.appointment_date,
+                        a.infos
+                    FROM 
+                        Appointment a
+                    JOIN 
+                        Pet p 
+                    ON a.pet_id = p.id
+                    JOIN 
+                        User u 
+                    ON 
+                    a.user_id = u.id
+                    JOIN 
+                        Service s 
+                    ON 
+                        a.service_id = s.id
+                    WHERE a.id = :appointment_id";
+            $params = [':appointment_id' => $appointmentId];
+
+            $result = $this->database->fetch($sql, $params);
+
+            if ($result === null) {
+                return null;
+            }
+
+            return AppointmentMapper::toAppointmentSummaryDTO($result);
+        } catch (\Exception $e) {
+            throw new \Exception('Error retrieving appointment summary: ' . $e->getMessage());
         }
     }
 }

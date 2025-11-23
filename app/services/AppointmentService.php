@@ -11,6 +11,7 @@ use app\repositories\ServiceRepository;
 use app\responses\AppointmentFormDataResult;
 use app\core\AuthHelper;
 use app\dtos\AppointmentFormDataDTO;
+use app\responses\AppointmentSummaryResult;
 use app\dtos\CreateAppointmentDTO;
 use app\responses\AppointmentResult;
 
@@ -50,6 +51,23 @@ class AppointmentService
 
         $appointment = $this->appointmentRepository->save($createAppointmentDTO);
         return new AppointmentResult($appointment);
+    }
+
+    public function getSummaryData(int $appointmentId): AppointmentSummaryResult
+    {
+        $appointment = $this->appointmentRepository->findById($appointmentId);
+
+         if ($appointment === null) {
+            return new AppointmentSummaryResult(null, ['not_found' => true]);
+        }
+
+        if (!$this->checkAppointmentAuthorization($appointmentId)) {
+            return new AppointmentSummaryResult(null, ['unauthorized' => true]);
+        }
+
+        $appointmentSummaryDTO = $this->appointmentRepository->getSummaryData($appointmentId);
+
+        return new AppointmentSummaryResult($appointmentSummaryDTO);
     }
 
     private function validateData(CreateAppointmentDTO $createAppointmentDTO): array
@@ -104,7 +122,7 @@ class AppointmentService
         return $errors;
     }
 
-     private function checkPetAuthorization(int $petId): bool
+    private function checkPetAuthorization(int $petId): bool
     {
         $pet = $this->petRepository->findById($petId);
 
@@ -113,6 +131,21 @@ class AppointmentService
         }
 
         if ($pet->getUserId() !== AuthHelper::getUserLoggedId()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private function checkAppointmentAuthorization(int $appointmentId): bool
+    {
+        $appointment = $this->appointmentRepository->findById($appointmentId);
+
+        if ($appointment === null) {
+            return false;
+        }
+
+        if ($appointment->getUserId() !== AuthHelper::getUserLoggedId()) {
             return false;
         }
 
