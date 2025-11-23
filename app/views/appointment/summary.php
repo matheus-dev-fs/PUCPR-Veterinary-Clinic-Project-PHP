@@ -38,31 +38,23 @@
                                     <div class="content">
                                         <div class="info-item tutorName">
                                             <span class="label">Nome do Tutor:</span>
-                                            <span class="value" id="tutor-name">placeholder</span>
-                                        </div>
-                                        <div class="info-item email">
-                                            <span class="label">Email do Tutor:</span>
-                                            <span class="value" id="tutor-email">placeholder</span>
-                                        </div>
-                                        <div class="info-item phone">
-                                            <span class="label">Telefone do Tutor:</span>
-                                            <span class="value" id="tutor-phone">placeholder</span>
+                                            <span class="value" id="tutor-name"><?= $appointment->getTutorName() ?></span>
                                         </div>
                                         <div class="info-item petName">
                                             <span class="label">Nome do Pet:</span>
-                                            <span class="value" id="pet-name">placeholder</span>
-                                        </div>
-                                        <div class="info-item gender">
-                                            <span class="label">Sexo do Pet:</span>
-                                            <span class="value" id="pet-gender">placeholder</span>
+                                            <span class="value" id="pet-name"><?= $appointment->getPetName() ?></span>
                                         </div>
                                         <div class="info-item service">
                                             <span class="label">Serviço Agendado:</span>
-                                            <span class="value" id="service-name">placeholder</span>
+                                            <span class="value" id="service-name"><?= $appointment->getServiceName() ?></span>
+                                        </div>
+                                        <div class="info-item infos">
+                                            <span class="label">Informações Adicionais:</span>
+                                            <span class="value" id="infos"><?= $appointment->getInfos() ?></span>
                                         </div>
                                         <div class="info-item date">
                                             <span class="label">Data do Agendamento:</span>
-                                            <span class="value" id="appointment-date">placeholder</span>
+                                            <span class="value" id="appointment-date"><?= $appointment->getAppointmentDate() ?></span>
                                         </div>
                                     </div>
                                 </div>
@@ -77,7 +69,7 @@
 
     <?php include_once __DIR__ . '/../partials/footer.php'; ?>
 
-    <script type="module" src="/my-php-mvc-app/public/assets/js/form-action/script.js"></script>
+    <script type="module" src="/my-php-mvc-app/public/assets/js/appointment-summary/script.js"></script>
 </body>
 
 </html>

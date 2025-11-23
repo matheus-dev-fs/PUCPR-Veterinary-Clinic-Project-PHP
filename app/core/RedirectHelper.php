@@ -53,4 +53,10 @@ class RedirectHelper
         header('Location: /my-php-mvc-app/appointment/new');
         exit;
     }
+
+    public static function redirectToAppointmentSummary(int $appointmentId): void
+    {
+        header('Location: /my-php-mvc-app/appointment/summary/' . $appointmentId);
+        exit;
+    }
 }

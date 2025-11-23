@@ -71,7 +71,7 @@ class AppointmentController extends Controller
             }
         }
 
-        RedirectHelper::redirectToHome();
+        RedirectHelper::redirectToAppointmentSummary($appointmentResponseResult->getCreateAppointmentDTO()->getId());
     }
 
     public function summary(int $appointmentInt): void {
@@ -96,6 +96,10 @@ class AppointmentController extends Controller
         }
 
         $appointment = $appointmentResult->getAppointmentSummary();
+        $this->view('appointment/summary', [
+            'view' => 'appointment/summary',
+            'appointment' => $appointment
+        ]);
     }
 
     private function isAppointmentIdValid(?int $appointmentId): bool

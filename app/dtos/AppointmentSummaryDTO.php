@@ -36,6 +36,6 @@ class AppointmentSummaryDTO
 
     public function getAppointmentDate(): string
     {
-        return $this->appointmentDate;
+        return (new \DateTime($this->appointmentDate))->format('d/m/Y');
     }
 }
