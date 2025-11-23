@@ -126,10 +126,7 @@ class AppointmentController extends Controller
 
         $errors = $result->getErrors();
 
-        if (isset($errors['required_pet']) || isset($errors['invalid_pet']) ||
-            isset($errors['required_service']) || isset($errors['invalid_service']) ||
-            isset($errors['required_date']) || isset($errors['invalid_date'])
-        ) {
+        if ($this->shouldRedirectOnError($errors)) {
             $this->view('appointment/new', [
                 'errors' => $errors,
                 'old' => $_POST,
