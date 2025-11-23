@@ -61,7 +61,7 @@ class AppointmentController extends Controller
         $this->ensurePostRequest(RedirectHelper::redirectToAppointmentNew(...));
 
         if (!AuthHelper::validateCsrfToken()) {
-            RedirectHelper::redirectToAppointmentNew();
+            RedirectHelper::redirectTo403();
             return;
         }
 
