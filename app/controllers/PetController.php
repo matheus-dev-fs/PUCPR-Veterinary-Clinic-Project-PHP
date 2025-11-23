@@ -48,6 +48,11 @@ class PetController extends Controller
         $this->ensureAuthenticated();
         $this->ensurePostRequest(RedirectHelper::redirectToPets(...));
 
+        if (!AuthHelper::validateCsrfToken()) {
+            RedirectHelper::redirectTo403();
+            return;
+        }
+
         $createPetDTO = PetMapper::toCreatePetDTO(
             AuthHelper::getUserLoggedId(),
             $_POST['name'] ?? null,
@@ -93,6 +98,11 @@ class PetController extends Controller
         $this->ensureAuthenticated();
         $this->ensurePostRequest(RedirectHelper::redirectToPets(...));
 
+        if (!AuthHelper::validateCsrfToken()) {
+            RedirectHelper::redirectTo403();
+            return;
+        }
+
         $updatePetDTO = PetMapper::toUpdatePetDTO(
             $_POST['id'] ?? null,
             $_POST['name'] ?? null,
@@ -127,6 +137,11 @@ class PetController extends Controller
     {
         $this->ensureAuthenticated();
         $this->ensurePostRequest(RedirectHelper::redirectToPets(...));
+
+        if (!AuthHelper::validateCsrfToken()) {
+            RedirectHelper::redirectTo403();
+            return;
+        }
 
         $deletePetDTO = PetMapper::toDeletePetDTO(
             (string) AuthHelper::getUserLoggedId(),

@@ -60,6 +60,11 @@ class AppointmentController extends Controller
         $this->ensureAuthenticated();
         $this->ensurePostRequest(RedirectHelper::redirectToAppointmentNew(...));
 
+        if (!AuthHelper::validateCsrfToken()) {
+            RedirectHelper::redirectToAppointmentNew();
+            return;
+        }
+
         $createAppointmentDTO = $this->getCreateAppointmentDTOFromPost();
         $appointmentResponseResult = $this->appointmentService->save($createAppointmentDTO);
 

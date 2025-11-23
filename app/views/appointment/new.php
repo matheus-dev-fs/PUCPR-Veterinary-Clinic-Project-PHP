@@ -1,3 +1,7 @@
+<?php 
+use app\core\AuthHelper;
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -31,6 +35,7 @@
                     </div>
                     <div class="right-area">
                         <form class="appointment-new-form" id="appointment-new-form" action="/my-php-mvc-app/appointment/create" method="POST">
+                            <?= AuthHelper::getCsrfInput() ?>
                             <div class="input-group">
                                 <label for="pets">Selecione seu Pet:</label>
                                 <div class="input-area pets">

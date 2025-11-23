@@ -1,4 +1,7 @@
-<?php use app\utils\Sanitizer; ?>
+<?php 
+use app\utils\Sanitizer; 
+use app\core\AuthHelper;
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -19,6 +22,7 @@
             <section class="form-section container">
                 <form class="register-user-form" id="register-user-form" action="/my-php-mvc-app/user/save" method="POST">
                     <h1 class="title">Registro</h1>
+                    <?= AuthHelper::getCsrfInput() ?>
                     <div class="input-group name">
                         <div class="input-field">
                             <label for="name">Nome completo:</label>

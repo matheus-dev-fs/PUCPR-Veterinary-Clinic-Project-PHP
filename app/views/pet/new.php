@@ -1,4 +1,7 @@
-<?php use app\utils\Sanitizer; ?>
+<?php 
+use app\utils\Sanitizer; 
+use app\core\AuthHelper;
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -31,6 +34,7 @@
                     </div>
                     <div class="right-area">
                         <form class="new-pet-form" id="new-pet-form" action="/my-php-mvc-app/pet/create" method="POST">
+                            <?= AuthHelper::getCsrfInput() ?>
                             <div class="input-group">
                                 <label for="name">Nome do Pet</label>
                                 <div class="input-area pet-name">

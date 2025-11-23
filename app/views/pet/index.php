@@ -1,6 +1,8 @@
 <?php
 
-use app\utils\PetUtils; ?>
+use app\utils\PetUtils; 
+use app\core\AuthHelper;
+?>
 
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -61,6 +63,7 @@ use app\utils\PetUtils; ?>
                         <h2 class="title">Tem certeza que deseja deletar este pet?</h2>
                         <p class="text">Essa ação não poderá ser desfeita!</p>
                         <form method="POST" class="delete-pet-form" action="/my-php-mvc-app/pet/delete/">
+                            <?= AuthHelper::getCsrfInput() ?>
                             <input type="hidden" name="pet-id" value="">
                             <div class="buttons-area">
                                 <button type="button" class="cancel-button button">Cancelar</button>

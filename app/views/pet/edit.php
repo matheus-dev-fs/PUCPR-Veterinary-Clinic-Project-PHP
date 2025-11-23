@@ -2,6 +2,7 @@
 
 use app\utils\Sanitizer;
 use app\utils\ViewHelper; 
+use app\core\AuthHelper;
 ?>
 
 <!DOCTYPE html>
@@ -36,7 +37,7 @@ use app\utils\ViewHelper;
                     </div>
                     <div class="right-area">
                         <form class="edit-pet-form" id="edit-pet-form" action="/my-php-mvc-app/pet/update" method="POST">
-                            
+                            <?= AuthHelper::getCsrfInput() ?>
                             <div class="input-group">
                                 <label for="name">Nome do Pet</label>
                                 <div class="input-area pet-name">

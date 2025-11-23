@@ -36,6 +36,11 @@ class UserController extends Controller
         $this->redirectIfAuthenticated();
         $this->ensurePostRequest(RedirectHelper::redirectToRegister(...));
 
+        if (!AuthHelper::validateCsrfToken()) {
+            RedirectHelper::redirectTo403();
+            return;
+        }
+
         $createUserDTO = UserMapper::toCreateUserDTO(
             $_POST['name'] ?? null,
             $_POST['email'] ?? null,
@@ -75,6 +80,11 @@ class UserController extends Controller
     {
         $this->redirectIfAuthenticated();
         $this->ensurePostRequest(RedirectHelper::redirectToLogin(...));
+
+        if (!AuthHelper::validateCsrfToken()) {
+            RedirectHelper::redirectTo403();
+            return;
+        }
 
         $loginUserDTO = UserMapper::toLoginUserDTO(
             $_POST['email'] ?? "",
