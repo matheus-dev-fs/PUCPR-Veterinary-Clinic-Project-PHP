@@ -1160,7 +1160,6 @@ main.edit-pet-page .overlay {
 .new-pet-form .input-group .input-area.pet-gender input,
 .edit-pet-form .input-group .input-area.pet-gender input {
     width: auto;
-    margin: auto 0 auto 1rem;
 }
 
 .new-pet-form .input-group input[type="radio"],
@@ -1839,10 +1838,16 @@ main.appointments-page .overlay {
         font-size: 0.8rem;
     }
 
+    .new-pet-form .input-group .input-area.pet-gender {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+    }
+
     .appointment-new-form .input-group .input-area.pet-gender .left,
     .appointment-new-form .input-group .input-area.pet-gender .right,
     .new-pet-form .input-group .input-area.pet-gender .left,
-    .new-pet_form .input-group .input-area.pet-gender .right,
+    .new-pet-form .input-group .input-area.pet-gender .right,
     .edit-pet-form .input-group .input-area.pet-gender .left,
     .edit-pet-form .input-group .input-area.pet-gender .right {
         display: flex;
@@ -1877,7 +1882,7 @@ main.appointments-page .overlay {
         padding: 1rem;
         gap: 0;
     }
-    
+
 }
 
 @media (max-width: 500px) {
@@ -1916,12 +1921,12 @@ main.appointments-page .overlay {
         font-size: 0.7rem;
     }
 
-    .pets-page .pets-list .content-area .pet-items .item, 
+    .pets-page .pets-list .content-area .pet-items .item,
     .appointments-page .appointments-list .content-area .appointment-items .item {
         flex-direction: column-reverse;
     }
 
-    .pets-list .item .pet-infos, 
+    .pets-list .item .pet-infos,
     .appointments-list .item .appointment-infos {
         width: 100%;
         padding: 0 0.2rem
@@ -1958,6 +1963,7 @@ main.appointments-page .overlay {
 }
 
 @media (max-width: 450px) {
+
     .pets-page .pets-list .header-area h1,
     .appointments-page .appointments-list .header-area h1 {
         font-size: 1.5rem;
