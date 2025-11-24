@@ -1,3 +1,5 @@
+<?php use app\core\AuthHelper; ?>
+
 <header>
     <div class="container">
         <div class="left--area">
@@ -17,8 +19,10 @@
                 <ul class="menu">
                     <li class="<?= $view === "home/index" ? "selected" : "" ?>"><a href="/my-php-mvc-app/">INÍCIO</a></li>
                     <li class="<?= $view === "home/index" ? "" : "" ?>"><a href="/my-php-mvc-app/#services">SERVIÇOS</a></li>
-                    <li class="<?= $view === "appointment/index" ? "selected" : "" ?>"><a href="/my-php-mvc-app/appointment/">AGENDAMENTOS</a></li>
-                    <li class="<?= $view === "pet/index" ? "selected" : "" ?>"><a href="/my-php-mvc-app/pet/">MEUS PETS</a></li>
+                    <?php if (AuthHelper::isUserLoggedIn()): ?>
+                        <li class="<?= $view === "appointment/index" ? "selected" : "" ?>"><a href="/my-php-mvc-app/appointment/">AGENDAMENTOS</a></li>
+                        <li class="<?= $view === "pet/index" ? "selected" : "" ?>"><a href="/my-php-mvc-app/pet/">MEUS PETS</a></li>
+                    <?php endif; ?>
                     <li class="<?= $view === "about/index" ? "selected" : "" ?>"><a href="/my-php-mvc-app/about/">SOBRE</a></li>
                     <?php if (isset($_SESSION['user'])): ?>
                         <li><a href="/my-php-mvc-app/user/logout">SAIR</a></li>
