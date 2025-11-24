@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0">
-    <link rel="stylesheet" href="/my-php-mvc-app/public/assets/css/style.css" />
+    <link rel="stylesheet" href="/my-php-mvc-app/public/assets/css/style.css?v=5.0.0" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="icon" href="/my-php-mvc-app/public/assets/images/favicon.svg" type="image/svg+xml">
     <title>Cliníca Veterinária</title>
@@ -13,10 +13,10 @@
 <body>
     <?php include_once __DIR__ . '/../partials/header.php'; ?>
 
-    <main class="schedule-confirmation-page">
+    <main class="summary-page">
         <div class="overlay">
-            <div class="schedule-confirmation-area container">
-                <div class="schedule-confirmation">
+            <div class="summary-area container">
+                <div class="summary">
                     <div class="header-area">
                         <h1>Agendamento</h1>
                     </div>
@@ -32,8 +32,8 @@
                             </div>
                         </div>
                         <div class="bottom-area">
-                            <div class="schedule-infos-area">
-                                <div class="schedule-infos">
+                            <div class="summary-infos-area">
+                                <div class="summary-infos">
                                     <div class="header">Detalhes do Agendamento</div>
                                     <div class="content">
                                         <div class="info-item tutorName">

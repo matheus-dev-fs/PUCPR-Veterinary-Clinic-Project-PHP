@@ -9,7 +9,7 @@ use app\core\AuthHelper;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0">
-    <link rel="stylesheet" href="/my-php-mvc-app/public/assets/css/style.css?v=1.0.0" />
+    <link rel="stylesheet" href="/my-php-mvc-app/public/assets/css/style.css?v=4.0.0" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="icon" href="/my-php-mvc-app/public/assets/images/favicon.svg" type="image/svg+xml">
     <title>Cliníca Veterinária</title>
@@ -22,9 +22,9 @@ use app\core\AuthHelper;
         <div class="overlay">
             <div class="appointments-list container">
                 <div class="header-area">
-                    <h1>Meus Agendamentos</h1>
+                    <h1>Agendamentos</h1>
                     <div class="new-appointment-button">
-                        <button class="button"><a href="/my-php-mvc-app/appointment/new">Cadastrar Agendamento</a></button>
+                        <button class="button"><a href="/my-php-mvc-app/appointment/new">Agendar</a></button>
                     </div>
                 </div>
                 <div class="content-area">
@@ -36,7 +36,7 @@ use app\core\AuthHelper;
                             <?php foreach ($appointments as $appointment) : ?>
                                 <li class="item">
                                     <div class=appointment-infos>
-                                        <p><strong>Nome do Pet:</strong> <?= $appointment->getPetName() ?></p>
+                                        <p><strong>Pet:</strong> <?= $appointment->getPetName() ?></p>
                                         <p><strong>Serviço:</strong> <?= $appointment->getServiceName() ?></p>
                                         <p><strong>Data:</strong> <?= $appointment->getAppointmentDate() ?></p>
                                     </div>
