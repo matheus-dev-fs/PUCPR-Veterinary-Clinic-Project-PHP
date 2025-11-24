@@ -7,6 +7,7 @@ namespace app\mappers;
 use app\dtos\AppointmentSummaryDTO;
 use app\models\Appointment;
 use app\dtos\CreateAppointmentDTO;
+use app\dtos\AppointmentDTO;
 use app\utils\Sanitizer;
 
 class AppointmentMapper
@@ -21,8 +22,8 @@ class AppointmentMapper
                 $item['pet_id'],
                 $item['user_id'],
                 $item['service_id'],
-                $item['appointment_date'],
-                $item['infos']
+                $item['infos'],
+                new \DateTime($item['appointment_date'])
             );
 
             $array[] = $appointment;
@@ -70,5 +71,25 @@ class AppointmentMapper
             $data['infos'],
             $data['appointment_date']
         );
+    }
+
+    public static function toAppointmentDTOArray(array $data): array
+    {
+        $array = [];
+
+        foreach ($data as $item) {
+            $appointmentDTO = new AppointmentDTO(
+                $item['id'],
+                $item['pet_name'],
+                $item['tutor_name'],
+                $item['service_name'],
+                $item['infos'],
+                $item['appointment_date']
+            );
+
+            $array[] = $appointmentDTO;
+        }
+
+        return $array;
     }
 }

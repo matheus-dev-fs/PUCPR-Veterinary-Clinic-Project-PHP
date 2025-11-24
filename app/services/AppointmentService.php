@@ -17,6 +17,7 @@ use app\repositories\interfaces\AppointmentRepositoryInterface;
 use app\repositories\interfaces\PetRepositoryInterface;
 use app\repositories\interfaces\ServiceRepositoryInterface;
 use app\responses\AppointmentResult;
+use app\responses\AppointmentsResult;
 
 class AppointmentService
 {
@@ -71,6 +72,16 @@ class AppointmentService
         $appointmentSummaryDTO = $this->appointmentRepository->getSummaryData($appointmentId);
 
         return new AppointmentSummaryResult($appointmentSummaryDTO);
+    }
+
+    public function getAllByUserId(int $userId): AppointmentsResult {
+        $appointments = $this->appointmentRepository->getAllByUserId($userId);
+
+        if (empty($appointments)) {
+            return new AppointmentsResult(null, ['no_appointments' => true]);
+        }
+
+        return new AppointmentsResult($appointments);
     }
 
     private function validateData(CreateAppointmentDTO $createAppointmentDTO): array

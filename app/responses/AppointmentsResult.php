@@ -5,9 +5,9 @@ namespace app\responses;
 
 use app\models\Appointment;
 
-class AppointmentResult extends ResponseResult
+class AppointmentsResult extends ResponseResult
 {
-    public function getCreateAppointmentDTO(): ?Appointment
+    public function getAppointments(): array
     {
         return $this->entity;
     }

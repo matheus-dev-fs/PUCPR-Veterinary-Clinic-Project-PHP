@@ -12,4 +12,5 @@ interface AppointmentRepositoryInterface
     public function findById(int $id): ?Appointment;
     public function save(CreateAppointmentDTO $createAppointmentDTO): ?Appointment;
     public function getSummaryData(int $appointmentId): ?AppointmentSummaryDTO;
+    public function getAllByUserId(int $userId): array;
 }

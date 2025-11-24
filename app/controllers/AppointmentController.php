@@ -23,8 +23,21 @@ class AppointmentController extends Controller
 
     public function index(): void
     {
-        $this->view('schedule/index', [
-            'view' => 'schedule/index'
+        $this->ensureAuthenticated();
+
+        $appointmentsResult = $this->appointmentService->getAllByUserId(AuthHelper::getUserLoggedId());
+
+        if (!$appointmentsResult->isSuccess()) {
+            $this->view('appointment/index', [
+                'errors' => $appointmentsResult->getErrors(),
+                'view' => 'appointment/index'
+            ]);
+            return;
+        }
+
+        $this->view('appointment/index', [
+            'view' => 'appointment/index',
+            'appointments' => $appointmentsResult->getAppointments()
         ]);
     }
 

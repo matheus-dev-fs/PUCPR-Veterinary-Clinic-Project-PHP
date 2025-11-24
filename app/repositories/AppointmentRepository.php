@@ -102,4 +102,38 @@ class AppointmentRepository extends Repository implements AppointmentRepositoryI
             throw new \Exception('Error retrieving appointment summary: ' . $e->getMessage());
         }
     }
+
+    public function getAllByUserId(int $userId): array
+    {
+        try {
+           $sql = "SELECT 
+                        a.id,
+                        p.name AS pet_name,
+                        u.name AS tutor_name,
+                        s.name AS service_name,
+                        a.appointment_date,
+                        a.infos
+                    FROM 
+                        Appointment a
+                    JOIN 
+                        Pet p 
+                    ON a.pet_id = p.id
+                    JOIN 
+                        User u 
+                    ON 
+                    a.user_id = u.id
+                    JOIN 
+                        Service s 
+                    ON 
+                        a.service_id = s.id
+                    WHERE a.user_id = :user_id";
+            $params = [':user_id' => $userId];
+
+            $results = $this->database->fetchAll($sql, $params);
+
+            return AppointmentMapper::toAppointmentDTOArray($results);
+        } catch (\Exception $e) {
+            throw new \Exception('Error retrieving appointments by user ID: ' . $e->getMessage());
+        }
+    }
 }
