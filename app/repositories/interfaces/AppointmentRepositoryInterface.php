@@ -9,6 +9,7 @@ use app\dtos\AppointmentSummaryDTO;
 
 interface AppointmentRepositoryInterface
 {
+    public function findById(int $id): ?Appointment;
     public function save(CreateAppointmentDTO $createAppointmentDTO): ?Appointment;
     public function getSummaryData(int $appointmentId): ?AppointmentSummaryDTO;
 }

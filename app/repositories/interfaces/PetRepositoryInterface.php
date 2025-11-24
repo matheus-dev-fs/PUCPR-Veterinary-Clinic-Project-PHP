@@ -10,6 +10,7 @@ use app\dtos\UpdatePetDTO;
 
 interface PetRepositoryInterface
 {
+    public function findById(int $id): ?Pet;
     public function save(CreatePetDTO $createPetDTO): ?Pet;
     public function getAllByUserId(int $userId): array;
     public function delete(DeletePetDTO $deletePetDTO): bool;

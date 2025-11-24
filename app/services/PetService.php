@@ -9,6 +9,7 @@ use app\core\Database;
 use app\dtos\CreatePetDTO;
 use app\dtos\DeletePetDTO;
 use app\dtos\UpdatePetDTO;
+use app\repositories\interfaces\PetRepositoryInterface;
 use app\responses\PetResponseResult;
 
 class PetService
@@ -16,7 +17,7 @@ class PetService
     private const MIN_NAME_LENGTH = 3;
     private const VALID_TYPES = ['dog', 'cat', 'other'];
 
-    private PetRepository $petRepository;
+    private PetRepositoryInterface $petRepository;
 
     public function __construct()
     {

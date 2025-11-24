@@ -13,13 +13,16 @@ use app\core\AuthHelper;
 use app\dtos\AppointmentFormDataDTO;
 use app\responses\AppointmentSummaryResult;
 use app\dtos\CreateAppointmentDTO;
+use app\repositories\interfaces\AppointmentRepositoryInterface;
+use app\repositories\interfaces\PetRepositoryInterface;
+use app\repositories\interfaces\ServiceRepositoryInterface;
 use app\responses\AppointmentResult;
 
 class AppointmentService
 {
-    private AppointmentRepository $appointmentRepository;
-    private PetRepository $petRepository;
-    private ServiceRepository $serviceRepository;
+    private AppointmentRepositoryInterface $appointmentRepository;
+    private PetRepositoryInterface $petRepository;
+    private ServiceRepositoryInterface $serviceRepository;
 
     public function __construct()
     {

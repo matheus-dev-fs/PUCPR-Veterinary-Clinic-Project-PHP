@@ -8,6 +8,7 @@ use app\dtos\LoginUserDTO;
 use app\repositories\UserRepository;
 use app\responses\UserResponseResult;
 use app\core\Database;
+use app\repositories\interfaces\UserRepositoryInterface;
 
 class UserService
 {
@@ -16,7 +17,7 @@ class UserService
     private const PHONE_PATTERN = '/^\(\d{2}\) \d{4,5}-\d{4}$/';
     private const PHONE_DIGITS_PATTERN = '/\D/';
 
-    private UserRepository $userRepository;
+    private UserRepositoryInterface $userRepository;
 
     public function __construct()
     {

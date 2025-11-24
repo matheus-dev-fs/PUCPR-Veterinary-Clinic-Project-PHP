@@ -5,10 +5,11 @@ namespace app\services;
 
 use app\repositories\ServiceRepository;
 use app\core\Database;
+use app\repositories\interfaces\ServiceRepositoryInterface;
 
 class ServiceService
 {
-    private ServiceRepository $serviceRepository;
+    private ServiceRepositoryInterface $serviceRepository;
 
     public function __construct()
     {
