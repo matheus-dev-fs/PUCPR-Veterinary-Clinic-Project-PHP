@@ -30,4 +30,9 @@ class ViewHelper
         $actualValue = $oldValue ?? $dbValue;
         return (string)$actualValue === $valueToCheck ? 'selected' : '';
     }
+
+    public static function menuSelected(string $currentView, string $menuView): string
+    {
+        return $currentView === $menuView ? 'selected' : '';
+    }
 }

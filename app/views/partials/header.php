@@ -1,4 +1,7 @@
-<?php use app\core\AuthHelper; ?>
+<?php 
+use app\core\AuthHelper; 
+use app\utils\ViewHelper;
+?>
 
 <header>
     <div class="container">
@@ -17,17 +20,20 @@
         <div class="right--area desactive">
             <div class="menu-area ">
                 <ul class="menu">
-                    <li class="<?= $view === "home/index" ? "selected" : "" ?>"><a href="/my-php-mvc-app/">INÍCIO</a></li>
-                    <li class="<?= $view === "home/index" ? "" : "" ?>"><a href="/my-php-mvc-app/#services">SERVIÇOS</a></li>
+                    <li class="<?= ViewHelper::menuSelected($view, "home/index") ?>"><a href="/my-php-mvc-app/">INÍCIO</a></li>
+                    <li class="<?= ViewHelper::menuSelected($view, "home/index") ? "" : "" ?>"><a href="/my-php-mvc-app/#services">SERVIÇOS</a></li>
+                    
                     <?php if (AuthHelper::isUserLoggedIn()): ?>
-                        <li class="<?= $view === "appointment/index" ? "selected" : "" ?>"><a href="/my-php-mvc-app/appointment/">AGENDAMENTOS</a></li>
-                        <li class="<?= $view === "pet/index" ? "selected" : "" ?>"><a href="/my-php-mvc-app/pet/">MEUS PETS</a></li>
+                        <li class="<?= ViewHelper::menuSelected($view, "appointment/index") ?>"><a href="/my-php-mvc-app/appointment/">AGENDAMENTOS</a></li>
+                        <li class="<?= ViewHelper::menuSelected($view, "pet/index") ?>"><a href="/my-php-mvc-app/pet/">MEUS PETS</a></li>
                     <?php endif; ?>
-                    <li class="<?= $view === "about/index" ? "selected" : "" ?>"><a href="/my-php-mvc-app/about/">SOBRE</a></li>
-                    <?php if (isset($_SESSION['user'])): ?>
+
+                    <li class="<?= ViewHelper::menuSelected($view, "about/index") ?>"><a href="/my-php-mvc-app/about/">SOBRE</a></li>
+                    
+                    <?php if (AuthHelper::isUserLoggedIn()): ?>
                         <li><a href="/my-php-mvc-app/user/logout">SAIR</a></li>
                     <?php else: ?>
-                        <li class="<?= $view === "user/login" ? "selected" : "" ?>"><a href="/my-php-mvc-app/user/login">LOGIN</a></li>
+                        <li class="<?= ViewHelper::menuSelected($view, "user/login") ?>"><a href="/my-php-mvc-app/user/login">LOGIN</a></li>
                     <?php endif; ?>
                 </ul>
             </div>

@@ -1,3 +1,7 @@
+<?php
+use app\utils\Sanitizer;
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -38,23 +42,23 @@
                                     <div class="content">
                                         <div class="info-item tutorName">
                                             <span class="label">Nome do Tutor:</span>
-                                            <span class="value" id="tutor-name"><?= $appointment->getTutorName() ?></span>
+                                            <span class="value" id="tutor-name"><?= Sanitizer::e($appointment->getTutorName()) ?></span>
                                         </div>
                                         <div class="info-item petName">
                                             <span class="label">Nome do Pet:</span>
-                                            <span class="value" id="pet-name"><?= $appointment->getPetName() ?></span>
+                                            <span class="value" id="pet-name"><?= Sanitizer::e($appointment->getPetName()) ?></span>
                                         </div>
                                         <div class="info-item service">
                                             <span class="label">Serviço Agendado:</span>
-                                            <span class="value" id="service-name"><?= $appointment->getServiceName() ?></span>
+                                            <span class="value" id="service-name"><?= Sanitizer::e($appointment->getServiceName()) ?></span>
                                         </div>
                                         <div class="info-item infos">
                                             <span class="label">Informações Adicionais:</span>
-                                            <span class="value" id="infos"><?= $appointment->getInfos() ?></span>
+                                            <span class="value" id="infos"><?= Sanitizer::e($appointment->getInfos()) ?></span>
                                         </div>
                                         <div class="info-item date">
                                             <span class="label">Data do Agendamento:</span>
-                                            <span class="value" id="appointment-date"><?= $appointment->getAppointmentDate() ?></span>
+                                            <span class="value" id="appointment-date"><?= Sanitizer::e($appointment->getAppointmentDate()) ?></span>
                                         </div>
                                     </div>
                                 </div>
