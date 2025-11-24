@@ -10,7 +10,7 @@ use app\repositories\interfaces\UserRepositoryInterface;
 
 class UserRepository extends Repository implements UserRepositoryInterface
 {
-    public function findById(int $id): ?object
+    public function findById(int $id): ?User
     {
         throw new \Exception('Not implemented');
     }

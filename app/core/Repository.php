@@ -11,6 +11,4 @@ abstract class Repository
     {
         $this->database = $database;
     }
-
-    public abstract function findById(int $id): ?object;
 }
