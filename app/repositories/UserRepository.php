@@ -6,15 +6,11 @@ namespace app\repositories;
 use app\core\Repository;
 use app\dtos\CreateUserDTO;
 use app\models\User;
+use app\repositories\interfaces\UserRepositoryInterface;
 
-class UserRepository extends Repository
+class UserRepository extends Repository implements UserRepositoryInterface
 {
     public function findById(int $id): ?object
-    {
-        throw new \Exception('Not implemented');
-    }
-
-    public function findByName(string $name): ?object
     {
         throw new \Exception('Not implemented');
     }

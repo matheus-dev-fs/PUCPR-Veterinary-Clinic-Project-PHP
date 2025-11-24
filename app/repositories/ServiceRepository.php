@@ -6,8 +6,9 @@ namespace app\repositories;
 use app\core\Repository;
 use app\mappers\ServiceMapper;
 use app\models\Service;
+use app\repositories\interfaces\ServiceRepositoryInterface;
 
-class ServiceRepository extends Repository
+class ServiceRepository extends Repository implements ServiceRepositoryInterface
 {
     public function findById(int $id): ?Service
     {
@@ -25,16 +26,6 @@ class ServiceRepository extends Repository
         } catch (\Exception $e) {
             throw new \Exception('Error fetching service by ID: ' . $e->getMessage());
         }
-    }
-
-    public function findByName(string $name): ?object
-    {
-        throw new \Exception('Not implemented');
-    }
-
-    public function existsByName(string $name): bool
-    {
-        throw new \Exception('Not implemented');
     }
 
     public function getAll(): array {

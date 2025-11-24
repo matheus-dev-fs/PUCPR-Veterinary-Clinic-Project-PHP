@@ -8,8 +8,9 @@ use app\dtos\CreateAppointmentDTO;
 use app\models\Appointment;
 use app\mappers\AppointmentMapper;
 use app\dtos\AppointmentSummaryDTO;
+use app\repositories\interfaces\AppointmentRepositoryInterface;
 
-class AppointmentRepository extends Repository
+class AppointmentRepository extends Repository implements AppointmentRepositoryInterface
 {
     public function findById(int $id): ?Appointment
     {
@@ -29,16 +30,6 @@ class AppointmentRepository extends Repository
         } catch (\Exception $e) {
             throw new \Exception('Error retrieving appointment by ID: ' . $e->getMessage());
         }
-    }
-
-    public function findByName(string $name): ?object
-    {
-        throw new \Exception('Not implemented');
-    }
-
-    public function existsByName(string $name): bool
-    {
-        throw new \Exception('Not implemented');
     }
 
     public function save(CreateAppointmentDTO $createAppointmentDTO): ?Appointment

@@ -9,8 +9,9 @@ use app\dtos\DeletePetDTO;
 use app\dtos\UpdatePetDTO;
 use app\models\Pet;
 use app\mappers\PetMapper;
+use app\repositories\interfaces\PetRepositoryInterface;
 
-class PetRepository extends Repository
+class PetRepository extends Repository implements PetRepositoryInterface
 {
     public function findById(int $id): ?Pet
     {
