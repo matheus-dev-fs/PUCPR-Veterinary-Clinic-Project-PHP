@@ -16,7 +16,7 @@ class AppointmentRepository extends Repository implements AppointmentRepositoryI
     public function findById(int $id): ?Appointment
     {
         try {
-            $sql = "SELECT * FROM Appointment WHERE id = :id";
+            $sql = "SELECT * FROM Appointment WHERE id = :id AND active = TRUE";
             $params = [':id' => $id];
 
             $result = $this->database->fetch($sql, $params);
@@ -36,6 +36,8 @@ class AppointmentRepository extends Repository implements AppointmentRepositoryI
     public function save(CreateAppointmentDTO $createAppointmentDTO): ?Appointment
     {
         try {
+            $this->database->beginTransaction();
+
             $sql = "INSERT INTO Appointment (pet_id, user_id, service_id, appointment_date, infos) 
                     VALUES (:pet_id, :user_id, :service_id, :appointment_date, :infos)";
             $params = [
@@ -53,6 +55,8 @@ class AppointmentRepository extends Repository implements AppointmentRepositoryI
             }
 
             $lastInsertId = (int)$this->database->lastInsertId();
+
+            $this->database->commit();
 
             return new Appointment(
                 $lastInsertId,
@@ -89,7 +93,7 @@ class AppointmentRepository extends Repository implements AppointmentRepositoryI
                         Service s 
                     ON 
                         a.service_id = s.id
-                    WHERE a.id = :appointment_id";
+                    WHERE a.id = :appointment_id AND a.active = TRUE";
             $params = [':appointment_id' => $appointmentId];
 
             $result = $this->database->fetch($sql, $params);
@@ -127,7 +131,7 @@ class AppointmentRepository extends Repository implements AppointmentRepositoryI
                         Service s 
                     ON 
                         a.service_id = s.id
-                    WHERE a.user_id = :user_id";
+                    WHERE a.user_id = :user_id AND a.active = TRUE";
             $params = [':user_id' => $userId];
 
             $results = $this->database->fetchAll($sql, $params);
@@ -141,10 +145,13 @@ class AppointmentRepository extends Repository implements AppointmentRepositoryI
     public function delete(DeleteAppointmentDTO $deleteAppointmentDTO): bool
     {
         try {
-            $sql = "DELETE FROM Appointment WHERE id = :id";
+            $this->database->beginTransaction();
+
+            $sql = "UPDATE Appointment SET active = FALSE WHERE id = :id";
             $params = [':id' => $deleteAppointmentDTO->getAppointmentId()];
             $rows = $this->database->execute($sql, $params);
 
+            $this->database->commit();
             return $rows > 0;
         } catch (\Exception $e) {
             throw new \Exception('Error deleting appointment: ' . $e->getMessage());

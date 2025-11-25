@@ -17,7 +17,7 @@ class UserRepository extends Repository implements UserRepositoryInterface
 
     public function existsByEmail(string $email): bool
     {
-        $sql = "SELECT * FROM User WHERE email = :email";
+        $sql = "SELECT * FROM User WHERE email = :email AND active = TRUE";
         $params = [':email' => $email];
 
         $result = $this->database->fetch($sql, $params);
@@ -28,6 +28,8 @@ class UserRepository extends Repository implements UserRepositoryInterface
     public function save(CreateUserDTO $userDTO): ?User
     {
         try {
+            $this->database->beginTransaction();
+
             $sql = "INSERT INTO User (name, email, password, phone) VALUES (:name, :email, :password, :phone)";
             $params = [
                 ':name'     => $userDTO->getName(),
@@ -44,6 +46,7 @@ class UserRepository extends Repository implements UserRepositoryInterface
 
             $lastInsertId = (int)$this->database->lastInsertId();
 
+            $this->database->commit();
             return new User(
                 id: $lastInsertId,
                 name: $userDTO->getName(),
@@ -60,7 +63,7 @@ class UserRepository extends Repository implements UserRepositoryInterface
     public function findByEmail(string $email): ?User
     {
         try {
-            $sql = "SELECT * FROM User WHERE email = :email";
+            $sql = "SELECT * FROM User WHERE email = :email AND active = TRUE";
             $params = [':email' => $email];
 
             $result = $this->database->fetch($sql, $params);

@@ -16,7 +16,7 @@ class PetRepository extends Repository implements PetRepositoryInterface
     public function findById(int $id): ?Pet
     {
         try {
-            $sql = "SELECT id, user_id, `name`, `type`, gender FROM Pet WHERE id = :id";
+            $sql = "SELECT id, user_id, `name`, `type`, gender FROM Pet WHERE id = :id AND active = TRUE";
             $params = [':id' => $id];
 
             $result = $this->database->fetch($sql, $params);
@@ -30,6 +30,8 @@ class PetRepository extends Repository implements PetRepositoryInterface
     public function save(CreatePetDTO $createPetDTO): ?Pet
     {
         try {
+            $this->database->beginTransaction();
+
             $sql = "INSERT INTO Pet (user_id, name, type, gender) VALUES (:user_id, :name, :type, :gender)";
             $params = [
                 ':user_id' => $createPetDTO->getUserId(),
@@ -46,6 +48,8 @@ class PetRepository extends Repository implements PetRepositoryInterface
 
             $lastInsertId = (int)$this->database->lastInsertId();
 
+            $this->database->commit();
+
             return new Pet(
                 $lastInsertId,
                 $createPetDTO->getUserId(),
@@ -61,7 +65,7 @@ class PetRepository extends Repository implements PetRepositoryInterface
     public function getAllByUserId(int $userId): array
     {
         try {
-            $sql = "SELECT id, user_id, `name`, `type`, gender FROM Pet WHERE user_id = :user_id";
+            $sql = "SELECT id, user_id, `name`, `type`, gender FROM Pet WHERE user_id = :user_id AND active = TRUE";
             $params = [':user_id' => $userId];
 
             $results = $this->database->fetchAll($sql, $params);
@@ -74,13 +78,18 @@ class PetRepository extends Repository implements PetRepositoryInterface
     public function delete(DeletePetDTO $deletePetDTO): bool
     {
         try {
-            $sql = "DELETE FROM Pet WHERE id = :pet_id AND user_id = :user_id";
+            $this->database->beginTransaction();
+
+            $sql = "UPDATE Pet SET active = FALSE WHERE id = :pet_id AND user_id = :user_id";
             $params = [
                 ':pet_id'  => $deletePetDTO->getPetId(),
                 ':user_id' => $deletePetDTO->getUserId()
             ];
 
             $rows = $this->database->execute($sql, $params);
+
+            $this->database->commit();
+
             return $rows > 0;
         } catch (\Exception $e) {
             throw new \Exception('Error deleting pet: ' . $e->getMessage());
@@ -90,7 +99,9 @@ class PetRepository extends Repository implements PetRepositoryInterface
     public function update(UpdatePetDTO $updatePetDTO): void
     {
         try {
-            $sql = "UPDATE Pet SET name = :name, type = :type, gender = :gender WHERE id = :id";
+            $this->database->beginTransaction();
+
+            $sql = "UPDATE Pet SET name = :name, type = :type, gender = :gender WHERE id = :id AND active = TRUE";
             $params = [
                 ':name' => $updatePetDTO->getName(),
                 ':type' => $updatePetDTO->getType(),
@@ -99,6 +110,8 @@ class PetRepository extends Repository implements PetRepositoryInterface
             ];
 
             $this->database->execute($sql, $params);
+
+            $this->database->commit();
         } catch (\Exception $e) {
             throw new \Exception('Error updating pet: ' . $e->getMessage());
         }

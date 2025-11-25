@@ -26,33 +26,41 @@ class UserService
 
     public function save(CreateUserDTO $createUserDTO): UserResponseResult
     {
-        $errors = $this->validateUserData($createUserDTO);
+        try {
+            $errors = $this->validateUserData($createUserDTO);
 
-        if (!empty($errors)) {
-            return new UserResponseResult(null, $errors);
+            if (!empty($errors)) {
+                return new UserResponseResult(null, $errors);
+            }
+
+            $createUserDTO = $this->prepareUserDataForSaving($createUserDTO);
+
+            $user = $this->userRepository->save($createUserDTO);
+            return new UserResponseResult($user);
+        } catch (\Exception $e) {
+            return new UserResponseResult(null, ['db_error' => 'Error saving user: ' . $e->getMessage()]);
         }
-
-        $createUserDTO = $this->prepareUserDataForSaving($createUserDTO);
-
-        $user = $this->userRepository->save($createUserDTO);
-        return new UserResponseResult($user);
     }
 
     public function authenticate(LoginUserDTO $loginUserDTO): UserResponseResult
     {
-        $user = $this->userRepository->findByEmail($loginUserDTO->getEmail());
+        try {
+            $user = $this->userRepository->findByEmail($loginUserDTO->getEmail());
 
-        if (
-            $user === null || 
-            !$this->verifyPassword(
-                $loginUserDTO->getPassword(), 
-                $user->getPassword()
-            )
-        ) {
-            return new UserResponseResult(null, ['invalid_credentials' => true]);
+            if (
+                $user === null || 
+                !$this->verifyPassword(
+                    $loginUserDTO->getPassword(), 
+                    $user->getPassword()
+                )
+            ) {
+                return new UserResponseResult(null, ['invalid_credentials' => true]);
+            }
+
+            return new UserResponseResult($user);
+        } catch (\Exception $e) {
+            return new UserResponseResult(null, ['db_error' => 'Error during authentication: ' . $e->getMessage()]);
         }
-
-        return new UserResponseResult($user);
     }
 
     private function validateUserData(CreateUserDTO $createUserDTO): array
@@ -172,7 +180,11 @@ class UserService
 
     private function emailExists(string $email): bool
     {
-        return $this->userRepository->existsByEmail($email);
+        try {
+            return $this->userRepository->existsByEmail($email);
+        } catch (\Exception $e) {
+            return false;
+        }
     }
 
     private function isValidPhoneFormat(string $phone): bool

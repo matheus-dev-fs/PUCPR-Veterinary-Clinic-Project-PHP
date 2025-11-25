@@ -26,72 +26,92 @@ class PetService
 
     public function save(CreatePetDTO $createPetDTO): PetResponseResult
     {
-        $errors = $this->validatePetData(
-            $createPetDTO->getName(),
-            $createPetDTO->getType()
-        );
+        try {
+            $errors = $this->validatePetData(
+                $createPetDTO->getName(),
+                $createPetDTO->getType()
+            );
 
-        if (!empty($errors)) {
-            return new PetResponseResult(null, $errors);
+            if (!empty($errors)) {
+                return new PetResponseResult(null, $errors);
+            }
+
+            $pet = $this->petRepository->save($createPetDTO);
+            return new PetResponseResult($pet);
+        } catch (\Exception $e) {
+            return new PetResponseResult(null, ['db_error' => 'Error saving pet: ' . $e->getMessage()]);
         }
-
-        $pet = $this->petRepository->save($createPetDTO);
-        return new PetResponseResult($pet);
     }
 
     public function update(UpdatePetDTO $updatePetDTO): PetResponseResult
     {   
-        if (empty($updatePetDTO->getId())) {
-            return new PetResponseResult(null, ['pet_id_required' => true]);
+        try {
+            if (empty($updatePetDTO->getId())) {
+                return new PetResponseResult(null, ['pet_id_required' => true]);
+            }
+
+            $errors = $this->validatePetData(
+                $updatePetDTO->getName(),
+                $updatePetDTO->getType()
+            );
+
+            if (!empty($errors)) {
+                return new PetResponseResult(null, $errors);
+            }
+
+            $authorizationResult = $this->checkPetAuthorization($updatePetDTO->getId());
+            if (!$authorizationResult->isSuccess()) {
+                return $authorizationResult;
+            }
+
+            $this->petRepository->update($updatePetDTO);
+            
+            return $this->getPetById($updatePetDTO->getId());
+        } catch (\Exception $e) {
+            return new PetResponseResult(null, ['db_error' => 'Error updating pet: ' . $e->getMessage()]);
         }
-
-        $errors = $this->validatePetData(
-            $updatePetDTO->getName(),
-            $updatePetDTO->getType()
-        );
-
-        if (!empty($errors)) {
-            return new PetResponseResult(null, $errors);
-        }
-
-        $authorizationResult = $this->checkPetAuthorization($updatePetDTO->getId());
-        if (!$authorizationResult->isSuccess()) {
-            return $authorizationResult;
-        }
-
-        $this->petRepository->update($updatePetDTO);
-        
-        return $this->getPetById($updatePetDTO->getId());
     }
 
     public function delete(DeletePetDTO $deletePetDTO): PetResponseResult 
     {
-        if (empty($deletePetDTO->getPetId())) {
-            return new PetResponseResult(null, ['pet_id_required' => true]);
-        }
+        try {
+            if (empty($deletePetDTO->getPetId())) {
+                return new PetResponseResult(null, ['pet_id_required' => true]);
+            }
 
-        $authorizationResult = $this->checkPetAuthorization($deletePetDTO->getPetId());
-        if (!$authorizationResult->isSuccess()) {
+            $authorizationResult = $this->checkPetAuthorization($deletePetDTO->getPetId());
+            if (!$authorizationResult->isSuccess()) {
+                return $authorizationResult;
+            }
+
+            $isDeleted = $this->petRepository->delete($deletePetDTO);
+
+            if (!$isDeleted) {
+                return new PetResponseResult(null, ['deletion_failed' => true]);
+            }
+
             return $authorizationResult;
+        } catch (\Exception $e) {
+            return new PetResponseResult(null, ['db_error' => 'Error deleting pet: ' . $e->getMessage()]);
         }
-
-        $isDeleted = $this->petRepository->delete($deletePetDTO);
-
-        if (!$isDeleted) {
-            return new PetResponseResult(null, ['deletion_failed' => true]);
-        }
-
-        return $authorizationResult;
     }
 
     public function getPetById(int $petId): PetResponseResult
     {
-        return $this->checkPetAuthorization($petId);
+        try {
+            return $this->checkPetAuthorization($petId);
+        } catch (\Exception $e) {
+            return new PetResponseResult(null, ['db_error' => 'Error retrieving pet: ' . $e->getMessage()]);
+        }
     }
 
     public function getAllByUserId(int $userId): array
     {
-        return $this->petRepository->getAllByUserId($userId);
+        try {
+            return $this->petRepository->getAllByUserId($userId);
+        } catch (\Exception $e) {
+            return [];
+        }
     }
 
     private function validatePetData(string $name, string $type): array
@@ -132,16 +152,20 @@ class PetService
 
     private function checkPetAuthorization(int $petId): PetResponseResult
     {
-        $pet = $this->petRepository->findById($petId);
+        try {
+            $pet = $this->petRepository->findById($petId);
 
-        if ($pet === null) {
-            return new PetResponseResult(null, ['pet_not_found' => true]);
+            if ($pet === null) {
+                return new PetResponseResult(null, ['pet_not_found' => true]);
+            }
+
+            if ($pet->getUserId() !== AuthHelper::getUserLoggedId()) {
+                return new PetResponseResult(null, ['unauthorized' => true]);
+            }
+
+            return new PetResponseResult($pet);
+        } catch (\Exception $e) {
+            return new PetResponseResult(null, ['db_error' => 'Error checking pet authorization: ' . $e->getMessage()]);
         }
-
-        if ($pet->getUserId() !== AuthHelper::getUserLoggedId()) {
-            return new PetResponseResult(null, ['unauthorized' => true]);
-        }
-
-        return new PetResponseResult($pet);
     }
 }

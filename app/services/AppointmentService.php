@@ -35,89 +35,110 @@ class AppointmentService
 
     public function getFormData(): AppointmentFormDataResult
     {
-        $pets = $this->petRepository->getAllByUserId(AuthHelper::getUserLoggedId());
+        try {
+            $pets = $this->petRepository->getAllByUserId(AuthHelper::getUserLoggedId());
 
-        if (empty($pets)) {
-            return new AppointmentFormDataResult(null, ['no_pets' => true]);
+            if (empty($pets)) {
+                return new AppointmentFormDataResult(null, ['no_pets' => true]);
+            }
+
+            $services = $this->serviceRepository->getAll();
+
+            if (empty($services)) {
+                return new AppointmentFormDataResult(null, ['no_services' => true]);
+            }
+
+            $appointmentFormDataDTO = new AppointmentFormDataDTO($pets, $services);
+            return new AppointmentFormDataResult($appointmentFormDataDTO);
+        } catch (\Exception $e) {
+            return new AppointmentFormDataResult(null, ['db_error' => 'Error retrieving form data: ' . $e->getMessage()]);
         }
-
-        $services = $this->serviceRepository->getAll();
-
-        if (empty($services)) {
-            return new AppointmentFormDataResult(null, ['no_services' => true]);
-        }
-
-        $appointmentFormDataDTO = new AppointmentFormDataDTO($pets, $services);
-        return new AppointmentFormDataResult($appointmentFormDataDTO);
     }
 
     public function save(CreateAppointmentDTO $createAppointmentDTO): AppointmentResult
     {
-        $errors = $this->validateData($createAppointmentDTO);
+        try {
+            $errors = $this->validateData($createAppointmentDTO);
 
-        if (!empty($errors)) {
-            return new AppointmentResult(null, $errors);
+            if (!empty($errors)) {
+                return new AppointmentResult(null, $errors);
+            }
+
+            if (!$this->checkPetAuthorization($createAppointmentDTO->getPetId())) {
+                return new AppointmentResult(null, ['unauthorized' => true]);
+            }
+
+            $appointment = $this->appointmentRepository->save($createAppointmentDTO);
+            return new AppointmentResult($appointment);
+        } catch (\Exception $e) {
+            return new AppointmentResult(null, ['db_error' => 'Error saving appointment: ' . $e->getMessage()]);
         }
-
-        if (!$this->checkPetAuthorization($createAppointmentDTO->getPetId())) {
-            return new AppointmentResult(null, ['unauthorized' => true]);
-        }
-
-        $appointment = $this->appointmentRepository->save($createAppointmentDTO);
-        return new AppointmentResult($appointment);
     }
 
     public function getSummaryData(int $appointmentId): AppointmentSummaryResult
     {
-        $appointment = $this->appointmentRepository->findById($appointmentId);
+        try {
+            $appointment = $this->appointmentRepository->findById($appointmentId);
 
-        if ($appointment === null) {
-            return new AppointmentSummaryResult(null, ['not_found' => true]);
+            if ($appointment === null) {
+                return new AppointmentSummaryResult(null, ['not_found' => true]);
+            }
+
+            if (!$this->checkAppointmentAuthorization($appointmentId)) {
+                return new AppointmentSummaryResult(null, ['unauthorized' => true]);
+            }
+
+            $appointmentSummaryDTO = $this->appointmentRepository->getSummaryData($appointmentId);
+
+            return new AppointmentSummaryResult($appointmentSummaryDTO);
+        } catch (\Exception $e) {
+            return new AppointmentSummaryResult(null, ['db_error' => 'Error retrieving appointment summary: ' . $e->getMessage()]);
         }
-
-        if (!$this->checkAppointmentAuthorization($appointmentId)) {
-            return new AppointmentSummaryResult(null, ['unauthorized' => true]);
-        }
-
-        $appointmentSummaryDTO = $this->appointmentRepository->getSummaryData($appointmentId);
-
-        return new AppointmentSummaryResult($appointmentSummaryDTO);
     }
 
     public function getAllByUserId(int $userId): AppointmentsResult
     {
-        $appointments = $this->appointmentRepository->getAllByUserId($userId);
+        try {
+            $appointments = $this->appointmentRepository->getAllByUserId($userId);
 
-        if (empty($appointments)) {
-            return new AppointmentsResult(null, ['no_appointments' => true]);
+            if (empty($appointments)) {
+                return new AppointmentsResult(null, ['no_appointments' => true]);
+            }
+
+            return new AppointmentsResult($appointments);
+        } catch (\Exception $e) {
+            return new AppointmentsResult(null, ['db_error' => 'Error retrieving appointments: ' . $e->getMessage()]);
         }
-
-        return new AppointmentsResult($appointments);
     }
 
     public function delete(DeleteAppointmentDTO $deleteAppointmentDTO): AppointmentResult
     {
-        $validatedIdResult = $this->validateAppointmentId($deleteAppointmentDTO->getAppointmentId());
-        if (!$validatedIdResult->isSuccess()) {
-            return $validatedIdResult;
+        try {
+            $validatedIdResult = $this->validateAppointmentId($deleteAppointmentDTO->getAppointmentId());
+            
+            if (!$validatedIdResult->isSuccess()) {
+                return $validatedIdResult;
+            }
+
+            $appointment = $this->appointmentRepository->findById($deleteAppointmentDTO->getAppointmentId());
+
+            if ($appointment === null) {
+                return new AppointmentResult(null, ['not_found' => true]);
+            }
+
+            if (!$this->checkAppointmentAuthorization($deleteAppointmentDTO->getAppointmentId())) {
+                return new AppointmentResult(null, ['unauthorized' => true]);
+            }
+
+            $deleted = $this->appointmentRepository->delete($deleteAppointmentDTO);
+            if (!$deleted) {
+                return new AppointmentResult(null, ['deletion_failed' => true]);
+            }
+
+            return new AppointmentResult($appointment);
+        } catch (\Exception $e) {
+            return new AppointmentResult(null, ['db_error' => 'Error deleting appointment: ' . $e->getMessage()]);
         }
-
-        $appointment = $this->appointmentRepository->findById($deleteAppointmentDTO->getAppointmentId());
-
-        if ($appointment === null) {
-            return new AppointmentResult(null, ['not_found' => true]);
-        }
-
-        if (!$this->checkAppointmentAuthorization($deleteAppointmentDTO->getAppointmentId())) {
-            return new AppointmentResult(null, ['unauthorized' => true]);
-        }
-
-        $deleted = $this->appointmentRepository->delete($deleteAppointmentDTO);
-        if (!$deleted) {
-            return new AppointmentResult(null, ['deletion_failed' => true]);
-        }
-
-        return new AppointmentResult($appointment);
     }
 
     private function validateData(CreateAppointmentDTO $createAppointmentDTO): array
@@ -142,11 +163,14 @@ class AppointmentService
     private function validatePetId(int $petId): array
     {
         $errors = [];
-
-        if (empty($petId)) {
-            $errors['required_pet'] = true;
-        } else if ($this->petRepository->findById($petId) === null) {
-            $errors['invalid_pet'] = true;
+        try {
+            if (empty($petId)) {
+                $errors['required_pet'] = true;
+            } else if ($this->petRepository->findById($petId) === null) {
+                $errors['invalid_pet'] = true;
+            }
+        } catch (\Exception $e) {
+            $errors['db_error'] = 'Error validating pet ID: ' . $e->getMessage();
         }
 
         return $errors;
@@ -156,10 +180,14 @@ class AppointmentService
     {
         $errors = [];
 
-        if (empty($serviceId)) {
-            $errors['required_service'] = true;
-        } else if ($this->serviceRepository->findById($serviceId) === null) {
-            $errors['invalid_service'] = true;
+        try {
+            if (empty($serviceId)) {
+                $errors['required_service'] = true;
+            } else if ($this->serviceRepository->findById($serviceId) === null) {
+                $errors['invalid_service'] = true;
+            }
+        } catch (\Exception $e) {
+            $errors['db_error'] = 'Error validating service ID: ' . $e->getMessage();
         }
 
         return $errors;
@@ -183,31 +211,39 @@ class AppointmentService
 
     private function checkPetAuthorization(int $petId): bool
     {
-        $pet = $this->petRepository->findById($petId);
+        try {
+            $pet = $this->petRepository->findById($petId);
 
-        if ($pet === null) {
+            if ($pet === null) {
+                return false;
+            }
+
+            if ($pet->getUserId() !== AuthHelper::getUserLoggedId()) {
+                return false;
+            }
+
+            return true;
+        } catch (\Exception $e) {
             return false;
         }
-
-        if ($pet->getUserId() !== AuthHelper::getUserLoggedId()) {
-            return false;
-        }
-
-        return true;
     }
 
     private function checkAppointmentAuthorization(int $appointmentId): bool
     {
-        $appointment = $this->appointmentRepository->findById($appointmentId);
+        try {
+            $appointment = $this->appointmentRepository->findById($appointmentId);
 
-        if ($appointment === null) {
+            if ($appointment === null) {
+                return false;
+            }
+
+            if ($appointment->getUserId() !== AuthHelper::getUserLoggedId()) {
+                return false;
+            }
+
+            return true;
+        } catch (\Exception $e) {
             return false;
         }
-
-        if ($appointment->getUserId() !== AuthHelper::getUserLoggedId()) {
-            return false;
-        }
-
-        return true;
     }
 }
