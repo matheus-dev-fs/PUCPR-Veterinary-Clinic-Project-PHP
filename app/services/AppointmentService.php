@@ -13,6 +13,7 @@ use app\core\AuthHelper;
 use app\dtos\AppointmentFormDataDTO;
 use app\responses\AppointmentSummaryResult;
 use app\dtos\CreateAppointmentDTO;
+use app\dtos\DeleteAppointmentDTO;
 use app\repositories\interfaces\AppointmentRepositoryInterface;
 use app\repositories\interfaces\PetRepositoryInterface;
 use app\repositories\interfaces\ServiceRepositoryInterface;
@@ -84,6 +85,31 @@ class AppointmentService
         return new AppointmentsResult($appointments);
     }
 
+    public function delete(DeleteAppointmentDTO $deleteAppointmentDTO): AppointmentResult
+    {
+        $validatedIdResult = $this->validateAppointmentId($deleteAppointmentDTO->getAppointmentId());
+        if (!$validatedIdResult->isSuccess()) {
+            return $validatedIdResult;
+        }
+
+        $appointment = $this->appointmentRepository->findById($deleteAppointmentDTO->getAppointmentId());
+
+        if ($appointment === null) {
+            return new AppointmentResult(null, ['not_found' => true]);
+        }
+
+        if (!$this->checkAppointmentAuthorization($deleteAppointmentDTO->getAppointmentId())) {
+            return new AppointmentResult(null, ['unauthorized' => true]);
+        }
+
+        $deleted = $this->appointmentRepository->delete($deleteAppointmentDTO);
+        if (!$deleted) {
+            return new AppointmentResult(null, ['deletion_failed' => true]);
+        }
+
+        return new AppointmentResult($appointment);
+    }
+
     private function validateData(CreateAppointmentDTO $createAppointmentDTO): array
     {
         $errors = [];
@@ -92,6 +118,15 @@ class AppointmentService
         $errors = \array_merge($errors, $this->validateServiceId($createAppointmentDTO->getServiceId()));
         $errors = \array_merge($errors, $this->validateAppointmentDate($createAppointmentDTO->getDate()));
         return $errors;
+    }
+
+    private function validateAppointmentId(int $appointmentId): AppointmentResult
+    {   
+        if (empty($appointmentId)) {
+            return new AppointmentResult(null, ['invalid_id' => true]);
+        }
+
+        return new AppointmentResult(true);
     }
 
     private function validatePetId(int $petId): array

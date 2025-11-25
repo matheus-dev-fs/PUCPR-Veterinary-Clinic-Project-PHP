@@ -8,6 +8,7 @@ use app\dtos\CreateAppointmentDTO;
 use app\models\Appointment;
 use app\mappers\AppointmentMapper;
 use app\dtos\AppointmentSummaryDTO;
+use app\dtos\DeleteAppointmentDTO;
 use app\repositories\interfaces\AppointmentRepositoryInterface;
 
 class AppointmentRepository extends Repository implements AppointmentRepositoryInterface
@@ -134,6 +135,19 @@ class AppointmentRepository extends Repository implements AppointmentRepositoryI
             return AppointmentMapper::toAppointmentDTOArray($results);
         } catch (\Exception $e) {
             throw new \Exception('Error retrieving appointments by user ID: ' . $e->getMessage());
+        }
+    }
+
+    public function delete(DeleteAppointmentDTO $deleteAppointmentDTO): bool
+    {
+        try {
+            $sql = "DELETE FROM Appointment WHERE id = :id";
+            $params = [':id' => $deleteAppointmentDTO->getAppointmentId()];
+            $rows = $this->database->execute($sql, $params);
+
+            return $rows > 0;
+        } catch (\Exception $e) {
+            throw new \Exception('Error deleting appointment: ' . $e->getMessage());
         }
     }
 }

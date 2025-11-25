@@ -8,6 +8,7 @@ use app\dtos\AppointmentSummaryDTO;
 use app\models\Appointment;
 use app\dtos\CreateAppointmentDTO;
 use app\dtos\AppointmentDTO;
+use app\dtos\DeleteAppointmentDTO;
 use app\utils\Sanitizer;
 
 class AppointmentMapper
@@ -91,5 +92,13 @@ class AppointmentMapper
         }
 
         return $array;
+    }
+
+    public static function toDeleteAppointmentDTO(int $userId, ?string $appointmentId): DeleteAppointmentDTO
+    {
+        return new DeleteAppointmentDTO(
+            $userId,
+            (int) Sanitizer::sanitize($appointmentId ?? '')
+        );
     }
 }

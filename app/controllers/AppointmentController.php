@@ -120,6 +120,34 @@ class AppointmentController extends Controller
         ]);
     }
 
+    public function delete(): void
+    {
+        $this->ensureAuthenticated();
+        $this->ensurePostRequest(RedirectHelper::redirectToAppointment(...));
+
+        if (!AuthHelper::validateCsrfToken()) {
+            RedirectHelper::redirectTo403();
+            return;
+        }
+
+        $deleteAppointmentDTO = AppointmentMapper::toDeleteAppointmentDTO(
+            AuthHelper::getUserLoggedId(),
+            $_POST['appointment-id'] ?? null
+        );
+
+        $appointmentDeleteResult = $this->appointmentService->delete($deleteAppointmentDTO);
+
+        if (!$appointmentDeleteResult->isSuccess()) {
+            $errors = $appointmentDeleteResult->getErrors();
+
+            if ($this->shouldRedirectOnError($errors)) {
+                $this->handleAppointmentResponseErrors($appointmentDeleteResult);
+            }
+        }
+
+        RedirectHelper::redirectToAppointment();
+    }
+
     private function isAppointmentIdValid(?int $appointmentId): bool
     {
         return isset($appointmentId) && is_int($appointmentId) && $appointmentId > 0;
