@@ -16,6 +16,11 @@ export class AppointmentNewForm {
 
     _cacheElements() {
         this._formElement = document.querySelector('#appointment-new-form');
+
+        if (!this._formElement) {
+            return;
+        }
+
         this._inputsArea = {
             pets: this._formElement.querySelector('.input-area.pets'),
             service: this._formElement.querySelector('.input-area.service'),

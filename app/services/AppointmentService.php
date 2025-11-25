@@ -36,7 +36,16 @@ class AppointmentService
     public function getFormData(): AppointmentFormDataResult
     {
         $pets = $this->petRepository->getAllByUserId(AuthHelper::getUserLoggedId());
+
+        if (empty($pets)) {
+            return new AppointmentFormDataResult(null, ['no_pets' => true]);
+        }
+
         $services = $this->serviceRepository->getAll();
+
+        if (empty($services)) {
+            return new AppointmentFormDataResult(null, ['no_services' => true]);
+        }
 
         $appointmentFormDataDTO = new AppointmentFormDataDTO($pets, $services);
         return new AppointmentFormDataResult($appointmentFormDataDTO);
@@ -62,7 +71,7 @@ class AppointmentService
     {
         $appointment = $this->appointmentRepository->findById($appointmentId);
 
-         if ($appointment === null) {
+        if ($appointment === null) {
             return new AppointmentSummaryResult(null, ['not_found' => true]);
         }
 
@@ -75,7 +84,8 @@ class AppointmentService
         return new AppointmentSummaryResult($appointmentSummaryDTO);
     }
 
-    public function getAllByUserId(int $userId): AppointmentsResult {
+    public function getAllByUserId(int $userId): AppointmentsResult
+    {
         $appointments = $this->appointmentRepository->getAllByUserId($userId);
 
         if (empty($appointments)) {
@@ -121,7 +131,7 @@ class AppointmentService
     }
 
     private function validateAppointmentId(int $appointmentId): AppointmentResult
-    {   
+    {
         if (empty($appointmentId)) {
             return new AppointmentResult(null, ['invalid_id' => true]);
         }

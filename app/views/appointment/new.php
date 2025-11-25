@@ -8,7 +8,7 @@ use app\core\AuthHelper;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0">
-    <link rel="stylesheet" href="/my-php-mvc-app/public/assets/css/style.css?v=3.0.0" />
+    <link rel="stylesheet" href="/my-php-mvc-app/public/assets/css/style.css?v=1.0.0" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="icon" href="/my-php-mvc-app/public/assets/images/favicon.svg" type="image/svg+xml">
     <title>Cliníca Veterinária</title>
@@ -19,83 +19,94 @@ use app\core\AuthHelper;
 
     <main class="appointment-new-page">
         <div class="overlay">
-            <div class="appointment-new-area container">
-                <div class="appointment-new">
-                    <div class="left-area">
-                        <div class="top-area">
-                            <div class="img-area">
-                                <i class="fa-solid fa-dog img"></i>
+            <?php if (!isset($errors['no_pets'])): ?>
+                <div class="appointment-new-area container">
+                    <div class="appointment-new">
+                        <div class="left-area">
+                            <div class="top-area">
+                                <div class="img-area">
+                                    <i class="fa-solid fa-dog img"></i>
+                                </div>
+                            </div>
+                            <div class="bottom-area">
+                                <h1 class="title">Vamos cuidar do seu pet!</h1>
+                                <p class="subtitle">Agende a consulta em poucos minutos e garanta o bem-estar do seu
+                                    animalzinho.</p>
                             </div>
                         </div>
-                        <div class="bottom-area">
-                            <h1 class="title">Vamos cuidar do seu pet!</h1>
-                            <p class="subtitle">Agende a consulta em poucos minutos e garanta o bem-estar do seu
-                                animalzinho.</p>
+                        <div class="right-area">
+                            <form class="appointment-new-form" id="appointment-new-form" action="/my-php-mvc-app/appointment/create" method="POST">
+                                <?= AuthHelper::getCsrfInput() ?>
+                                <div class="input-group">
+                                    <label for="pets">Selecione seu Pet:</label>
+                                    <div class="input-area pets">
+                                        <select id="pets" name="pets">
+                                            <option value="">Selecione</option>
+                                            <?php foreach ($data['pets'] as $pet): ?>
+                                                <option value="<?= $pet->getId(); ?>"><?= $pet->getName(); ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                        <div class="error-area">
+                                            <span class="error-msg required <?= isset($errors['required_pet']) ? 'show-error' : '' ?>">Selecione um pet.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label for="service">Serviço</label>
+                                    <div class="input-area service">
+                                        <select id="service" name="service">
+                                            <option value="">Selecione</option>
+                                            <?php foreach ($data['services'] as $service): ?>
+                                                <option value="<?= $service->getId(); ?>"><?= $service->getName(); ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                        <div class="error-area">
+                                            <span class="error-msg required <?= isset($errors['required_service']) ? 'show-error' : '' ?>">Selecione um serviço.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label for="infos">Informações adicionais:</label>
+                                    <div class="input-area infos">
+                                        <textarea id="infos" name="infos" placeholder="Escreva aqui..."></textarea>
+                                        <div class="error-area">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label for="date">Data do Agendamento</label>
+                                    <div class="input-area date">
+                                        <input type="date" id="date" name="date">
+                                        <div class="error-area">
+                                            <span class="error-msg required <?= isset($errors['required_date']) ? 'show-error' : '' ?>">A data é obrigatória.</span>
+                                            <span class="error-msg invalid <?= isset($errors['invalid_date']) ? 'show-error' : '' ?>">Escolha uma data presente/futura.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="submit-area">
+                                    <button type="submit" class="submit-button">Agendar Consulta</button>
+                                </div>
+                            </form>
                         </div>
-                    </div>
-                    <div class="right-area">
-                        <form class="appointment-new-form" id="appointment-new-form" action="/my-php-mvc-app/appointment/create" method="POST">
-                            <?= AuthHelper::getCsrfInput() ?>
-                            <div class="input-group">
-                                <label for="pets">Selecione seu Pet:</label>
-                                <div class="input-area pets">
-                                    <select id="pets" name="pets">
-                                        <option value="">Selecione</option>
-                                        <?php foreach ($data['pets'] as $pet): ?>
-                                            <option value="<?= $pet->getId(); ?>"><?= $pet->getName(); ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                    <div class="error-area">
-                                        <span class="error-msg required <?= isset($errors['required_pet']) ? 'show-error' : '' ?>">Selecione um pet.</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="input-group">
-                                <label for="service">Serviço</label>
-                                <div class="input-area service">
-                                    <select id="service" name="service">
-                                        <option value="">Selecione</option>
-                                        <?php foreach ($data['services'] as $service): ?>
-                                            <option value="<?= $service->getId(); ?>"><?= $service->getName(); ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                    <div class="error-area">
-                                        <span class="error-msg required <?= isset($errors['required_service']) ? 'show-error' : '' ?>">Selecione um serviço.</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="input-group">
-                                <label for="infos">Informações adicionais:</label>
-                                <div class="input-area infos">
-                                    <textarea id="infos" name="infos" placeholder="Escreva aqui..."></textarea>
-                                    <div class="error-area">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="input-group">
-                                <label for="date">Data do Agendamento</label>
-                                <div class="input-area date">
-                                    <input type="date" id="date" name="date">
-                                    <div class="error-area">
-                                        <span class="error-msg required <?= isset($errors['required_date']) ? 'show-error' : '' ?>">A data é obrigatória.</span>
-                                        <span class="error-msg invalid <?= isset($errors['invalid_date']) ? 'show-error' : '' ?>">Escolha uma data presente/futura.</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="submit-area">
-                                <button type="submit" class="submit-button">Agendar Consulta</button>
-                            </div>
-                        </form>
                     </div>
                 </div>
-            </div>
+            <?php else: ?>
+                <div class="no-pets-page container">
+                    <div class="no-pets-box">
+                        <i class="fa-solid fa-face-frown icon"></i>
+                        <h1 class="title">Você não possui pets cadastrados.</h1>
+                        <p class="subtitle">Clique no botão abaixo para cadastrar um pet para agendar uma consulta.</p> 
+                        <button class="button"><a href="/my-php-mvc-app/pet/new">Cadastrar Pet</a></button>
+                    </div>
+                </div>
+            <?php endif; ?>
         </div>
 
     </main>
 
     <?php include_once __DIR__ . '/../partials/footer.php'; ?>
 
-    <script type="module" src="/my-php-mvc-app/public/assets/js/appointment-new/script.js?v=2.0.0"></script>
+    <script type="module" src="/my-php-mvc-app/public/assets/js/appointment-new/script.js?v=1.0.0"></script>
 </body>
 
 </html>

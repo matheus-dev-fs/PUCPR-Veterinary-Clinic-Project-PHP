@@ -609,6 +609,43 @@ main.appointment-new-page .overlay {
     cursor: pointer;
 }
 
+
+.appointment-new-page .no-pets-page {
+    padding: 4rem 0;
+    height: calc(100vh - 80px);
+}
+
+.no-pets-page .no-pets-box {
+    text-align: center;
+    width: 50%;
+    margin: auto;
+    padding: 2rem;
+}
+
+.no-pets-page .no-pets-box .icon {
+    font-size: 6rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.no-pets-page .no-pets-box .title {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.no-pets-page .no-pets-box .subtitle {
+    font-size: 1.2rem;
+    color: var(--background-color);
+    margin-bottom: 2rem;
+    font-weight: 400;;
+}
+
+.no-pets-page .no-pets-box .button a {
+    text-decoration: none;
+    color: var(--grey-color);
+}
+
 /* form-action/summary.css */
 main.summary-page {
     background-image: url('../images/banner/cuidados.jpg');
@@ -1470,6 +1507,10 @@ main.appointments-page .overlay {
     .right--area.desactive {
         display: none;
     }
+
+    .no-pets-page .no-pets-box {
+        width: 60%;
+    }
 }
 
 @media (max-width: 920px) {
@@ -1655,6 +1696,10 @@ main.appointments-page .overlay {
     .pets-page .pets-list .header-area .button a,
     .appointments-page .appointments-list .header-area .button a {
         font-size: 0.8rem;
+    }
+
+    .no-pets-page .no-pets-box {
+        width: 80%;
     }
 }
 
@@ -1883,6 +1928,17 @@ main.appointments-page .overlay {
         gap: 0;
     }
 
+    .no-pets-page .no-pets-box {
+        width: 100%;
+    }
+
+    .no-pets-page .no-pets-box .title {
+        font-size: 2rem;
+    }
+
+    .no-pets-page .no-pets-box .subtitle {
+        font-size: 1rem;
+    }
 }
 
 @media (max-width: 500px) {
