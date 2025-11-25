@@ -21,7 +21,7 @@ class AppointmentRepository extends Repository implements AppointmentRepositoryI
 
             $result = $this->database->fetch($sql, $params);
 
-            if ($result === null) {
+            if ($result === false) {
                 return null;
             }
 

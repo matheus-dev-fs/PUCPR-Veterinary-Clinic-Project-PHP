@@ -172,6 +172,10 @@ class AppointmentController extends Controller
 
         $errors = $result->getErrors();
 
+        if (isset($errors['unauthorized'])) {
+            RedirectHelper::redirectTo403();
+        }
+
         if ($this->shouldRedirectOnError($errors)) {
             $this->view('appointment/new', [
                 'errors' => $errors,
@@ -179,10 +183,6 @@ class AppointmentController extends Controller
                 'view' => 'appointment/new'
             ]);
             return;
-        }
-
-        if (isset($errors['unauthorized'])) {
-            RedirectHelper::redirectTo403();
         }
     }
 
@@ -194,7 +194,7 @@ class AppointmentController extends Controller
                isset($errors['invalid_service']) ||
                isset($errors['required_date']) || 
                isset($errors['invalid_date']) ||
-               isset($errors['not_found']) ||
+               isset($errors['not_found']) || 
                isset($errors['unauthorized']);
     }
 }
