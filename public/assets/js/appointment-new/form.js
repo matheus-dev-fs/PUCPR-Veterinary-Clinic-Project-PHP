@@ -31,6 +31,10 @@ export class AppointmentNewForm {
     }
 
     _addEventListeners() {
+        if (!this._formElement) {
+            return;
+        }
+
         this._inputsArea.pets.addEventListener('input', (e) => this._validatePets(e.target));
         this._inputsArea.service.addEventListener('input', (e) => this._validateService(e.target));
         this._inputsArea.date.addEventListener('input', (e) => this._validateDate(e.target));

@@ -8,7 +8,7 @@ use app\core\AuthHelper;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0">
-    <link rel="stylesheet" href="/my-php-mvc-app/public/assets/css/style.css?v=1.0.0" />
+    <link rel="stylesheet" href="/my-php-mvc-app/public/assets/css/style.css?v=2.0.0" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="icon" href="/my-php-mvc-app/public/assets/images/favicon.svg" type="image/svg+xml">
     <title>Cliníca Veterinária</title>
@@ -106,7 +106,7 @@ use app\core\AuthHelper;
 
     <?php include_once __DIR__ . '/../partials/footer.php'; ?>
 
-    <script type="module" src="/my-php-mvc-app/public/assets/js/appointment-new/script.js?v=1.0.0"></script>
+    <script type="module" src="/my-php-mvc-app/public/assets/js/appointment-new/script.js?v=2.0.0"></script>
 </body>
 
 </html>
