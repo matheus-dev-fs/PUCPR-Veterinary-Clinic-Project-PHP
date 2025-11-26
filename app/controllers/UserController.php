@@ -62,7 +62,7 @@ class UserController extends Controller
         }
 
         AuthHelper::saveUserSession($userRegistrationResult->getUser());
-        RedirectHelper::redirectToHome();
+        RedirectHelper::redirectToWelcome();
     }
 
     public function login(): void
@@ -103,7 +103,7 @@ class UserController extends Controller
         }
 
         AuthHelper::saveUserSession($authenticationResult->getUser());
-        RedirectHelper::redirectToHome();
+        RedirectHelper::redirectToWelcome();
     }
 
     public function logout(): void

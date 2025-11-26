@@ -22,6 +22,12 @@ class RedirectHelper
         exit;
     }
 
+    public static function redirectToWelcome(): void
+    {
+        header('Location: /my-php-mvc-app/welcome/');
+        exit;
+    }
+
     public static function redirectToHome(): void
     {
         header('Location: /my-php-mvc-app/home/');

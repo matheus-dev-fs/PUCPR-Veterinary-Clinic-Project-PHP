@@ -60,4 +60,10 @@ class AuthHelper
         
         return hash_equals($_SESSION['csrf_token'], $_POST['csrf_token']);
     }
+
+    public static function getUserName(): ?string
+    {
+        return $_SESSION['user']['name'] ?? null;
+    }
+    
 }
