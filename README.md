@@ -46,7 +46,7 @@ O projeto segue uma arquitetura em camadas para garantir a separação de respon
 
 1. **Clone o repositório**:
    ```bash
-   git clone https://github.com/seu-usuario/seu-repositorio.git
+   git clone https://github.com/matheus-dev-fs/PUCPR-Veterinary-Clinic-Project-PHP
    ```
 
 2. **Configuração do Banco de Dados**:
@@ -67,7 +67,7 @@ O projeto segue uma arquitetura em camadas para garantir a separação de respon
 
 ## Contato
 
-Desenvolvido por **Matheus Henrique** (matheus-dev-fs).
+Desenvolvido por **Matheus Henrique de Matos** (matheus-dev-fs).
 
 ## Licença
 
