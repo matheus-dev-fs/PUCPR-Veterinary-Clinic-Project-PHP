@@ -1,51 +1,74 @@
-# My PHP MVC Application
+# Clínica Veterinária - Projeto Fullstack PHP MVC
 
-This is a simple PHP MVC (Model-View-Controller) application structure designed for easy development and organization of code.
+Este projeto é a segunda etapa de um trabalho acadêmico desenvolvido para a disciplina de **Fundamentos de Programação Web** da PUC-PR.
 
-## Project Structure
+A primeira etapa consistiu no desenvolvimento do Front-end estático. Nesta segunda etapa, o projeto foi evoluído para uma aplicação **Fullstack** completa, utilizando **PHP puro** com arquitetura **MVC (Model-View-Controller)**. O objetivo foi aplicar conceitos fundamentais de desenvolvimento web.
 
-```
-my-php-mvc-app
-├── app
-│   └── controllers
-│       └── HomeController.php
-├── public
-│   ├── index.php
-│   ├── js
-│   ├── css
-│   ├── images
-│   └── icons
-├── .htaccess
-└── README.md
-```
+## Funcionalidades
 
-## Description of Files and Directories
+- **Autenticação de Usuários**: Sistema de Login e Registro com hash de senha (bcrypt) e controle de sessão.
+- **Gerenciamento de Pets**: CRUD completo (Listagem, Cadastro, Edição e Exclusão) de animais de estimação vinculados ao usuário.
+- **Agendamento de Serviços**: Marcação de consultas e serviços (Banho, Tosa, Vacinação) para os pets cadastrados.
+- **Gestão de Agendamentos**: Visualização de agendamentos futuros e cancelamento de consultas.
+- **Validações Robustas**: Validação de dados tanto no Front-end (JavaScript) quanto no Back-end (PHP).
+- **Segurança**: Implementação de tokens CSRF para proteção de formulários e sanitização de inputs contra XSS.
+- **Interface Responsiva**: Layout adaptável para dispositivos móveis e desktops.
 
-- **.htaccess**: Contains rules for URL rewriting. It redirects all requests that do not point to the `public` directory to the `public/index.php` file.
+## Tecnologias Utilizadas
 
-- **app/controllers/HomeController.php**: This file exports a class `HomeController` which contains methods for handling requests related to the home page of the application.
+- **Back-end**: PHP 8+ (Orientado a Objetos)
+- **Banco de Dados**: MySQL
+- **Front-end**: HTML5, CSS3, JavaScript (ES6 Modules)
+- **Gerenciamento de Dependências**: Composer (utilizado para Autoload PSR-4)
+- **Servidor Web**: Apache (com configurações de `.htaccess` para URL amigável)
 
-- **public/index.php**: The entry point for the application. It captures the incoming request URL and passes it to the router for processing.
+## Arquitetura e Padrões
 
-- **public/js**: Directory for JavaScript files used in the application.
+O projeto segue uma arquitetura em camadas para garantir a separação de responsabilidades:
 
-- **public/css**: Directory for CSS files that style the application.
+- **MVC (Model-View-Controller)**: Estrutura base da aplicação.
+- **Repository Pattern**: Camada de abstração para acesso ao banco de dados (`app/repositories`).
+- **Service Layer**: Camada responsável pelas regras de negócio (`app/services`).
+- **DTOs (Data Transfer Objects)**: Objetos para transporte de dados entre camadas (`app/dtos`).
+- **Mappers**: Responsáveis por converter dados do banco para objetos de domínio e DTOs (`app/mappers`).
+- **Router Customizado**: Sistema de rotas próprio para despachar as requisições para os controladores.
 
-- **public/images**: Directory for image files used in the application.
+## Estrutura do Projeto
 
-- **public/icons**: Directory for icon files used in the application.
+- **app/core**: Núcleo do framework (Router, Database, Helpers de Autenticação e Redirecionamento).
+- **app/controllers**: Controladores que gerenciam o fluxo das requisições.
+- **app/models**: Modelos de domínio (User, Pet, Appointment, Service).
+- **app/views**: Arquivos de visualização (HTML/PHP).
+- **public/assets**: Recursos estáticos (CSS, JS, Imagens).
+- **database.sql**: Script de criação e população inicial do banco de dados.
 
-## Installation
+## Instalação e Execução
 
-1. Clone the repository or download the files.
-2. Place the project in your web server's root directory.
-3. Ensure that your server is configured to allow `.htaccess` overrides.
-4. Access the application through your web browser.
+1. **Clone o repositório**:
+   ```bash
+   git clone https://github.com/seu-usuario/seu-repositorio.git
+   ```
 
-## Usage
+2. **Configuração do Banco de Dados**:
+   - Crie um banco de dados MySQL chamado `clinica_db`.
+   - Importe o arquivo `database.sql` localizado na raiz do projeto.
+   - Verifique as credenciais de conexão no arquivo `app/config/Config.php`.
 
-Navigate to the application URL in your browser. The application will handle routing through the `public/index.php` file. You can extend the functionality by adding more controllers and views as needed.
+3. **Instalação de Dependências**:
+   - Certifique-se de ter o Composer instalado.
+   - Execute o comando para gerar o autoloader:
+     ```bash
+     composer dump-autoload
+     ```
 
-## Contributing
+4. **Executando o Projeto**:
+   - Utilize um servidor Apache (como XAMPP, WAMP ou Docker).
+   - Aponte o document root para a pasta `public` ou acesse via URL (ex: `http://localhost/my-php-mvc-app/`).
 
-Feel free to fork the repository and submit pull requests for any improvements or features you would like to add.
+## Contato
+
+Desenvolvido por **Matheus Henrique** (matheus-dev-fs).
+
+## Licença
+
+Este projeto está sob licença MIT.
