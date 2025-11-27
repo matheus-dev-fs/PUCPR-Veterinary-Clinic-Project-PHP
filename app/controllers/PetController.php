@@ -20,7 +20,7 @@ class PetController extends Controller
         $this->petService = new PetService();
     }
 
-    public function index(): void
+    public function index($errors = []): void
     {
         $this->ensureAuthenticated();
 
@@ -28,6 +28,7 @@ class PetController extends Controller
 
         $this->view('pet/index', [
             'pets' => $pets,
+            'errors' => $errors,
             'view' => 'pet/index'
         ]);
     }
@@ -168,6 +169,10 @@ class PetController extends Controller
 
         if (isset($errors['unauthorized'])) {
             RedirectHelper::redirectTo403();
+        }
+
+        if (isset($errors['pet_has_appointments'])) {
+            RedirectHelper::redirectToPets($errors);
         }
 
         if (isset($errors['deletion_failed'])) {

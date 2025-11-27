@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace app\core;
 
 use app\controllers\errors\HttpErrorController;
+use app\controllers\PetController;
 
 class RedirectHelper
 {
@@ -34,9 +35,10 @@ class RedirectHelper
         exit;
     }
 
-    public static function redirectToPets(): void
+    public static function redirectToPets($errors = []): void
     {
-        header('Location: /my-php-mvc-app/pet/');
+        $petController = new PetController();
+        $petController->index($errors);
         exit;
     }
 

@@ -5,10 +5,12 @@ namespace app\services;
 
 use app\core\AuthHelper;
 use app\repositories\PetRepository;
+use app\repositories\AppointmentRepository;
 use app\core\Database;
 use app\dtos\CreatePetDTO;
 use app\dtos\DeletePetDTO;
 use app\dtos\UpdatePetDTO;
+use app\repositories\interfaces\AppointmentRepositoryInterface;
 use app\repositories\interfaces\PetRepositoryInterface;
 use app\responses\PetResponseResult;
 
@@ -18,10 +20,12 @@ class PetService
     private const VALID_TYPES = ['dog', 'cat', 'other'];
 
     private PetRepositoryInterface $petRepository;
+    private AppointmentRepositoryInterface $appointmentRepository;
 
     public function __construct()
     {
         $this->petRepository = new PetRepository(Database::getInstance());
+        $this->appointmentRepository = new AppointmentRepository(Database::getInstance());
     }
 
     public function save(CreatePetDTO $createPetDTO): PetResponseResult
@@ -82,6 +86,10 @@ class PetService
             $authorizationResult = $this->checkPetAuthorization($deletePetDTO->getPetId());
             if (!$authorizationResult->isSuccess()) {
                 return $authorizationResult;
+            }
+
+            if ($this->checkIfPetHasAppointments($deletePetDTO->getPetId())) {
+                return new PetResponseResult(null, ['pet_has_appointments' => true]);
             }
 
             $isDeleted = $this->petRepository->delete($deletePetDTO);
@@ -167,5 +175,11 @@ class PetService
         } catch (\Exception $e) {
             return new PetResponseResult(null, ['db_error' => 'Error checking pet authorization: ' . $e->getMessage()]);
         }
+    }
+
+    private function checkIfPetHasAppointments(int $petId): bool
+    {
+        $appointment = $this->appointmentRepository->findByPetId($petId);
+        return $appointment !== null;
     }
 }

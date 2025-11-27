@@ -33,6 +33,26 @@ class AppointmentRepository extends Repository implements AppointmentRepositoryI
         }
     }
 
+    public function findByPetId(int $petId): ?Appointment
+    {
+        try {
+            $sql = "SELECT * FROM Appointment WHERE pet_id = :pet_id AND active = TRUE";
+            $params = [':pet_id' => $petId];
+
+            $result = $this->database->fetch($sql, $params);
+
+            if ($result === false) {
+                return null;
+            }
+
+            $appointment = AppointmentMapper::toAppointment($result);
+
+            return $appointment;
+        } catch (\Exception $e) {
+            throw new \Exception('Error retrieving appointment by pet ID: ' . $e->getMessage());
+        }
+    }
+
     public function save(CreateAppointmentDTO $createAppointmentDTO): ?Appointment
     {
         try {

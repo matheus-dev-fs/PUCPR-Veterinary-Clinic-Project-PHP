@@ -72,7 +72,7 @@ use app\core\AuthHelper;
                         </form>
                     </div>
                 </div>
-                <div class="pet-has-appointment-area">
+                <div class="pet-has-appointment-area <?= isset($errors['pet_has_appointments']) ? 'active' : '' ?>">
                         <div class="pet-has-appointment-box">
                             <h2 class="title">Não é possível deletar este pet!</h2>
                             <p class="text">Ele possui consultas agendadas.</p>
