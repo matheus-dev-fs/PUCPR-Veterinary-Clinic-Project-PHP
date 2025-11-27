@@ -50,6 +50,10 @@ CREATE TABLE IF NOT EXISTS Appointment (
     FOREIGN KEY (pet_id) 
         REFERENCES Pet(id)
         ON DELETE RESTRICT,
+
+    FOREIGN KEY (user_id) 
+        REFERENCES User(id)
+        ON DELETE RESTRICT,
         
     FOREIGN KEY (service_id) 
         REFERENCES Service(id)

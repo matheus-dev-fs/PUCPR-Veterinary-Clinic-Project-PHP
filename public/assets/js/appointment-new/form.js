@@ -42,11 +42,18 @@ export class AppointmentNewForm {
     }
 
     _setBasicValidation() {
-        const dateElement = this._inputsArea.date.querySelector('input[type="date"]');
-        if (dateElement) {
-            const today = this._getTodayDate();
-            dateElement.setAttribute('min', today);
+        if (!this._inputsArea.date) {
+            return;
         }
+
+        const dateElement = this._inputsArea.date.querySelector('input[type="date"]');
+
+        if (!dateElement) {
+            return;
+        }
+       
+        const today = this._getTodayDate();
+        dateElement.setAttribute('min', today);
     }
 
     _validatePets(inputElement) {

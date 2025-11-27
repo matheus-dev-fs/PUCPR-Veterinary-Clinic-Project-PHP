@@ -10,7 +10,7 @@ use app\utils\Sanitizer;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0">
-    <link rel="stylesheet" href="/my-php-mvc-app/public/assets/css/style.css?v=2.0.0" />
+    <link rel="stylesheet" href="/my-php-mvc-app/public/assets/css/style.css?v=3.0.0" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="icon" href="/my-php-mvc-app/public/assets/images/favicon.svg" type="image/svg+xml">
     <title>Cliníca Veterinária</title>

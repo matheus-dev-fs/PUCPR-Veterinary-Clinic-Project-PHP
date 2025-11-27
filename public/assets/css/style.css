@@ -256,7 +256,7 @@ main.welcome-page .welcome-area {
 }
 
 .welcome-content .title {
-    font-size: 5rem;
+    font-size: 4rem;
     color: var(--background-color);
 }
 
@@ -1397,6 +1397,44 @@ main.appointments-page .overlay {
     background-color: rgb(255, 80, 80);
 }
 
+.pets-page .pets-list .pet-has-appointment-area {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 10;
+}
+
+.pets-page .pets-list .pet-has-appointment-area .pet-has-appointment-box {
+    margin: auto;
+    text-align: center;
+    padding: 2rem;
+    background-color: var(--background-color);
+    border-radius: 1rem;
+}
+
+.pets-page .pets-list .pet-has-appointment-area .pet-has-appointment-box .title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.pets-page .pets-list .pet-has-appointment-area .pet-has-appointment-box .text {
+    font-size: 1rem;
+    color: var(--dark-grey-color);
+    margin-bottom: 1.5rem;
+}
+
+.pets-page .pets-list .pet-has-appointment-area.active {
+    display: flex;
+}
+
 .pets-page .pets-list .header-area,
 .appointments-page .appointments-list .header-area {
     background-color: var(--primary-color);
@@ -1539,7 +1577,7 @@ main.appointments-page .overlay {
     }
 
     .welcome-content .title {
-        font-size: 3.5rem;
+        font-size: 3rem;
     }
 }
 
@@ -1606,7 +1644,7 @@ main.appointments-page .overlay {
     }
 
     .welcome-content .title {
-        font-size: 3rem;
+        font-size: 2.5rem;
     }
 
     .welcome-content .subtitle {
@@ -1793,7 +1831,7 @@ main.appointments-page .overlay {
 @media (max-width: 700px) {
 
     .welcome-content .title {
-        font-size: 2.5rem;
+        font-size: 2rem;
     }
 
     .welcome-content .buttons-area a {
@@ -1947,7 +1985,7 @@ main.appointments-page .overlay {
     }
 
     .welcome-content .title {
-        font-size: 2rem;
+        font-size: 1.7rem;
     }
 
     .welcome-content .subtitle {
@@ -2153,7 +2191,7 @@ main.appointments-page .overlay {
     }
 
     .welcome-content .title {
-        font-size: 1.7rem;
+        font-size: 1.4rem;
         margin-bottom: 1rem;
     }
 

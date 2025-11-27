@@ -10,7 +10,7 @@ use app\core\AuthHelper;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0">
-    <link rel="stylesheet" href="/my-php-mvc-app/public/assets/css/style.css?v=1.0.0" />
+    <link rel="stylesheet" href="/my-php-mvc-app/public/assets/css/style.css?v=5.0.0" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="icon" href="/my-php-mvc-app/public/assets/images/favicon.svg" type="image/svg+xml">
     <title>Cliníca Veterinária</title>
@@ -72,13 +72,22 @@ use app\core\AuthHelper;
                         </form>
                     </div>
                 </div>
+                <div class="pet-has-appointment-area">
+                        <div class="pet-has-appointment-box">
+                            <h2 class="title">Não é possível deletar este pet!</h2>
+                            <p class="text">Ele possui consultas agendadas.</p>
+                            <div class="buttons-area">
+                                <button type="button" class="close-button button">Fechar</button>
+                            </div>
+                        </div>
+                    </div>
             </div>
         </div>
     </main>
 
     <?php include_once __DIR__ . '/../partials/footer.php'; ?>
 
-    <script type="module" src="/my-php-mvc-app/public/assets/js/delete-pet/script.js?v=3.0.0"></script>
+    <script type="module" src="/my-php-mvc-app/public/assets/js/pet/script.js?v=4.0.0"></script>
 </body>
 
 </html>
