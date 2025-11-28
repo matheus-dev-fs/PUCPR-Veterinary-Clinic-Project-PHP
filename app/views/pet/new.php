@@ -1,6 +1,7 @@
 <?php 
 use app\utils\Sanitizer; 
 use app\core\AuthHelper;
+use app\utils\UrlHelper;
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -8,9 +9,9 @@ use app\core\AuthHelper;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0">
-    <link rel="stylesheet" href="/my-php-mvc-app/public/assets/css/style.css?v=1.0.0" />
+    <link rel="stylesheet" href="<?= UrlHelper::asset('css/style.css?v=1.0.0') ?>" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link rel="icon" href="/my-php-mvc-app/public/assets/images/favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="<?= UrlHelper::asset('images/favicon.svg') ?>" type="image/svg+xml">
     <title>Cliníca Veterinária</title>
 </head>
 
@@ -33,7 +34,7 @@ use app\core\AuthHelper;
                         </div>
                     </div>
                     <div class="right-area">
-                        <form class="new-pet-form" id="new-pet-form" action="/my-php-mvc-app/pet/create" method="POST">
+                        <form class="new-pet-form" id="new-pet-form" action="<?= UrlHelper::to('pet/create') ?>" method="POST">
                             <?= AuthHelper::getCsrfInput() ?>
                             <div class="input-group">
                                 <label for="name">Nome do Pet</label>
@@ -85,7 +86,7 @@ use app\core\AuthHelper;
 
     <?php include_once __DIR__ . '/../partials/footer.php'; ?>
 
-    <script type="module" src="/my-php-mvc-app/public/assets/js/new-pet/script.js?v=1.0.0"></script>
+    <script type="module" src="<?= UrlHelper::asset('js/new-pet/script.js?v=1.0.0') ?>"></script>
 </body>
 
 </html>

@@ -1,12 +1,13 @@
+<?php use app\utils\UrlHelper; ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0">
-    <link rel="stylesheet" href="/my-php-mvc-app/public/assets/css/style.css" />
+    <link rel="stylesheet" href="<?= UrlHelper::asset('css/style.css') ?>" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link rel="icon" href="/my-php-mvc-app/public/assets/images/favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="<?= UrlHelper::asset('images/favicon.svg') ?>" type="image/svg+xml">
     <title>Cliníca Veterinária</title>
 </head>
 
@@ -36,10 +37,10 @@
                                 atenção individualizada e cuidados adequados em todas as fases da vida, desde filhotes
                                 até a terceira idade, prevenindo doenças e promovendo uma vida longa e saudável.
                             </p>
-                            <button class="button"><a href="/my-php-mvc-app/appointment/new">Agendar</a></button>
+                            <button class="button"><a href="<?= UrlHelper::to('appointment/new') ?>">Agendar</a></button>
                         </div>
                         <div class="right-side">
-                            <img src="/my-php-mvc-app/public/assets/images/services/dog-1.jpg" alt="Consulta Veterinária">
+                            <img src="<?= UrlHelper::asset('images/services/dog-1.jpg') ?>" alt="Consulta Veterinária">
                         </div>
                     </div>
                     <div class="item">
@@ -57,10 +58,10 @@
                                 antipulgas ou hidratantes, promovendo uma experiência agradável e completa para o animal
                                 e tranquilidade para o tutor.
                             </p>
-                            <button class="button"><a href="/my-php-mvc-app/appointment/new">Agendar</a></button>
+                            <button class="button"><a href="<?= UrlHelper::to('appointment/new') ?>">Agendar</a></button>
                         </div>
                         <div class="right-side">
-                            <img src="/my-php-mvc-app/public/assets/images/services/dog-2.jpg" alt="Banho em Pets">
+                            <img src="<?= UrlHelper::asset('images/services/dog-2.jpg') ?>" alt="Banho em Pets">
                         </div>
                     </div>
                     <div class="item">
@@ -78,10 +79,10 @@
                                 realizado em ambiente tranquilo, com profissionais capacitados para lidar com diferentes
                                 temperamentos e necessidades.
                             </p>
-                            <button class="button"><a href="/my-php-mvc-app/appointment/new">Agendar</a></button>
+                            <button class="button"><a href="<?= UrlHelper::to('appointment/new') ?>">Agendar</a></button>
                         </div>
                         <div class="right-side">
-                            <img src="/my-php-mvc-app/public/assets/images/services/dog-1.jpg" alt="Tosa em Pets">
+                            <img src="<?= UrlHelper::asset('images/services/dog-1.jpg') ?>" alt="Tosa em Pets">
                         </div>
                     </div>
                     <div class="item">
@@ -100,10 +101,10 @@
                                 amor, fundamental para prevenir doenças graves e garantir uma vida mais segura ao seu
                                 companheiro.
                             </p>
-                            <button class="button"><a href="/my-php-mvc-app/appointment/new">Agendar</a></button>
+                            <button class="button"><a href="<?= UrlHelper::to('appointment/new') ?>">Agendar</a></button>
                         </div>
                         <div class="right-side">
-                            <img src="/my-php-mvc-app/public/assets/images/services/dog-2.jpg" alt="Vacinação de Pets">
+                            <img src="<?= UrlHelper::asset('images/services/dog-2.jpg') ?>" alt="Vacinação de Pets">
                         </div>
                     </div>
                 </div>
@@ -113,7 +114,7 @@
 
     <?php include_once __DIR__ . '/../partials/footer.php'; ?>
 
-    <script type="module" src="/my-php-mvc-app/public/assets/js/home/script.js"></script>
+    <script type="module" src="<?= UrlHelper::asset('js/home/script.js') ?>"></script>
 </body>
 
 </html>

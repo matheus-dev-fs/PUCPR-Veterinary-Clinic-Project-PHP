@@ -1,7 +1,7 @@
 <?php
-
 use app\utils\PetUtils; 
 use app\core\AuthHelper;
+use app\utils\UrlHelper;
 ?>
 
 <!DOCTYPE html>
@@ -10,9 +10,9 @@ use app\core\AuthHelper;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0">
-    <link rel="stylesheet" href="/my-php-mvc-app/public/assets/css/style.css?v=5.0.0" />
+    <link rel="stylesheet" href="<?= UrlHelper::asset('css/style.css?v=5.0.0') ?>" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link rel="icon" href="/my-php-mvc-app/public/assets/images/favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="<?= UrlHelper::asset('images/favicon.svg') ?>" type="image/svg+xml">
     <title>Cliníca Veterinária</title>
 </head>
 
@@ -25,7 +25,7 @@ use app\core\AuthHelper;
                 <div class="header-area">
                     <h1>Meus Pets</h1>
                     <div class="new-pet-button">
-                        <button class="button"><a href="/my-php-mvc-app/pet/new">Cadastrar Pet</a></button>
+                        <button class="button"><a href="<?= UrlHelper::to('pet/new') ?>">Cadastrar Pet</a></button>
                     </div>
                 </div>
                 <div class="content-area">
@@ -43,7 +43,7 @@ use app\core\AuthHelper;
                                     </div>
                                     <div class="pet-actions">
                                         <button class="edit-button">
-                                            <a href="/my-php-mvc-app/pet/edit/<?= $pet->getId() ?>">
+                                            <a href="<?= UrlHelper::to('pet/edit/' . $pet->getId()) ?>">
                                                 <i class="fa-solid fa-pen-to-square"></i>
                                             </a>
                                         </button>
@@ -62,7 +62,7 @@ use app\core\AuthHelper;
                     <div class="delete-pet-box">
                         <h2 class="title">Tem certeza que deseja deletar este pet?</h2>
                         <p class="text">Essa ação não poderá ser desfeita!</p>
-                        <form method="POST" class="delete-pet-form" action="/my-php-mvc-app/pet/delete/">
+                        <form method="POST" class="delete-pet-form" action="<?= UrlHelper::to('pet/delete/') ?>">
                             <?= AuthHelper::getCsrfInput() ?>
                             <input type="hidden" name="pet-id" value="">
                             <div class="buttons-area">
@@ -73,21 +73,21 @@ use app\core\AuthHelper;
                     </div>
                 </div>
                 <div class="pet-has-appointment-area <?= isset($errors['pet_has_appointments']) ? 'active' : '' ?>">
-                        <div class="pet-has-appointment-box">
-                            <h2 class="title">Não é possível deletar este pet!</h2>
-                            <p class="text">Ele possui consultas agendadas.</p>
-                            <div class="buttons-area">
-                                <button type="button" class="close-button button">Fechar</button>
-                            </div>
+                    <div class="pet-has-appointment-box">
+                        <h2 class="title">Não é possível deletar este pet!</h2>
+                        <p class="text">Ele possui consultas agendadas.</p>
+                        <div class="buttons-area">
+                            <button type="button" class="close-button button">Fechar</button>
                         </div>
                     </div>
+                </div>
             </div>
         </div>
     </main>
 
     <?php include_once __DIR__ . '/../partials/footer.php'; ?>
 
-    <script type="module" src="/my-php-mvc-app/public/assets/js/pet/script.js?v=4.0.0"></script>
+    <script type="module" src="<?= UrlHelper::asset('js/pet/script.js?v=4.0.0') ?>"></script>
 </body>
 
 </html>

@@ -1,6 +1,7 @@
 <?php 
 use app\utils\Sanitizer;
 use app\core\AuthHelper;
+use app\utils\UrlHelper;
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -8,9 +9,9 @@ use app\core\AuthHelper;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0">
-    <link rel="stylesheet" href="/my-php-mvc-app/public/assets/css/style.css?v=2.0.1" />
+    <link rel="stylesheet" href="<?= UrlHelper::asset('css/style.css?v=2.0.1') ?>" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link rel="icon" href="/my-php-mvc-app/public/assets/images/favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="<?= UrlHelper::asset('images/favicon.svg') ?>" type="image/svg+xml">
     <title>Cliníca Veterinária</title>
 </head>
 
@@ -21,7 +22,7 @@ use app\core\AuthHelper;
         <div class="overlay">
             <section class="form-section container">
                 <h1>Login</h1>
-                <form class="login-user-form" id="login-user-form" action="/my-php-mvc-app/user/authenticate" method="POST">
+                <form class="login-user-form" id="login-user-form" action="<?= UrlHelper::to('user/authenticate') ?>" method="POST">
                     <?= AuthHelper::getCsrfInput() ?>
                     <div class="input-group email">
                         <div class="input-field">
@@ -49,7 +50,7 @@ use app\core\AuthHelper;
                     </div>
                 </form>
                 <div class="register-link-area">
-                    <p>Ainda não possui uma conta? <a href="/my-php-mvc-app/user/register">Registre-se</a></p>
+                    <p>Ainda não possui uma conta? <a href="<?= UrlHelper::to('user/register') ?>">Registre-se</a></p>
                 </div>
             </section>
         </div>
@@ -57,7 +58,7 @@ use app\core\AuthHelper;
 
     <?php include_once __DIR__ . '/../partials/footer.php'; ?>
 
-    <script type="module" src="/my-php-mvc-app/public/assets/js/login-user/script.js?v=1.0.1"></script>
+    <script type="module" src="<?= UrlHelper::asset('js/login-user/script.js?v=1.0.1') ?>"></script>
 </body>
 
 </html>

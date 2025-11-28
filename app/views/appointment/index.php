@@ -1,6 +1,6 @@
 <?php
-
 use app\core\AuthHelper;
+use app\utils\UrlHelper;
 ?>
 
 <!DOCTYPE html>
@@ -9,9 +9,9 @@ use app\core\AuthHelper;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0">
-    <link rel="stylesheet" href="/my-php-mvc-app/public/assets/css/style.css?v=4.0.0" />
+    <link rel="stylesheet" href="<?= UrlHelper::asset('css/style.css?v=4.0.0') ?>" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link rel="icon" href="/my-php-mvc-app/public/assets/images/favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="<?= UrlHelper::asset('images/favicon.svg') ?>" type="image/svg+xml">
     <title>Cliníca Veterinária</title>
 </head>
 
@@ -24,7 +24,7 @@ use app\core\AuthHelper;
                 <div class="header-area">
                     <h1>Agendamentos</h1>
                     <div class="new-appointment-button">
-                        <button class="button"><a href="/my-php-mvc-app/appointment/new">Agendar</a></button>
+                        <button class="button"><a href="<?= UrlHelper::to('appointment/new') ?>">Agendar</a></button>
                     </div>
                 </div>
                 <div class="content-area">
@@ -42,7 +42,7 @@ use app\core\AuthHelper;
                                     </div>
                                     <div class="appointment-actions">
                                         <button class="view-button">
-                                            <a href="/my-php-mvc-app/appointment/summary/<?= $appointment->getId() ?>">
+                                            <a href="<?= UrlHelper::to('appointment/summary/' . $appointment->getId()) ?>">
                                                 <i class="fa-regular fa-eye"></i>
                                             </a>
                                         </button>
@@ -61,7 +61,7 @@ use app\core\AuthHelper;
                     <div class="delete-appointment-box">
                         <h2 class="title">Tem certeza que deseja deletar este agendamento?</h2>
                         <p class="text">Essa ação não poderá ser desfeita!</p>
-                        <form method="POST" class="delete-appointment-form" action="/my-php-mvc-app/appointment/delete/">
+                        <form method="POST" class="delete-appointment-form" action="<?= UrlHelper::to('appointment/delete/') ?>">
                             <?= AuthHelper::getCsrfInput() ?>
                             <input type="hidden" name="appointment-id" value="">
                             <div class="buttons-area">
@@ -77,7 +77,7 @@ use app\core\AuthHelper;
 
     <?php include_once __DIR__ . '/../partials/footer.php'; ?>
 
-    <script type="module" src="/my-php-mvc-app/public/assets/js/appointment-delete/script.js?v=3.0.0"></script>
+    <script type="module" src="<?= UrlHelper::asset('js/appointment-delete/script.js?v=3.0.0') ?>"></script>
 </body>
 
 </html>

@@ -1,6 +1,7 @@
 <?php 
 use app\core\AuthHelper; 
 use app\utils\ViewHelper;
+use app\utils\UrlHelper;
 ?>
 
 <header>
@@ -8,7 +9,7 @@ use app\utils\ViewHelper;
         <div class="left--area">
             <div class="logo-area">
                 <div class="logo">
-                    <a href="/my-php-mvc-app/"><img src="/my-php-mvc-app/public/assets/images/favicon.svg" alt="Logo"></a>
+                    <a href="<?= UrlHelper::to() ?>"><img src="<?= UrlHelper::asset('images/favicon.svg') ?>" alt="Logo"></a>
                 </div>
             </div>
             <div class="mobile-menu">
@@ -20,20 +21,20 @@ use app\utils\ViewHelper;
         <div class="right--area desactive">
             <div class="menu-area ">
                 <ul class="menu">
-                    <li class="<?= ViewHelper::menuSelected($view, "home/index") ?>"><a href="/my-php-mvc-app/">INÍCIO</a></li>
-                    <li class="<?= ViewHelper::menuSelected($view, "home/index") ? "" : "" ?>"><a href="/my-php-mvc-app/#services">SERVIÇOS</a></li>
+                    <li class="<?= ViewHelper::menuSelected($view, "home/index") ?>"><a href="<?= UrlHelper::to() ?>">INÍCIO</a></li>
+                    <li class="<?= ViewHelper::menuSelected($view, "home/index") ? "" : "" ?>"><a href="<?= UrlHelper::to() ?>#services">SERVIÇOS</a></li>
                     
                     <?php if (AuthHelper::isUserLoggedIn()): ?>
-                        <li class="<?= ViewHelper::menuSelected($view, "appointment/index") ?>"><a href="/my-php-mvc-app/appointment/">AGENDAMENTOS</a></li>
-                        <li class="<?= ViewHelper::menuSelected($view, "pet/index") ?>"><a href="/my-php-mvc-app/pet/">MEUS PETS</a></li>
+                        <li class="<?= ViewHelper::menuSelected($view, "appointment/index") ?>"><a href="<?= UrlHelper::to('appointment/') ?>">AGENDAMENTOS</a></li>
+                        <li class="<?= ViewHelper::menuSelected($view, "pet/index") ?>"><a href="<?= UrlHelper::to('pet/') ?>">MEUS PETS</a></li>
                     <?php endif; ?>
 
-                    <li class="<?= ViewHelper::menuSelected($view, "about/index") ?>"><a href="/my-php-mvc-app/about/">SOBRE</a></li>
+                    <li class="<?= ViewHelper::menuSelected($view, "about/index") ?>"><a href="<?= UrlHelper::to('about/') ?>">SOBRE</a></li>
                     
                     <?php if (AuthHelper::isUserLoggedIn()): ?>
-                        <li><a href="/my-php-mvc-app/user/logout">SAIR</a></li>
+                        <li><a href="<?= UrlHelper::to('user/logout') ?>">SAIR</a></li>
                     <?php else: ?>
-                        <li class="<?= ViewHelper::menuSelected($view, "user/login") ?>"><a href="/my-php-mvc-app/user/login">LOGIN</a></li>
+                        <li class="<?= ViewHelper::menuSelected($view, "user/login") ?>"><a href="<?= UrlHelper::to('user/login') ?>">LOGIN</a></li>
                     <?php endif; ?>
                 </ul>
             </div>

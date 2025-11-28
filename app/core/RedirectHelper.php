@@ -6,6 +6,7 @@ namespace app\core;
 
 use app\controllers\errors\HttpErrorController;
 use app\controllers\PetController;
+use app\utils\UrlHelper;
 
 class RedirectHelper
 {
@@ -13,25 +14,25 @@ class RedirectHelper
 
     public static function redirectToRegister(): void
     {
-        header('Location: /my-php-mvc-app/user/register');
+        header('Location: ' . UrlHelper::to('user/register'));
         exit;
     }
 
     public static function redirectToLogin(): void
     {
-        header('Location: /my-php-mvc-app/user/login');
+        header('Location: ' . UrlHelper::to('user/login'));
         exit;
     }
 
     public static function redirectToWelcome(): void
     {
-        header('Location: /my-php-mvc-app/welcome/');
+        header('Location: ' . UrlHelper::to('welcome/'));
         exit;
     }
 
     public static function redirectToHome(): void
     {
-        header('Location: /my-php-mvc-app/home/');
+        header('Location: ' . UrlHelper::to('home/'));
         exit;
     }
 
@@ -58,19 +59,19 @@ class RedirectHelper
 
     public static function redirectToAppointmentNew(): void
     {
-        header('Location: /my-php-mvc-app/appointment/new');
+        header('Location: ' . UrlHelper::to('appointment/new'));
         exit;
     }
 
     public static function redirectToAppointmentSummary(int $appointmentId): void
     {
-        header('Location: /my-php-mvc-app/appointment/summary/' . $appointmentId);
+        header('Location: ' . UrlHelper::to('appointment/summary/' . $appointmentId));
         exit;
     }
 
     public static function redirectToAppointment(): void
     {
-        header('Location: /my-php-mvc-app/appointment/');
+        header('Location: ' . UrlHelper::to('appointment/'));
         exit;
     }
 }
