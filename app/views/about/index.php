@@ -19,15 +19,14 @@
                 <div class="about container">
                     <h1 class="title">SOBRE O PROJETO</h1>
                     <p class="credits">
-                        O projeto simula uma clínica veterinária, oferecendo funcionalidades como agendamento de
-                        serviços, exibição de informações sobre os serviços disponíveis e confirmação de agendamentos.
-                        Todo o conteúdo, layout e interatividade foram criados para proporcionar uma experiência
-                        agradável e intuitiva ao usuário, seguindo boas práticas de desenvolvimento front-end.
+                        Este projeto é uma aplicação web para uma clínica veterinária, desenvolvida utilizando a arquitetura
+                        MVC (Model-View-Controller) em PHP. A aplicação permite o gerenciamento de pacientes, agendamentos
+                        e serviços oferecidos pela clínica.
                     </p>
                     <p class="credits">
                         Este site foi desenvolvido como projeto acadêmico para a disciplina de Fundamentos de
-                        Programação Web da PUC-PR. O objetivo é demonstrar habilidades em HTML, CSS e JavaScript puro,
-                        criando uma aplicação web responsiva e funcional.
+                        Programação Web da PUC-PR. O objetivo é demonstrar habilidades em HTML, CSS, Javascript, PHP e MySQL,
+                        criando uma aplicação web fullstack responsiva e funcional.
                     </p>
                     <p class="credits">Imagens utilizadas neste site foram obtidas gratuitamente em <a href="https://www.pexels.com/"
                         target="_blank">pexels.com</a></p>

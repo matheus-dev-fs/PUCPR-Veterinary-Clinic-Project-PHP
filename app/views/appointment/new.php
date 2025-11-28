@@ -95,7 +95,7 @@ use app\core\AuthHelper;
                     <div class="no-pets-box">
                         <i class="fa-solid fa-face-frown icon"></i>
                         <h1 class="title">Você não possui pets cadastrados.</h1>
-                        <p class="subtitle">Clique no botão abaixo para cadastrar um pet para agendar uma consulta.</p> 
+                        <p class="subtitle">Clique no botão abaixo para cadastrar um pet antes de agendar uma consulta.</p> 
                         <button class="button"><a href="/my-php-mvc-app/pet/new">Cadastrar Pet</a></button>
                     </div>
                 </div>
